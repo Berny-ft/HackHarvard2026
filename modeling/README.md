@@ -7,6 +7,7 @@ with no API keys.
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python -m wildfire all      # or: fetch | risk | patterns | spread | live
 .venv/bin/python -m wildfire infra    # once: OSM power lines (slow, cached)
+.venv/bin/python -m wildfire buildings  # after spread: pre-fire OSM buildings per fire (slow, cached)
 ```
 
 Units are US throughout: °F, mph, acres (`wildfire/units.py` converts).
@@ -24,6 +25,7 @@ NWS_CONTACT=...          # contact string for the api.weather.gov User-Agent
 | `patterns` | Yearly/monthly trends, causes, Santa Ana analysis, burn rate by fuel/slope/elevation | `patterns.json`, `fire_history.geojson` |
 | `live` | Open-Meteo 48 h forecast grid (Santa Ana tier, 1-h fuel moisture), NWS Red Flag Warnings with zone polygons, air quality, NASA FIRMS hot spots, NIFC current perimeters + incidents | `live/*.json`, `live/status.json` |
 | `spread` | Rothermel fire-spread simulation of real incidents, scored against the real perimeter | `incidents/<fire>/…` |
+| `buildings` | OpenStreetMap footprints as of the day before each ignition, near the modeled or real burn, tagged with modeled arrival hour, DINS damage class and height | `incidents/<fire>/buildings.{bin,json}` |
 
 ## Spread model
 
@@ -54,7 +56,8 @@ Per-incident outputs (`out/incidents/<key>/`):
 `perimeters.geojson` (hourly isochrones with acres), `timeseries.json`
 (acres, growth, spread rate, wind, gusts, temp, RH, 1-h fuel moisture per hour),
 `spread.png/json` (arrival-time overlay), `real_perimeter.geojson`,
-`structures.geojson` (DINS damage + simulated arrival hour), `incident.json`.
+`structures.geojson` (DINS damage + simulated arrival hour), `incident.json`,
+`buildings.bin/json` (footprints for the 3D replay; layout in `wildfire/buildings.py`).
 
 Overlay `*.json` files hold Web-Mercator corner coordinates in
 MapLibre/Mapbox image-source order (TL, TR, BR, BL).

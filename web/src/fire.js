@@ -8,6 +8,8 @@
 // downwind. Positions come from the data; the turbulence is stylised.
 import mapboxgl from "mapbox-gl";
 import * as THREE from "three";
+import { SUN, exaggerationAt, loadDem } from "./terrain.js";
+import { BURN_HOURS, buildingFrame, buildingGeometry, buildingMaterial, buildingTexture, groundBuildings } from "./buildings.js";
 
 const GROUND = "fire-ground";
 const AIR = "fire-air";
@@ -103,6 +105,16 @@ const GROUND_FRAG = /* glsl */ `
   uniform float uMpt;     // metres per texel
   uniform vec2 uWind;     // downwind unit vector in texel space
   uniform float uWindMph;
+  // Terrain: elevation grid, texel -> DEM pixel transform, sun.
+  uniform highp sampler2D uDem;
+  uniform vec2 uDemSize;
+  uniform vec4 uDemXf;    // demPx = t * (x, z) + (y, w)
+  uniform float uDemMpp;  // metres per DEM pixel
+  uniform float uHasDem;
+  uniform float uExag;
+  uniform vec3 uSunDir;   // east, south, up
+  uniform vec3 uSunColor;
+  uniform float uAmbient;
   in vec2 vUv;
   out vec4 outColor;
   ${NOISE}
@@ -121,6 +133,15 @@ const GROUND_FRAG = /* glsl */ `
     vec3 s = cell(i, (1.0 - f.x) * (1.0 - f.y)) + cell(i + ivec2(1, 0), f.x * (1.0 - f.y))
            + cell(i + ivec2(0, 1), (1.0 - f.x) * f.y) + cell(i + ivec2(1, 1), f.x * f.y);
     return s.z > 1e-4 ? vec3(s.xy / s.z, s.z) : vec3(uHours + 24.0, 0.0, 0.0);
+  }
+
+  float elevAt(vec2 p) {
+    p = clamp(p - 0.5, vec2(0.0), uDemSize - 1.001);
+    ivec2 i = ivec2(floor(p));
+    vec2 f = fract(p);
+    float a = texelFetch(uDem, i, 0).r, b = texelFetch(uDem, i + ivec2(1, 0), 0).r;
+    float c = texelFetch(uDem, i + ivec2(0, 1), 0).r, d = texelFetch(uDem, i + ivec2(1, 1), 0).r;
+    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
   }
 
   vec3 flameRamp(float h) {
@@ -145,7 +166,20 @@ const GROUND_FRAG = /* glsl */ `
     float g = max(length(g2), 1e-3);       // hours per texel
     float dt = uT - a;                     // hours since the front passed
     float dist = dt / g * uMpt;            // metres behind the front (negative = ahead)
-    float depth = mix(110.0, 420.0, ros);   // flaming-zone depth, deeper on the head fire
+
+    // Terrain: sun relief for the scar, and how steeply the fire is climbing here.
+    // run = tan(slope) along the direction of spread; fire runs hard upslope.
+    float relief = 1.0, run = 0.0;
+    if (uHasDem > 0.5) {
+      vec2 dp = t * uDemXf.xz + uDemXf.yw;
+      float zx = (elevAt(dp + vec2(1.5, 0.0)) - elevAt(dp - vec2(1.5, 0.0))) / (3.0 * uDemMpp);
+      float zy = (elevAt(dp + vec2(0.0, 1.5)) - elevAt(dp - vec2(0.0, 1.5))) / (3.0 * uDemMpp);
+      vec3 nrm = normalize(vec3(-zx * uExag, -zy * uExag, 1.0));
+      relief = uAmbient + 1.3 * max(dot(nrm, normalize(uSunDir)), 0.0);
+      run = dot(g2 / g, vec2(zx, zy));
+    }
+    float up = clamp(run * 1.6, 0.0, 1.0), down = clamp(-run * 1.6, 0.0, 1.0);
+    float depth = mix(110.0, 420.0, ros) * (1.0 + 2.2 * up) * (1.0 - 0.45 * down); // flaming-zone depth
 
     // Turbulence streams downwind and upward.
     vec2 flow = m / 70.0 - uWind * uClock * (0.6 + uWindMph * 0.05);
@@ -159,6 +193,7 @@ const GROUND_FRAG = /* glsl */ `
     if (dt > 0.0) {
       float ash = fbm(m / 55.0);
       vec3 scar = mix(vec3(0.05, 0.04, 0.035), vec3(0.16, 0.13, 0.11), ash);
+      scar *= mix(vec3(1.0), uSunColor, 0.5) * relief * 1.25;
       float scarA = mix(0.5, 0.78, smoothstep(0.0, 0.25, dist / 400.0));
       float iso = abs(fract(a / 6.0 + 0.5) - 0.5) * 6.0 / g; // texels to nearest isochrone
       float line = (1.0 - smoothstep(0.3, 0.9, iso)) * smoothstep(2.0, 5.0, dt) * step(1.0, a);
@@ -181,7 +216,7 @@ const GROUND_FRAG = /* glsl */ `
     float f = dist / depth;
     if (f > -0.3 && f < 1.4) {
       float lead = smoothstep(-0.12, 0.03, f) * (1.0 - smoothstep(0.85, 1.4, f + (n - 0.5) * 0.6));
-      float heat = exp(-max(f, 0.0) * 2.4) * (0.55 + 0.8 * n) * (0.75 + 0.35 * ros);
+      float heat = exp(-max(f, 0.0) * 2.4) * (0.55 + 0.8 * n) * (0.75 + 0.35 * ros) * (1.0 + 0.7 * up - 0.35 * down);
       heat *= lead;
       vec3 fc = flameRamp(clamp(heat, 0.0, 1.0));
       float fa = clamp(heat * 1.6, 0.0, 1.0);
@@ -190,8 +225,9 @@ const GROUND_FRAG = /* glsl */ `
     }
 
     // Radiant glow just ahead of the front.
-    if (dist < 0.0 && dist > -480.0) {
-      float k = 1.0 + dist / 480.0;
+    float reach = 480.0 * (1.0 + 1.6 * up); // preheating runs further up a slope
+    if (dist < 0.0 && dist > -reach) {
+      float k = 1.0 + dist / reach;
       float ga = k * k * (0.3 + 0.5 * ros) * (0.7 + 0.5 * n);
       col = mix(col, vec3(1.0, 0.42, 0.08), ga * (1.0 - alpha));
       alpha = max(alpha, ga);
@@ -289,8 +325,10 @@ const PARTICLE_FRAG = /* glsl */ `
       vec3 day = mix(vec3(0.38, 0.36, 0.34), vec3(0.82, 0.8, 0.77), smoothstep(0.0, 1.0, vAge + n * 0.3));
       vec3 night = mix(vec3(0.16, 0.14, 0.13), vec3(0.34, 0.33, 0.33), vAge);
       vec3 c = mix(day, night, uDark);
+      float soot = step(1.0, vSeed); // structure fires burn black
+      c = mix(c, vec3(0.08, 0.07, 0.07), soot * 0.85);
       c = mix(c, vec3(1.0, 0.45, 0.15), lit * (0.25 + 0.45 * uDark));
-      float a = puff * fade * mix(0.22, 0.26, uDark);
+      float a = puff * fade * mix(0.22, 0.26, uDark) * (1.0 + 0.6 * soot);
       outColor = vec4(c * a, a);
     }
   }
@@ -299,7 +337,7 @@ const PARTICLE_FRAG = /* glsl */ `
 // --- particles -------------------------------------------------------------
 
 const KINDS = [
-  { n: 3000, life: [0.4, 0.9], size: [45, 110], blend: "add" },     // flames
+  { n: 4500, life: [0.4, 0.9], size: [45, 110], blend: "add" },     // flames
   { n: 3000, life: [2.5, 5.5], size: [14, 26], blend: "add" },      // embers
   { n: 2600, life: [12, 20], size: [520, 900], blend: "normal" },   // smoke
 ];
@@ -359,9 +397,17 @@ export class FireRenderer {
     this.smoke = true;
     this.dark = 1;
     this.wind = { dir: 0, mph: 0 };
+    this.showBuildings = true;
+    this.bldIn = null;     // buildings passed in (loadBuildings)
+    this.bld = null;       // buildings shown: none while the alert demo moves the fire
+    this.bldMesh = null;
+    this.dem = null;
+    this.runs = null;      // per arrival cell: tan(slope) along the direction of spread
+    this.light = SUN.dusk;
+    this.exag = exaggerationAt(map.getZoom());
     this.clock = 0;
     this.last = performance.now();
-    this.carry = [0, 0, 0];
+    this.carry = [0, 0, 0, 0];
 
     this.canvas = document.createElement("canvas");
     this.canvas.width = this.canvas.height = 2;
@@ -375,6 +421,9 @@ export class FireRenderer {
         uField: { value: null }, uSize: { value: new THREE.Vector2() }, uCrop: { value: new THREE.Vector4() },
         uT: { value: 0 }, uClock: { value: 0 }, uHours: { value: 72 }, uMpt: { value: 30 },
         uWind: { value: new THREE.Vector2(0, 1) }, uWindMph: { value: 0 },
+        uDem: { value: null }, uDemSize: { value: new THREE.Vector2(1, 1) }, uDemXf: { value: new THREE.Vector4() },
+        uDemMpp: { value: 10 }, uHasDem: { value: 0 }, uExag: { value: 2 },
+        uSunDir: { value: new THREE.Vector3(0, 0, 1) }, uSunColor: { value: new THREE.Vector3(1, 1, 1) }, uAmbient: { value: 0.4 },
       },
       depthTest: false,
       depthWrite: false,
@@ -386,6 +435,7 @@ export class FireRenderer {
     this.groundCam = new THREE.Camera();
 
     this.systems = [0, 1, 2].map(makeSystem);
+    this.bldMat = buildingMaterial();
     this.scene = new THREE.Scene();
     for (const s of this.systems) this.scene.add(s.mesh);
     this.camera = new THREE.Camera();
@@ -400,6 +450,8 @@ export class FireRenderer {
     cancelAnimationFrame(this.raf);
     this.ground.dispose();
     this.groundMat.uniforms.uField.value?.dispose();
+    this.groundMat.uniforms.uDem.value?.dispose();
+    this.dropBuildings();
     this.air?.dispose();
   }
 
@@ -442,11 +494,15 @@ export class FireRenderer {
     return [ll(x0, y0), ll(x1, y0), ll(x1, y1), ll(x0, y1)];
   }
 
-  setData(arr, shift = [0, 0]) {
-    if (this.arr === arr && this.shift[0] === shift[0] && this.shift[1] === shift[1]) return;
+  setData(arr, shift = [0, 0], buildings = null) {
+    if (this.arr === arr && this.bldIn === buildings && this.shift[0] === shift[0] && this.shift[1] === shift[1]) return;
     const fresh = this.arr !== arr;
     this.arr = arr;
     this.shift = shift;
+    this.bldIn = buildings;
+    this.dropBuildings();
+    // Buildings are tied to where the fire really burned; the alert demo moves the fire elsewhere.
+    this.bld = shift[0] || shift[1] ? null : buildings;
     if (arr && fresh) {
       const u = this.groundMat.uniforms;
       u.uField.value?.dispose();
@@ -475,8 +531,87 @@ export class FireRenderer {
       const [bx] = texelMercator(arr, this.shift, arr.W, 0);
       this.groundMat.uniforms.uMpt.value = (bx - ax) / arr.W / this.scale;
       this.clearParticles();
+      this.loadTerrain();
     }
     this.sync();
+  }
+
+  /** Fetch the DEM under the fire (and its buildings), then light the scar and stand the buildings up. */
+  async loadTerrain() {
+    const arr = this.arr, bld = this.bld, shift = this.shift;
+    this.groundMat.uniforms.uHasDem.value = 0;
+    this.runs = null;
+    const [x0, y0, x1, y1] = arr.crop;
+    const [ax, ay] = texelMercator(arr, shift, x0, y0);
+    const [bx, by] = texelMercator(arr, shift, x1, y1);
+    const box = [ax, ay, bx, by];
+    if (bld) {
+      const f = buildingFrame(bld, shift);
+      for (let i = 0; i < bld.N; i++) {
+        const mx = f.ox + bld.cx[i] * f.s, my = f.oy + bld.cy[i] * f.s;
+        box[0] = Math.min(box[0], mx); box[1] = Math.min(box[1], my);
+        box[2] = Math.max(box[2], mx); box[3] = Math.max(box[3], my);
+      }
+    }
+    const key = box.map((v) => v.toFixed(7)).join();
+    const dem = this.demKey === key ? this.dem : await loadDem(box).catch(() => null);
+    if (this.arr !== arr || this.shift !== shift || this.bld !== bld || !dem) return;
+    this.dem = dem;
+    this.demKey = key;
+
+    const u = this.groundMat.uniforms;
+    if (u.uDem.value?.image?.data !== dem.data) {
+      u.uDem.value?.dispose();
+      const tex = new THREE.DataTexture(dem.data, dem.W, dem.H, THREE.RedFormat, THREE.FloatType);
+      tex.minFilter = tex.magFilter = THREE.NearestFilter;
+      tex.needsUpdate = true;
+      u.uDem.value = tex;
+    }
+    // Arrival texel -> DEM pixel is affine (both are linear in Mercator).
+    const [tx0, ty0] = texelMercator(arr, shift, 0, 0);
+    const [tx1, ty1] = texelMercator(arr, shift, arr.W, arr.H);
+    const [dx0, dy0, dx1, dy1] = dem.bounds;
+    const sx = ((tx1 - tx0) / arr.W / (dx1 - dx0)) * dem.W, sy = ((ty1 - ty0) / arr.H / (dy1 - dy0)) * dem.H;
+    u.uDemXf.value.set(sx, ((tx0 - dx0) / (dx1 - dx0)) * dem.W, sy, ((ty0 - dy0) / (dy1 - dy0)) * dem.H);
+    u.uDemSize.value.set(dem.W, dem.H);
+    u.uDemMpp.value = dem.mpp;
+    u.uHasDem.value = 1;
+
+    // Slope along the spread direction for every burned cell, for the particles.
+    const runs = new Float32Array(arr.W * arr.H);
+    const F = arr.field, W = arr.W;
+    const at = (x, y) => F[(Math.min(Math.max(y, 0), arr.H - 1) * W + Math.min(Math.max(x, 0), W - 1)) * 2];
+    for (const i of arr.order) {
+      const x = i % W, y = (i / W) | 0;
+      const gx = at(x + 1, y) - at(x - 1, y), gy = at(x, y + 1) - at(x, y - 1);
+      const gl = Math.hypot(gx, gy);
+      if (gl < 1e-6) continue;
+      const [mx, my] = texelMercator(arr, shift, x + 0.5, y + 0.5);
+      const [zx, zy] = dem.gradient(mx, my);
+      runs[i] = (gx * zx + gy * zy) / gl;
+    }
+    this.runs = runs;
+
+    if (bld) {
+      const frame = buildingFrame(bld, shift);
+      groundBuildings(bld, dem, frame);
+      this.bldFrame = frame;
+      this.dropBuildings();
+      this.bldMat.uniforms.uData.value?.dispose();
+      this.bldMat.uniforms.uData.value = buildingTexture(bld);
+      this.bldMesh = new THREE.Mesh(buildingGeometry(bld), this.bldMat);
+      this.bldMesh.frustumCulled = false;
+      this.bldMesh.renderOrder = -1;
+      this.scene.add(this.bldMesh);
+      this.sync();
+    }
+  }
+
+  dropBuildings() {
+    if (!this.bldMesh) return;
+    this.scene.remove(this.bldMesh);
+    this.bldMesh.geometry.dispose();
+    this.bldMesh = null;
   }
 
   /** Fire clock target; while playing, advance smoothly at `rate` hours per second. */
@@ -494,9 +629,19 @@ export class FireRenderer {
     this.dark = dark ? 1 : 0;
   }
 
-  setVisible(visible, smoke = true) {
+  /** Sun for relief shading and buildings: a Mapbox Standard light preset name. */
+  setLight(preset) {
+    this.light = SUN[preset] ?? SUN.day;
+    const u = this.groundMat.uniforms;
+    u.uSunDir.value.fromArray(this.light.dir);
+    u.uSunColor.value.fromArray(this.light.color);
+    u.uAmbient.value = this.light.ambient;
+  }
+
+  setVisible(visible, smoke = true, buildings = true) {
     this.visible = visible;
     this.smoke = smoke;
+    this.showBuildings = buildings;
     this.sync();
   }
 
@@ -507,7 +652,8 @@ export class FireRenderer {
       src.setCoordinates(this.corners());
     }
     if (map.getLayer(GROUND)) map.setLayoutProperty(GROUND, "visibility", this.visible && this.arr ? "visible" : "none");
-    if (map.getLayer(AIR)) map.setLayoutProperty(AIR, "visibility", this.visible && this.smoke && this.arr ? "visible" : "none");
+    const air = this.visible && this.arr && (this.smoke || (this.showBuildings && this.bldMesh));
+    if (map.getLayer(AIR)) map.setLayoutProperty(AIR, "visibility", air ? "visible" : "none");
   }
 
   clearParticles() {
@@ -538,6 +684,8 @@ export class FireRenderer {
 
     const u = this.groundMat.uniforms;
     const [wx, wy] = this.downwind();
+    this.exag = exaggerationAt(this.map.getZoom());
+    u.uExag.value = this.exag;
     u.uT.value = this.t;
     u.uClock.value = this.clock;
     u.uWind.value.set(wx, wy);
@@ -579,7 +727,10 @@ export class FireRenderer {
       while (n-- > 0) {
         const cell = a.order[lo + Math.floor(Math.random() * count)];
         const ros = a.field[cell * 2 + 1];
-        if (Math.random() > 0.35 + 0.65 * ros) continue;
+        // Upslope runs burn taller and throw more embers; backing fire downhill lies low.
+        const run = this.runs ? this.runs[cell] : 0;
+        const up = Math.min(1, Math.max(0, run * 1.6)), down = Math.min(1, Math.max(0, -run * 1.6));
+        if (Math.random() > 0.35 + 0.65 * ros + 0.6 * up - 0.2 * down) continue;
         const x = (cell % a.W) + Math.random(), y = Math.floor(cell / a.W) + Math.random();
         const [mx, my] = texelMercator(a, this.shift, x, y);
         const ll = new mapboxgl.MercatorCoordinate(mx, my).toLngLat();
@@ -587,14 +738,17 @@ export class FireRenderer {
         s.next = (s.next + 1) % s.spec.n;
         s.iPos.array.set([(mx - this.origin[0]) / this.scale, (my - this.origin[1]) / this.scale, elev(ll.lng, ll.lat) + 5], i * 3);
         let v;
-        if (k === 0) v = [rand(-15, 15), rand(-15, 15), rand(90, 170) * (0.6 + 0.6 * ros)];
-        else if (k === 1) v = [rand(-30, 30) + wx * mph * 4, rand(-30, 30) + wy * mph * 4, rand(220, 520) * (0.6 + ros)];
-        else v = [rand(-20, 20), rand(-20, 20), rand(380, 620) * (0.7 + 0.5 * ros)];
+        const climb = 1 + 1.8 * up - 0.4 * down;
+        if (k === 0) v = [rand(-15, 15), rand(-15, 15), rand(90, 170) * (0.6 + 0.6 * ros) * climb];
+        else if (k === 1) v = [rand(-30, 30) + wx * mph * 4, rand(-30, 30) + wy * mph * 4, rand(220, 520) * (0.6 + ros) * (1 + up)];
+        else v = [rand(-20, 20), rand(-20, 20), rand(380, 620) * (0.7 + 0.5 * ros) * 1.5];
         s.iVel.array.set(v, i * 3);
-        s.iData.array.set([this.clock, rand(...s.spec.life), rand(...s.spec.size) * (k === 2 ? 0.7 + 0.6 * ros : 1), Math.random()], i * 4);
+        const size = rand(...s.spec.size) * (k === 2 ? 0.7 + 0.6 * ros : k === 0 ? 1 + 0.7 * up : 1);
+        s.iData.array.set([this.clock, rand(...s.spec.life), size, Math.random()], i * 4);
         s.dirty = true;
       }
     }
+    this.spawnStructures(dt);
     for (const s of this.systems) {
       if (!s.dirty) continue;
       s.iPos.needsUpdate = s.iVel.needsUpdate = s.iData.needsUpdate = true;
@@ -602,8 +756,65 @@ export class FireRenderer {
     }
   }
 
+  /** Flames and black smoke from buildings while they burn. */
+  spawnStructures(dt) {
+    const b = this.bld, f = this.bldFrame;
+    if (!b || !b.base || !this.bldMesh || !this.showBuildings) return;
+    const t = this.t;
+    const lo = lowerBound(b.times, t - BURN_HOURS[5]), hi = lowerBound(b.times, t);
+    const count = hi - lo;
+    if (count <= 0) return;
+    const [fl, , sm] = this.systems;
+    this.carry[3] += Math.min(700, 30 * count) * dt;
+    let n = Math.floor(this.carry[3]);
+    this.carry[3] -= n;
+    while (n-- > 0) {
+      const i = b.order[lo + Math.floor(Math.random() * count)];
+      const d = b.damage[i], age = (t - b.arrival[i]) / BURN_HOURS[d];
+      // Total losses burn hard for their whole burn; everything else only briefly and lightly.
+      const p = d >= 4 ? 1 - Math.max(0, age - 0.5) * 2 : (d === 0 ? 0.45 : 0.18) * (1 - age * 1.6);
+      if (Math.random() > p) continue;
+      const lx = b.cx[i] + (Math.random() - 0.5) * b.rad[i] * 1.2, ly = b.cy[i] + (Math.random() - 0.5) * b.rad[i] * 1.2;
+      const mx = f.ox + lx * f.s, my = f.oy + ly * f.s;
+      const standing = d >= 5 ? 1 - 0.86 * Math.min(1, age) : 1;
+      const z = b.base[i] * this.exag + b.height[i] * standing * rand(0.4, 1.05);
+      const pos = [(mx - this.origin[0]) / this.scale, (my - this.origin[1]) / this.scale, z];
+      const big = d >= 4 ? 1 : 0.55;
+      const j = fl.next;
+      fl.next = (fl.next + 1) % fl.spec.n;
+      fl.iPos.array.set(pos, j * 3);
+      fl.iVel.array.set([rand(-4, 4), rand(-4, 4), rand(25, 60) * big], j * 3);
+      fl.iData.array.set([this.clock, rand(0.35, 0.8), rand(14, 32) * big, Math.random()], j * 4);
+      fl.dirty = true;
+      if (d >= 4 && Math.random() < 0.12) {
+        const k = sm.next;
+        sm.next = (sm.next + 1) % sm.spec.n;
+        sm.iPos.array.set(pos, k * 3);
+        sm.iVel.array.set([rand(-8, 8), rand(-8, 8), rand(160, 300)], k * 3);
+        sm.iData.array.set([this.clock, rand(8, 14), rand(140, 260), 1 + Math.random() * 0.99], k * 4);
+        sm.dirty = true;
+      }
+    }
+  }
+
   renderAir(matrix) {
-    if (!this.air || !this.arr || !this.visible || !this.smoke) return;
+    if (!this.air || !this.arr || !this.visible) return;
+    for (const s of this.systems) s.mesh.visible = this.smoke;
+    if (this.bldMesh) {
+      this.exag = exaggerationAt(this.map.getZoom()); // the exaggeration this frame's terrain uses
+      this.bldMesh.visible = this.showBuildings;
+      const f = this.bldFrame;
+      const model = new THREE.Matrix4().makeTranslation(f.ox, f.oy, 0).scale(new THREE.Vector3(f.s, f.s, f.s));
+      const u = this.bldMat.uniforms;
+      u.uMatrix.value.fromArray(matrix).multiply(model);
+      u.uT.value = this.t;
+      u.uClock.value = this.clock;
+      u.uExag.value = this.exag;
+      u.uDark.value = this.dark;
+      u.uSunDir.value.fromArray(this.light.dir);
+      u.uSunColor.value.fromArray(this.light.color);
+      u.uAmbient.value = this.light.ambient;
+    }
     const model = new THREE.Matrix4().makeTranslation(this.origin[0], this.origin[1], 0)
       .scale(new THREE.Vector3(this.scale, this.scale, this.scale));
     const mvp = new THREE.Matrix4().fromArray(matrix).multiply(model);

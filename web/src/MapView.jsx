@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import { WindAnimator } from "./wind.js";
 import { FireRenderer } from "./fire.js";
+import { DEM_SOURCE, EXAGGERATION } from "./terrain.js";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -37,11 +38,24 @@ export const LAYER_GROUPS = {
   hotspots: ["hotspots"],
   households: ["households-halo", "households"],
   scan: ["scan-cells", "scan-core"],
+  relief: ["hillshade", "contours", "contours-index", "contour-labels"],
 };
 const LIVE_KEYS = new Set(["redFlags", "santaAna", "powerLines", "activeFires", "hotspots", "scan"]);
 const INCIDENT_KEYS = new Set(["real", "structures", "detections", "households"]);
 const LEVEL_PAINT = ["match", ["get", "level"], "evacuate", "#ff6a2b", "warn", "#ffb547", "watch", "#8fb3dc", "#5d7268"];
 const INCIDENT_SOURCES = ["real", "structures", "ignition", "detections"];
+
+// Contour ink per theme: pale on dark/night maps, dark brown on light ones.
+const RELIEF_INK = { dark: "#f3e3c3", light: "#5b4630" };
+
+function setReliefTheme(map, dark) {
+  const ink = dark ? RELIEF_INK.dark : RELIEF_INK.light;
+  for (const id of ["contours", "contours-index"]) if (map.getLayer(id)) map.setPaintProperty(id, "line-color", ink);
+  if (map.getLayer("contour-labels")) {
+    map.setPaintProperty("contour-labels", "text-color", ink);
+    map.setPaintProperty("contour-labels", "text-halo-color", dark ? "rgba(0,0,0,0.55)" : "rgba(255,255,255,0.7)");
+  }
+}
 
 const SA_COLOR = ["match", ["get", "level"], 2, "#7a0f0f", 1, "#d9482b", "#6b8e3a"];
 const LABEL_PAINT = { "text-color": "#fff", "text-halo-color": "rgba(0,0,0,0.75)", "text-halo-width": 1.4 };
@@ -103,9 +117,35 @@ function install(map, s, isStandard, fire) {
   };
 
   if (!map.getSource("mapbox-dem")) {
-    map.addSource("mapbox-dem", { type: "raster-dem", url: "mapbox://mapbox.mapbox-terrain-dem-v1", tileSize: 512, maxzoom: 14 });
+    map.addSource("mapbox-dem", { type: "raster-dem", url: DEM_SOURCE, tileSize: 512, maxzoom: 14 });
   }
-  map.setTerrain({ source: "mapbox-dem", exaggeration: 1.35 });
+  map.setTerrain({ source: "mapbox-dem", exaggeration: EXAGGERATION });
+
+  // Relief: hillshade lit from the north-west plus contour lines, so slopes read even from straight above.
+  map.addSource("hillshade-dem", { type: "raster-dem", url: DEM_SOURCE, tileSize: 512, maxzoom: 14 });
+  add({ id: "hillshade", type: "hillshade", source: "hillshade-dem",
+        paint: { "hillshade-exaggeration": 0.9, "hillshade-illumination-direction": 315, "hillshade-illumination-anchor": "map",
+                 "hillshade-shadow-color": "rgba(18, 10, 6, 0.62)", "hillshade-highlight-color": "rgba(255, 244, 226, 0.32)",
+                 "hillshade-accent-color": "rgba(30, 16, 8, 0.45)" } }, "bottom");
+  map.addSource("contours", { type: "vector", url: "mapbox://mapbox.mapbox-terrain-v2" });
+  // Every 100 m strongly, every 50 m faintly; finer lines would only stripe the steep slopes.
+  add({ id: "contours", type: "line", source: "contours", "source-layer": "contour", minzoom: 11,
+        filter: ["==", ["get", "index"], 5],
+        paint: { "line-color": RELIEF_INK.dark, "line-width": 0.6, "line-opacity": ["interpolate", ["linear"], ["zoom"], 11, 0, 13, 0.14] } }, "bottom");
+  add({ id: "contours-index", type: "line", source: "contours", "source-layer": "contour", minzoom: 8.5,
+        filter: ["==", ["get", "index"], 10],
+        paint: { "line-color": RELIEF_INK.dark, "line-width": ["interpolate", ["linear"], ["zoom"], 9, 0.5, 14, 1.1],
+                 "line-opacity": ["interpolate", ["linear"], ["zoom"], 8.5, 0.12, 12, 0.3] } }, "bottom");
+  add({ id: "contour-labels", type: "symbol", source: "contours", "source-layer": "contour", minzoom: 11.5,
+        filter: ["==", ["get", "index"], 10],
+        layout: { "symbol-placement": "line", "text-field": ["concat", ["to-string", ["get", "ele"]], " m"],
+                  "text-size": 10, "text-max-angle": 30, "symbol-spacing": 420 },
+        paint: { "text-color": RELIEF_INK.dark, "text-halo-color": "rgba(0,0,0,0.55)", "text-halo-width": 1, "text-opacity": 0.75 } }, "bottom");
+  if (!isStandard) {
+    // Classic styles have no atmosphere: add haze so distance (and ridgelines) read in 3D.
+    map.setFog({ range: [1.5, 12], color: "rgb(214, 222, 232)", "high-color": "rgb(36, 92, 223)",
+                 "horizon-blend": 0.06, "space-color": "rgb(11, 11, 25)", "star-intensity": 0.2 });
+  }
 
   for (const [id, meta] of [["risk", s.risk], ["times-burned", s.timesBurned]]) {
     if (!meta) continue;
@@ -242,9 +282,11 @@ function setTime(map, hour) {
     ["<=", ["to-number", ["get", "sim_arrival_hr"]], hour]]);
 }
 
-function setVisibility(map, incident, layers, fire) {
+function setVisibility(map, incident, layers, fire, isStandard) {
   const live = incident === "live";
-  fire?.setVisible(!live && !!layers.spread, !!layers.smoke);
+  fire?.setVisible(!live && !!layers.spread, !!layers.smoke, !!layers.buildings);
+  // The replay brings its own pre-fire buildings; Standard's present-day ones would stand on top of them.
+  if (isStandard) map.setConfigProperty("basemap", "show3dBuildings", !(fire?.bld && !live && layers.buildings && layers.spread));
   for (const [key, ids] of Object.entries(LAYER_GROUPS)) {
     const scoped = LIVE_KEYS.has(key) ? live : INCIDENT_KEYS.has(key) ? !live : true;
     for (const id of ids) if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", layers[key] && scoped ? "visible" : "none");
@@ -271,6 +313,8 @@ function applyWind(wind, s, stat, fire) {
   const dark = s.basemap === "satellite" || s.basemap === "dark" ||
     (BASEMAPS[s.basemap].standard && (s.light === "dusk" || s.light === "night"));
   fire?.setTheme(BASEMAPS[s.basemap].standard ? s.light === "dusk" || s.light === "night" : s.basemap === "dark");
+  fire?.setLight(BASEMAPS[s.basemap].standard ? s.light : s.basemap === "dark" ? "night" : "day");
+  setReliefTheme(wind.map, dark);
   wind.setTheme(dark);
   wind.setVisible(!!s.layers.wind);
   if (s.incident === "live") {
@@ -305,12 +349,12 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
     if (BASEMAPS[s.basemap].standard) map.setConfigProperty("basemap", "lightPreset", s.light);
     install(map, staticRef.current, !!BASEMAPS[s.basemap].standard, fireRef.current);
     setIncidentData(map, s.incident, s.data);
-    fireRef.current.setData(s.incident === "live" ? null : s.data?.arrival, s.data?.shift);
+    fireRef.current.setData(s.incident === "live" ? null : s.data?.arrival, s.data?.shift, s.data?.buildings);
     fireRef.current.setHour(s.hour);
     map.getSource("households").setData(s.incident === "live" ? EMPTY : s.households || EMPTY);
     map.getSource("demo-home").setData(homeGeo(s.home));
     setTime(map, s.hour);
-    setVisibility(map, s.incident, s.layers, fireRef.current);
+    setVisibility(map, s.incident, s.layers, fireRef.current, !!BASEMAPS[s.basemap].standard);
     applyWind(windRef.current, s, staticRef.current, fireRef.current);
   };
 
@@ -381,8 +425,8 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
     const map = mapRef.current;
     if (!ready.current) return;
     setIncidentData(map, incident, data);
-    fireRef.current.setData(incident === "live" ? null : data?.arrival, data?.shift);
-    setVisibility(map, incident, layers, fireRef.current);
+    fireRef.current.setData(incident === "live" ? null : data?.arrival, data?.shift, data?.buildings);
+    setVisibility(map, incident, layers, fireRef.current, !!BASEMAPS[basemap].standard);
     flyToIncident(map, incident, data, camera, home);
   }, [incident, data]);
 
@@ -420,7 +464,7 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
   }, [focus]);
 
   useEffect(() => {
-    if (ready.current) setVisibility(mapRef.current, incident, layers, fireRef.current);
+    if (ready.current) setVisibility(mapRef.current, incident, layers, fireRef.current, !!BASEMAPS[basemap].standard);
   }, [layers, incident]);
 
   if (!mapboxgl.accessToken) {

@@ -3,6 +3,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "./styles.css";
 import MapView, { BASEMAPS, CAMERAS, LIGHTS } from "./MapView.jsx";
 import { loadArrival } from "./fire.js";
+import { loadBuildings } from "./buildings.js";
 import { Chart } from "./Charts.jsx";
 import { LEVEL_COLOR, LEVEL_LABEL, Logo, navigate, pct } from "./shared.jsx";
 
@@ -28,10 +29,14 @@ const INCIDENT_LAYERS = [
   ["households", "Sentinel households", "var(--signal)"],
   ["spread", "Modeled spread", "#e5482a"],
   ["smoke", "Flames, embers & smoke (3D)", "#b9b2a8"],
+  ["buildings", "Buildings (3D, burn on arrival)", "#d8c8ad"],
   ["real", "Final perimeter (CAL FIRE)", "#ffffff"],
   ["structures", "Structures reached", "#b3261e"],
   ["detections", "Satellite detections", "#ffb000"],
   ["wind", "Wind", "#9fb7d6"],
+];
+const TERRAIN_LAYERS = [
+  ["relief", "Relief shading & contours", "#a8957a"],
 ];
 const HISTORY_LAYERS = [
   ["risk", "10-year burn likelihood", "#f08a2c"],
@@ -46,13 +51,14 @@ const PT = { timeZone: "America/Los_Angeles" };
 
 async function loadIncident(key) {
   const get = (f) => fetch(`/data/incidents/${key}/${f}`).then((r) => r.json());
-  const [info, series, arrival, real, structures, detections] = await Promise.all([
+  const [info, series, arrival, real, structures, detections, buildings] = await Promise.all([
     get("incident.json"), get("timeseries.json"), loadArrival(`/data/incidents/${key}`),
     get("real_perimeter.geojson"),
     get("structures.geojson").catch(() => ({ type: "FeatureCollection", features: [] })),
     get("detections.geojson").catch(() => ({ type: "FeatureCollection", features: [] })),
+    loadBuildings(`/data/incidents/${key}`).catch(() => null),
   ]);
-  return { info, series, arrival, real, structures, detections };
+  return { info, series, arrival, real, structures, detections, buildings };
 }
 
 // Alert demo: move a fire's geometry by (dlon, dlat) so it burns toward the watched address.
@@ -97,7 +103,7 @@ export default function App() {
   const [focus, setFocus] = useState(null);
   const [layersOpen, setLayersOpen] = useState(() => window.innerWidth > 900);
   const [layers, setLayers] = useState({
-    spread: true, smoke: true, real: true, structures: false, detections: true, households: true,
+    spread: true, smoke: true, buildings: true, relief: true, real: true, structures: false, detections: true, households: true,
     risk: false, timesBurned: false, history: false,
     wind: true, redFlags: true, santaAna: true, activeFires: true, hotspots: true, powerLines: false, scan: true,
   });
@@ -272,6 +278,7 @@ export default function App() {
             <div className="layers-body">
               <div className="layers-inner">
                 <LayerGroup title={isLive ? "Now" : "This fire"} items={isLive ? LIVE_LAYERS : INCIDENT_LAYERS} layers={layers} toggle={toggle} />
+                <LayerGroup title="Terrain" items={TERRAIN_LAYERS} layers={layers} toggle={toggle} />
                 <LayerGroup title="History" items={HISTORY_LAYERS} layers={layers} toggle={toggle} />
               </div>
             </div>
@@ -702,7 +709,7 @@ function LiveSide({ live, onFocus, patterns, risk }) {
 function Legend({ live }) {
   const items = live
     ? [["area", "var(--ember)", "Sentinel alert area"], ["fill", "#e0245e", "Red Flag zone"], ["dot", "#ff3b1f", "Active fire"], ["dot", "#ffb000", "Hot spot"]]
-    : [["dot", "var(--ember)", "Leave now"], ["dot", "var(--flare)", "Get ready"], ["ring", "#fff", "Later destroyed"], ["fill", "#e5482a", "Modeled spread"], ["dash", "#fff", "Final perimeter"]];
+    : [["dot", "var(--ember)", "Leave now"], ["dot", "var(--flare)", "Get ready"], ["ring", "#fff", "Later destroyed"], ["fill", "#e5482a", "Modeled spread"], ["fill", "#2b2521", "Destroyed building"], ["dash", "#fff", "Final perimeter"]];
   return (
     <div className="legend">
       {items.map(([kind, color, label]) => (
