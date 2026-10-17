@@ -58,9 +58,21 @@ CHALK_ROUTER_API_KEY = os.environ.get("CHALK_ROUTER_API_KEY")
 # differ from the environment the sandboxes and evaluations run in.
 CHALK_ROUTER_ENV_ID = os.environ.get("CHALK_ROUTER_ENV_ID") or os.environ.get("CHALK_ENV_ID")
 MODEL = os.environ.get("SENTINEL_MODEL", "openai/gpt-6.1-sol")
-MAX_TOKENS = int(os.environ.get("SENTINEL_MAX_TOKENS", "2000"))   # reasoning models spend some before answering
+MAX_TOKENS = int(os.environ.get("SENTINEL_MAX_TOKENS", "500"))
+# Re-ask the LLM every N hours while a threat persists, on top of every rule
+# level change. 0 = only on changes (cheapest; the HackHarvard key is ~1M tokens/day).
+LLM_RECHECK_H = float(os.environ.get("SENTINEL_LLM_RECHECK_H", "0"))
 
 WEBHOOK_SECRET = os.environ.get("SENTINEL_WEBHOOK_SECRET", "dev-secret")
+# Email alerts. SENTINEL_ALERT_EMAIL is the default recipient (e.g. the inbox a
+# personal agent such as Meta's Muse watches); SMTP_* is the sending account.
+ALERT_EMAIL = os.environ.get("SENTINEL_ALERT_EMAIL")
+SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.gmail.com")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
+SMTP_USER = os.environ.get("SMTP_USER")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")       # Gmail: an app password
+SMTP_FROM = os.environ.get("SMTP_FROM") or SMTP_USER
+
 TWILIO_SID = os.environ.get("TWILIO_ACCOUNT_SID")
 TWILIO_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
 TWILIO_FROM = os.environ.get("TWILIO_FROM")

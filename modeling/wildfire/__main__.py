@@ -1,9 +1,13 @@
-"""python -m wildfire [fetch|risk|patterns|spread|live|infra|all]"""
+"""python -m wildfire [fetch|risk|patterns|spread|showcase|live|infra|all]
+
+spread    calibrates on the train fires, then simulates the showcase fires
+showcase  only the showcase fires, with the train fires' saved parameters
+"""
 import sys
 
 from . import fetch, incidents, live, patterns, risk_model
 
-STEPS = {"fetch": fetch.run, "risk": risk_model.run, "patterns": patterns.run, "spread": incidents.run,
+STEPS = {"fetch": fetch.run, "risk": risk_model.run, "patterns": patterns.run, "spread": incidents.run, "showcase": incidents.run_showcase,
          "live": live.run, "infra": lambda: live.run(include_osm=True)}
 
 if __name__ == "__main__":

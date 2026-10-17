@@ -1,6 +1,8 @@
 """Subscribers and the alert log, as JSON files under agent/state/.
 
-A subscriber is a location plus delivery channels. Deliberately nothing about
+A subscriber is a location plus delivery channels. A subscription with no
+channel is polled: the subscriber's agent calls check_alerts and gets what it
+has not seen yet (Meta's Muse connects this way, over MCP). Deliberately nothing about
 the person: life context (kids, pets, mobility, car) stays with their personal
 agent, which pulls detail from the MCP tools and tailors the advice itself.
 """
@@ -25,12 +27,10 @@ def _save(subs):
     SUBS.write_text(json.dumps(subs, indent=1))
 
 
-def subscribe(lat, lon, label=None, webhook_url=None, phone=None, min_level="watch"):
-    if not (webhook_url or phone):
-        raise ValueError("need a webhook_url or a phone number")
+def subscribe(lat, lon, label=None, webhook_url=None, phone=None, min_level="watch", email=None):
     sub = {"id": uuid.uuid4().hex[:12], "lat": lat, "lon": lon, "label": label,
-           "webhook_url": webhook_url, "phone": phone, "min_level": min_level,
-           "created": datetime.now(timezone.utc).isoformat(), "last_level": "none"}
+           "webhook_url": webhook_url, "phone": phone, "email": email, "min_level": min_level,
+           "created": datetime.now(timezone.utc).isoformat(), "last_level": "none", "read_up_to": None}
     with _lock:
         subs = _load()
         subs[sub["id"]] = sub
@@ -44,6 +44,27 @@ def unsubscribe(sub_id):
         found = subs.pop(sub_id, None) is not None
         _save(subs)
     return found
+
+
+def get(sub_id):
+    return _load().get(sub_id)
+
+
+def unread_alerts(sub_id):
+    """Alerts for a subscription since its last check, and mark them read."""
+    with _lock:
+        subs = _load()
+        sub = subs.get(sub_id)
+        if sub is None:
+            return None
+        rows = recent_alerts(sub_id, limit=10_000)
+        seen = sub.get("read_up_to")
+        ids = [r["id"] for r in rows]
+        new = rows[ids.index(seen) + 1:] if seen in ids else rows
+        if rows:
+            sub["read_up_to"] = rows[-1]["id"]
+            _save(subs)
+    return new
 
 
 def subscribers():

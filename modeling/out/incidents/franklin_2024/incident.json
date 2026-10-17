@@ -1,0 +1,43 @@
+{
+ "key": "franklin_2024",
+ "name": "Franklin Fire",
+ "start": "2024-12-09T22:00:00",
+ "hours": 48,
+ "ignition": {
+  "lon": -118.6955,
+  "lat": 34.0735,
+  "note": "approximate public origin"
+ },
+ "role": "showcase",
+ "red_flag": "Red Flag Warning (NWS Los Angeles/Oxnard), Santa Ana winds, Dec 9-10 2024",
+ "resolution_m": 30,
+ "params": {
+  "adjust": 0.75,
+  "urban_factor": 0.1,
+  "hold_ros": 0.0,
+  "gust_weight": 0.5,
+  "spot": 4.0
+ },
+ "metrics": {
+  "sorensen": 0.5887429283728066,
+  "iou": 0.41717624677265935,
+  "sim_over_real_area": 2.374716859022759,
+  "on_time": 0.264,
+  "median_late_h": 5.935544559708201,
+  "n_detections": 375,
+  "growth_log_error": 0.7441699587491675,
+  "growth_skill": 0.475128512575789,
+  "skill": 0.5319357204742978,
+  "role": "showcase",
+  "calibrated_on": [
+   "eaton_2025",
+   "palisades_2025"
+  ],
+  "out_of_sample_sorensen": 0.5887429283728066,
+  "out_of_sample_on_time": 0.264,
+  "out_of_sample_growth_skill": 0.475128512575789,
+  "out_of_sample_skill": 0.5319357204742978
+ },
+ "final_sim_acres": 9399.5,
+ "real_acres": 4123.641539366324
+}

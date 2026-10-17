@@ -1,325 +1,325 @@
 {
- "updated": "2026-10-17T07:26:29.793279+00:00",
+ "updated": "2026-10-17T13:15:28.934874+00:00",
  "cells": [
+  {
+   "lat": 33.715,
+   "lon": -117.713,
+   "level": "evacuate",
+   "eta_h": 1.76,
+   "nearest_fire_km": 0.1,
+   "fire": null
+  },
+  {
+   "lat": 34.815,
+   "lon": -118.763,
+   "level": "evacuate",
+   "eta_h": 2.4,
+   "nearest_fire_km": 1.19,
+   "fire": null
+  },
   {
    "lat": 34.065,
    "lon": -118.863,
    "level": "evacuate",
-   "eta_h": 21.93,
+   "eta_h": 6.22,
    "nearest_fire_km": 2.68,
    "fire": "Bryson"
   },
   {
+   "lat": 34.315,
+   "lon": -118.513,
+   "level": "evacuate",
+   "eta_h": 9.69,
+   "nearest_fire_km": 1.98,
+   "fire": null
+  },
+  {
+   "lat": 34.165,
+   "lon": -118.213,
+   "level": "evacuate",
+   "eta_h": 11.74,
+   "nearest_fire_km": 2.03,
+   "fire": null
+  },
+  {
    "lat": 34.115,
    "lon": -118.863,
    "level": "evacuate",
-   "eta_h": 26.35,
+   "eta_h": 18.49,
    "nearest_fire_km": 2.62,
    "fire": "Bryson"
   },
   {
-   "lat": 34.565,
-   "lon": -118.113,
-   "level": "warn",
-   "eta_h": 13.88,
-   "nearest_fire_km": 5.12,
-   "fire": "LAC-374825"
-  },
-  {
-   "lat": 34.565,
-   "lon": -118.063,
-   "level": "warn",
-   "eta_h": 19.65,
-   "nearest_fire_km": 1.03,
-   "fire": "LAC-374825"
-  },
-  {
-   "lat": 34.515,
+   "lat": 34.415,
    "lon": -118.663,
-   "level": "warn",
-   "eta_h": 23.0,
-   "nearest_fire_km": 3.77,
-   "fire": "ARCHER"
-  },
-  {
-   "lat": 34.115,
-   "lon": -118.913,
-   "level": "warn",
-   "eta_h": 24.28,
-   "nearest_fire_km": 6.13,
-   "fire": "Bryson"
-  },
-  {
-   "lat": 34.765,
-   "lon": -118.113,
-   "level": "warn",
-   "eta_h": 30.5,
-   "nearest_fire_km": 3.08,
-   "fire": "LAC-374803"
-  },
-  {
-   "lat": 34.515,
-   "lon": -118.713,
-   "level": "warn",
-   "eta_h": 30.75,
-   "nearest_fire_km": 6.5,
-   "fire": "LAC-371632"
-  },
-  {
-   "lat": 34.465,
-   "lon": -118.663,
-   "level": "warn",
-   "eta_h": 31.18,
-   "nearest_fire_km": 4.19,
+   "level": "evacuate",
+   "eta_h": 21.45,
+   "nearest_fire_km": 2.15,
    "fire": null
   },
   {
-   "lat": 33.915,
-   "lon": -118.213,
-   "level": "warn",
-   "eta_h": 32.71,
-   "nearest_fire_km": 0.97,
-   "fire": "LAC-374698"
-  },
-  {
    "lat": 34.065,
-   "lon": -118.913,
-   "level": "warn",
-   "eta_h": 34.15,
-   "nearest_fire_km": 6.04,
-   "fire": "Bryson"
+   "lon": -117.813,
+   "level": "evacuate",
+   "eta_h": 54.91,
+   "nearest_fire_km": 2.55,
+   "fire": null
   },
   {
-   "lat": 33.915,
-   "lon": -118.163,
-   "level": "warn",
-   "eta_h": 41.1,
-   "nearest_fire_km": 4.01,
-   "fire": "LAC-374812"
+   "lat": 34.015,
+   "lon": -118.013,
+   "level": "evacuate",
+   "eta_h": 74.64,
+   "nearest_fire_km": 1.42,
+   "fire": null
   },
   {
-   "lat": 34.065,
-   "lon": -117.763,
-   "level": "warn",
-   "eta_h": 43.36,
-   "nearest_fire_km": 3.26,
-   "fire": "LAC-374626"
-  },
-  {
-   "lat": 34.565,
-   "lon": -118.663,
-   "level": "warn",
-   "eta_h": 48.29,
-   "nearest_fire_km": 2.33,
-   "fire": "LAC-371632"
-  },
-  {
-   "lat": 34.565,
-   "lon": -118.713,
-   "level": "warn",
-   "eta_h": 55.13,
-   "nearest_fire_km": 2.34,
-   "fire": "LAC-374499"
-  },
-  {
-   "lat": 34.765,
-   "lon": -118.063,
-   "level": "warn",
-   "eta_h": 55.71,
-   "nearest_fire_km": 1.93,
-   "fire": "LAC-374434"
-  },
-  {
-   "lat": 34.615,
-   "lon": -118.063,
-   "level": "warn",
-   "eta_h": 62.38,
-   "nearest_fire_km": 4.63,
-   "fire": "LAC-374825"
-  },
-  {
-   "lat": 34.615,
+   "lat": 34.015,
    "lon": -118.113,
-   "level": "warn",
-   "eta_h": 64.88,
-   "nearest_fire_km": 2.37,
-   "fire": "LAC-371289"
+   "level": "evacuate",
+   "eta_h": 85.29,
+   "nearest_fire_km": 2.32,
+   "fire": null
   },
   {
-   "lat": 34.465,
-   "lon": -118.563,
-   "level": "warn",
-   "eta_h": 68.1,
-   "nearest_fire_km": 6.97,
-   "fire": "ARCHER"
-  },
-  {
-   "lat": 34.565,
-   "lon": -118.613,
-   "level": "warn",
-   "eta_h": 68.61,
-   "nearest_fire_km": 6.87,
-   "fire": "LAC-371632"
-  },
-  {
-   "lat": 34.715,
-   "lon": -118.113,
-   "level": "warn",
-   "eta_h": 70.6,
-   "nearest_fire_km": 2.56,
-   "fire": "LAC-374635"
+   "lat": 33.865,
+   "lon": -118.313,
+   "level": "evacuate",
+   "eta_h": 104.89,
+   "nearest_fire_km": 2.03,
+   "fire": null
   },
   {
    "lat": 34.015,
    "lon": -117.813,
-   "level": "warn",
-   "eta_h": 72.58,
+   "level": "evacuate",
+   "eta_h": 125.88,
    "nearest_fire_km": 1.15,
    "fire": "SCENIC"
   },
   {
-   "lat": 34.465,
+   "lat": 33.915,
+   "lon": -118.213,
+   "level": "warn",
+   "eta_h": 5.5,
+   "nearest_fire_km": 0.97,
+   "fire": "LAC-374698"
+  },
+  {
+   "lat": 34.815,
+   "lon": -118.813,
+   "level": "warn",
+   "eta_h": 8.56,
+   "nearest_fire_km": 5.58,
+   "fire": null
+  },
+  {
+   "lat": 34.565,
+   "lon": -118.063,
+   "level": "warn",
+   "eta_h": 10.58,
+   "nearest_fire_km": 1.03,
+   "fire": "LAC-374825"
+  },
+  {
+   "lat": 34.115,
+   "lon": -118.913,
+   "level": "warn",
+   "eta_h": 12.32,
+   "nearest_fire_km": 6.13,
+   "fire": "Bryson"
+  },
+  {
+   "lat": 34.065,
+   "lon": -118.063,
+   "level": "warn",
+   "eta_h": 18.16,
+   "nearest_fire_km": 1.0,
+   "fire": "LAC-372082"
+  },
+  {
+   "lat": 34.515,
    "lon": -118.613,
    "level": "warn",
-   "eta_h": 75.18,
-   "nearest_fire_km": 4.07,
+   "eta_h": 19.21,
+   "nearest_fire_km": 2.02,
    "fire": "ARCHER"
+  },
+  {
+   "lat": 34.565,
+   "lon": -118.113,
+   "level": "warn",
+   "eta_h": 19.68,
+   "nearest_fire_km": 5.12,
+   "fire": "LAC-374825"
+  },
+  {
+   "lat": 33.815,
+   "lon": -118.313,
+   "level": "warn",
+   "eta_h": 23.34,
+   "nearest_fire_km": 4.56,
+   "fire": null
+  },
+  {
+   "lat": 34.015,
+   "lon": -118.163,
+   "level": "warn",
+   "eta_h": 23.91,
+   "nearest_fire_km": 5.61,
+   "fire": null
+  },
+  {
+   "lat": 33.915,
+   "lon": -118.263,
+   "level": "warn",
+   "eta_h": 34.34,
+   "nearest_fire_km": 5.01,
+   "fire": "LAC-374698"
+  },
+  {
+   "lat": 33.665,
+   "lon": -117.713,
+   "level": "warn",
+   "eta_h": 34.88,
+   "nearest_fire_km": 5.53,
+   "fire": null
+  },
+  {
+   "lat": 34.365,
+   "lon": -118.663,
+   "level": "warn",
+   "eta_h": 36.25,
+   "nearest_fire_km": 6.66,
+   "fire": "LAC-373859"
+  },
+  {
+   "lat": 34.265,
+   "lon": -118.513,
+   "level": "warn",
+   "eta_h": 38.9,
+   "nearest_fire_km": 7.44,
+   "fire": null
   },
   {
    "lat": 34.515,
    "lon": -118.563,
    "level": "warn",
-   "eta_h": 77.99,
+   "eta_h": 39.38,
    "nearest_fire_km": 6.0,
    "fire": "ARCHER"
   },
   {
-   "lat": 34.815,
-   "lon": -118.113,
+   "lat": 34.365,
+   "lon": -118.463,
    "level": "warn",
-   "eta_h": 78.51,
-   "nearest_fire_km": 7.7,
-   "fire": "LAC-374434"
+   "eta_h": 39.71,
+   "nearest_fire_km": 5.88,
+   "fire": null
   },
   {
-   "lat": 34.015,
-   "lon": -117.763,
+   "lat": 34.165,
+   "lon": -118.263,
    "level": "warn",
-   "eta_h": 86.59,
-   "nearest_fire_km": 2.28,
-   "fire": "LAC-374626"
+   "eta_h": 43.29,
+   "nearest_fire_km": 6.36,
+   "fire": null
   },
   {
-   "lat": 34.515,
+   "lat": 34.465,
    "lon": -118.613,
    "level": "warn",
-   "eta_h": 88.22,
-   "nearest_fire_km": 2.02,
+   "eta_h": 44.11,
+   "nearest_fire_km": 4.07,
    "fire": "ARCHER"
   },
   {
-   "lat": 34.065,
-   "lon": -117.813,
+   "lat": 33.665,
+   "lon": -117.663,
    "level": "warn",
-   "eta_h": 108.3,
-   "nearest_fire_km": 2.64,
+   "eta_h": 45.39,
+   "nearest_fire_km": 7.1,
    "fire": null
   },
   {
    "lat": 34.065,
-   "lon": -118.813,
+   "lon": -118.913,
    "level": "warn",
-   "eta_h": 112.26,
-   "nearest_fire_km": 3.66,
-   "fire": "BRYSON"
+   "eta_h": 45.72,
+   "nearest_fire_km": 6.04,
+   "fire": "Bryson"
   },
   {
-   "lat": 34.665,
-   "lon": -118.113,
-   "level": "warn",
-   "eta_h": 114.05,
-   "nearest_fire_km": 1.35,
-   "fire": "LAC-373571"
-  },
-  {
-   "lat": 33.965,
-   "lon": -118.163,
-   "level": "warn",
-   "eta_h": 125.7,
-   "nearest_fire_km": 6.05,
-   "fire": "LAC-374812"
-  },
-  {
-   "lat": 34.815,
+   "lat": 34.015,
    "lon": -118.063,
    "level": "warn",
-   "eta_h": 125.91,
-   "nearest_fire_km": 7.08,
-   "fire": "LAC-374434"
+   "eta_h": 47.44,
+   "nearest_fire_km": 1.57,
+   "fire": "DOMINO"
+  },
+  {
+   "lat": 34.415,
+   "lon": -118.613,
+   "level": "warn",
+   "eta_h": 47.91,
+   "nearest_fire_km": 3.13,
+   "fire": null
+  },
+  {
+   "lat": 34.365,
+   "lon": -118.513,
+   "level": "warn",
+   "eta_h": 48.92,
+   "nearest_fire_km": 3.22,
+   "fire": null
   },
   {
    "lat": 33.865,
-   "lon": -118.163,
+   "lon": -118.363,
    "level": "warn",
-   "eta_h": 126.87,
-   "nearest_fire_km": 2.33,
-   "fire": "LAC-371734"
+   "eta_h": 50.08,
+   "nearest_fire_km": 2.86,
+   "fire": null
   },
   {
-   "lat": 34.615,
-   "lon": -118.663,
+   "lat": 33.815,
+   "lon": -118.363,
    "level": "warn",
-   "eta_h": 132.04,
-   "nearest_fire_km": 5.46,
-   "fire": "LAC-374499"
+   "eta_h": 59.18,
+   "nearest_fire_km": 5.08,
+   "fire": null
   },
   {
-   "lat": 34.665,
+   "lat": 34.315,
+   "lon": -118.463,
+   "level": "warn",
+   "eta_h": 60.55,
+   "nearest_fire_km": 5.42,
+   "fire": null
+  },
+  {
+   "lat": 34.715,
    "lon": -118.063,
    "level": "warn",
-   "eta_h": 144.06,
-   "nearest_fire_km": 5.44,
-   "fire": "LAC-373571"
+   "eta_h": 69.62,
+   "nearest_fire_km": 4.25,
+   "fire": "LAC-374803"
   },
   {
-   "lat": 34.615,
-   "lon": -118.713,
+   "lat": 34.065,
+   "lon": -118.013,
    "level": "warn",
-   "eta_h": 150.43,
-   "nearest_fire_km": 5.44,
-   "fire": "LAC-374499"
-  },
-  {
-   "lat": 33.965,
-   "lon": -118.213,
-   "level": "warn",
-   "eta_h": 167.16,
-   "nearest_fire_km": 3.26,
-   "fire": "LAC-371157"
+   "eta_h": 69.68,
+   "nearest_fire_km": 2.44,
+   "fire": "LAC-373651"
   },
   {
    "lat": 34.115,
    "lon": -118.813,
    "level": "warn",
-   "eta_h": 170.85,
+   "eta_h": 70.52,
    "nearest_fire_km": 3.38,
    "fire": "Bryson"
-  },
-  {
-   "lat": 34.665,
-   "lon": -118.163,
-   "level": "warn",
-   "eta_h": 175.05,
-   "nearest_fire_km": 1.72,
-   "fire": "LAC-373161"
-  },
-  {
-   "lat": 34.615,
-   "lon": -118.013,
-   "level": "warn",
-   "eta_h": 178.88,
-   "nearest_fire_km": 6.18,
-   "fire": "LAC-374825"
   }
  ]
 }

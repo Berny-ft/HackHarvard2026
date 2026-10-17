@@ -201,6 +201,19 @@ function install(map, s, isStandard) {
           "circle-stroke-width": ["case", ["get", "destroyed"], 1.4, 0.8],
         } }, "top");
 
+  // Alert demo: the address the sentinel is watching, coloured by its current level.
+  map.addSource("demo-home", { type: "geojson", data: EMPTY });
+  add({ id: "demo-home-halo", type: "circle", source: "demo-home",
+        paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 9, 14, 14, 34], "circle-color": LEVEL_PAINT,
+                 "circle-opacity": 0.22, "circle-stroke-color": LEVEL_PAINT, "circle-stroke-width": 2,
+                 "circle-pitch-alignment": "map" } }, "top");
+  add({ id: "demo-home", type: "circle", source: "demo-home",
+        paint: { "circle-radius": 8, "circle-color": LEVEL_PAINT, "circle-stroke-color": "#fff", "circle-stroke-width": 2.5 } }, "top");
+  add({ id: "demo-home-label", type: "symbol", source: "demo-home",
+        layout: { "text-field": ["get", "label"], "text-size": 13, "text-offset": [0, 1.6], "text-anchor": "top",
+                  "text-allow-overlap": true },
+        paint: LABEL_PAINT }, "top");
+
   add({ id: "ignition", type: "circle", source: "ignition",
         paint: { "circle-radius": 7, "circle-color": "#ff5a36", "circle-stroke-color": "#fff", "circle-stroke-width": 2 } }, "top");
   add({ id: "ignition-label", type: "symbol", source: "ignition",
@@ -246,7 +259,7 @@ function setVisibility(map, incident, layers) {
   for (const id of ["ignition", "ignition-label"]) map.setLayoutProperty(id, "visibility", live ? "none" : "visible");
 }
 
-function flyToIncident(map, incident, data, camera) {
+function flyToIncident(map, incident, data, camera, home) {
   const cam = CAMERAS[camera] ?? CAMERAS["3d"];
   if (incident === "live" || !data) {
     map.flyTo({ ...CAMERAS.overview, duration: 2500 });
@@ -254,7 +267,8 @@ function flyToIncident(map, incident, data, camera) {
   }
   const { lon, lat } = data.info.ignition;
   map.flyTo({
-    center: [lon, lat - 0.01], zoom: 11.3 + (cam.zoomDelta || 0), pitch: cam.pitch,
+    // Alert demo: frame the ignition and the watched address together.
+    center: home ? [(lon + home.lon) / 2, (lat + home.lat) / 2] : [lon, lat - 0.01], zoom: 11.3 + (cam.zoomDelta || 0), pitch: cam.pitch,
     bearing: cam.bearing ?? (incident === "eaton_2025" ? 160 : 200), duration: 2500,
   });
 }
@@ -273,7 +287,13 @@ function applyWind(wind, s, stat) {
   }
 }
 
-export default function MapView({ incident, data, hour, layers, households, basemap, light, camera, focus, onReady, onSelectHousehold }) {
+function homeGeo(home) {
+  if (!home) return EMPTY;
+  return { type: "FeatureCollection", features: [{ type: "Feature", geometry: { type: "Point", coordinates: [home.lon, home.lat] },
+    properties: { level: home.level, label: home.label } }] };
+}
+
+export default function MapView({ incident, data, hour, layers, households, home, basemap, light, camera, focus, onReady, onSelectHousehold }) {
   const el = useRef(null);
   const canvasRef = useRef(null);
   const windRef = useRef(null);
@@ -282,7 +302,7 @@ export default function MapView({ incident, data, hour, layers, households, base
   const ready = useRef(false);
   // Latest props, so a style reload can restore everything.
   const state = useRef({});
-  state.current = { incident, data, hour, layers, households, basemap, light, camera, onSelectHousehold };
+  state.current = { incident, data, hour, layers, households, home, basemap, light, camera, onSelectHousehold };
 
   const restore = (map) => {
     const s = state.current;
@@ -290,6 +310,7 @@ export default function MapView({ incident, data, hour, layers, households, base
     install(map, staticRef.current, !!BASEMAPS[s.basemap].standard);
     setIncidentData(map, s.incident, s.data);
     map.getSource("households").setData(s.incident === "live" ? EMPTY : s.households || EMPTY);
+    map.getSource("demo-home").setData(homeGeo(s.home));
     setTime(map, s.hour);
     setVisibility(map, s.incident, s.layers);
     applyWind(windRef.current, s, staticRef.current);
@@ -326,7 +347,7 @@ export default function MapView({ incident, data, hour, layers, households, base
       if (first) {
         first = false;
         onReady?.();
-        flyToIncident(map, state.current.incident, state.current.data, state.current.camera);
+        flyToIncident(map, state.current.incident, state.current.data, state.current.camera, state.current.home);
       }
     });
     return () => {
@@ -361,7 +382,7 @@ export default function MapView({ incident, data, hour, layers, households, base
     if (!ready.current) return;
     setIncidentData(map, incident, data);
     setVisibility(map, incident, layers);
-    flyToIncident(map, incident, data, camera);
+    flyToIncident(map, incident, data, camera, home);
   }, [incident, data]);
 
   useEffect(() => {
@@ -387,6 +408,10 @@ export default function MapView({ incident, data, hour, layers, households, base
   useEffect(() => {
     if (ready.current) mapRef.current.getSource("households")?.setData(incident === "live" ? EMPTY : households || EMPTY);
   }, [households, incident]);
+
+  useEffect(() => {
+    if (ready.current) mapRef.current.getSource("demo-home")?.setData(homeGeo(home));
+  }, [home?.lat, home?.lon, home?.level, home?.label]);
 
   useEffect(() => {
     if (focus && ready.current) mapRef.current.flyTo({ center: [focus.lon, focus.lat], zoom: 10.6, pitch: 55, duration: 2200, essential: true });

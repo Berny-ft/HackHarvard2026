@@ -52,31 +52,34 @@ def scan_region(snap=None, step=0.05, top=10):
     return cells[:top]
 
 
+def evaluate_subscriber(sub, snap, policy, dry_run=False):
+    """Assess one subscriber; on a relevant level change, log (and deliver) an alert and return it."""
+    s = assess(snap, sub["lat"], sub["lon"])
+    history = [{k: a[k] for k in ("as_of", "level", "message")} for a in store.recent_alerts(sub["id"], 4)]
+    d = policy.decide(s, history)
+    prev = sub.get("last_level", "none")
+    changed = d["level"] != prev
+    relevant = max(level_rank(d["level"]), level_rank(prev)) >= level_rank(sub.get("min_level", "watch"))
+    if not (changed and relevant):
+        return None
+    alert = {"id": uuid.uuid4().hex[:12], "subscriber_id": sub["id"], "label": sub.get("label"),
+             "as_of": s["as_of"], "level": d["level"], "previous": prev,
+             "kind": "escalation" if level_rank(d["level"]) > level_rank(prev) else "de-escalation",
+             "message": d["message"], "reasons": d.get("reasons", []), "policy": policy.name,
+             "signals": {k: s[k] for k in ("lat", "lon", "nearest_fire_km", "nearest_fire_name", "fire_bearing_deg",
+                                           "downwind", "eta_h", "red_flag", "weather_now")}}
+    alert["delivery"] = [] if dry_run else deliver(sub, alert)
+    store.log_alert(alert)
+    store.set_last_level(sub["id"], d["level"])
+    return alert
+
+
 def cycle(policy_name="rules", refresh=True, dry_run=False):
     started = datetime.now(timezone.utc)
     feeds = refresh_feeds() if refresh else (True, "skipped")
     snap = live_snapshot()
     policy = get_policy(policy_name)
-    sent = []
-    for sub in store.subscribers():
-        s = assess(snap, sub["lat"], sub["lon"])
-        history = [{k: a[k] for k in ("as_of", "level", "message")} for a in store.recent_alerts(sub["id"], 4)]
-        d = policy.decide(s, history)
-        prev = sub.get("last_level", "none")
-        changed = d["level"] != prev
-        relevant = max(level_rank(d["level"]), level_rank(prev)) >= level_rank(sub.get("min_level", "watch"))
-        if not (changed and relevant):
-            continue
-        alert = {"id": uuid.uuid4().hex[:12], "subscriber_id": sub["id"], "label": sub.get("label"),
-                 "as_of": s["as_of"], "level": d["level"], "previous": prev,
-                 "kind": "escalation" if level_rank(d["level"]) > level_rank(prev) else "de-escalation",
-                 "message": d["message"], "reasons": d.get("reasons", []), "policy": policy.name,
-                 "signals": {k: s[k] for k in ("nearest_fire_km", "nearest_fire_name", "fire_bearing_deg",
-                                               "downwind", "eta_h", "red_flag", "weather_now")}}
-        alert["delivery"] = [] if dry_run else deliver(sub, alert)
-        store.log_alert(alert)
-        store.set_last_level(sub["id"], d["level"])
-        sent.append(alert)
+    sent = [a for sub in store.subscribers() if (a := evaluate_subscriber(sub, snap, policy, dry_run))]
     return {"started": started.isoformat(), "feeds_ok": feeds[0], "fire_points": len(snap.fires),
             "subscribers": len(store.subscribers()), "alerts": sent}
 

@@ -17,7 +17,7 @@ POLICIES = ("radius", "rules", "llm")
 DEST = MODEL_OUT / "sentinel" / "replay.json"
 
 
-def main(n=100):
+def main(n=100, showcase_n=50):
     summaries, detail = {}, None
     for policy in POLICIES:
         path = OUT / f"results_{policy}_n{n}.json"
@@ -30,8 +30,19 @@ def main(n=100):
     if detail is None:
         raise SystemExit("Run `python -m evals.run_local --policy rules` first.")
 
+    showcase_summary = {}
+    rows, outputs = list(detail["rows"]), list(detail["outputs"])
+    for policy in POLICIES:
+        path = OUT / f"results_{policy}_showcase_n{showcase_n}.json"
+        if path.exists():
+            res = json.loads(path.read_text())
+            showcase_summary[policy] = res["summary"]
+            if policy == "rules":
+                rows += res["rows"]
+                outputs += res["outputs"]
+
     households = []
-    for r, o in zip(detail["rows"], detail["outputs"]):
+    for r, o in zip(rows, outputs):
         households.append({
             "incident": r["incident"], "category": r["category"],
             "lat": r["lat"], "lon": r["lon"], "dist_km": r["dist_to_perimeter_km"],
@@ -40,7 +51,8 @@ def main(n=100):
                        for a in o["alerts"]],
         })
     DEST.parent.mkdir(parents=True, exist_ok=True)
-    DEST.write_text(json.dumps({"n_per_group": n, "summary": summaries, "households": households},
+    DEST.write_text(json.dumps({"n_per_group": n, "summary": summaries, "showcase_summary": showcase_summary,
+                                "households": households},
                                separators=(",", ":"), default=str))
     print(f"{len(households)} households, policies {list(summaries)} -> {DEST}")
 

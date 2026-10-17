@@ -16,7 +16,7 @@ from shapely.geometry import mapping, shape
 from shapely.ops import unary_union
 
 from . import fetch, observations
-from .config import CRS, DATA, INCIDENT_RES, INCIDENTS, OUT
+from .config import CRS, DATA, INCIDENT_RES, INCIDENTS, OUT, keys_with
 from .export import save_overlay
 from .features import load_perimeters, load_raster
 from .spread import simulate
@@ -219,6 +219,7 @@ def export(key, inc, arrival, moist, wind, params, metrics):
     summary = {
         "key": key, "name": cfg["name"], "start": inc["start"].isoformat(), "hours": hours,
         "ignition": {"lon": lon, "lat": lat, "note": "approximate public origin"},
+        "role": cfg.get("role", "train"), "red_flag": cfg.get("red_flag"),
         "resolution_m": res, "params": params, "metrics": metrics,
         "final_sim_acres": series[-1]["acres"],
         "real_acres": float(inc["real_mask"].sum() * res * res / M2_PER_ACRE),
@@ -228,13 +229,17 @@ def export(key, inc, arrival, moist, wind, params, metrics):
     print(json.dumps(summary, indent=1))
 
 
-def run(keys=("eaton_2025", "palisades_2025")):
-    """Grid-search parameters on all fires; report leave-one-fire-out scores.
+def run(keys=None, showcase=None):
+    """Grid-search parameters on the train fires; report leave-one-fire-out scores.
 
     The exported simulation uses the parameters with the best mean score
-    across fires. Each incident also records its out-of-sample score: the
-    score it gets with parameters chosen only on the *other* fires.
+    across train fires. Each incident also records its out-of-sample score:
+    the score it gets with parameters chosen only on the *other* fires.
+    Showcase fires are then simulated with the shipped parameters, untouched
+    by calibration, so their scores are fully out of sample.
     """
+    keys = tuple(keys or keys_with("train"))
+    showcase = tuple(keys_with("showcase") if showcase is None else showcase)
     incs = {k: load_incident(k) for k in keys}
     print(f"[spread] calibrating on {', '.join(keys)}")
     table = calibrate(incs)
@@ -258,3 +263,25 @@ def run(keys=("eaton_2025", "palisades_2025")):
             "out_of_sample_params": loo_params if others else None,
         }
         export(key, inc, arrival, moist, wind, shipped, metrics)
+    run_showcase(showcase, shipped, keys)
+
+
+def run_showcase(keys=None, params=None, trained_on=None):
+    """Simulate showcase fires with the train fires' shipped parameters.
+
+    Without `params`, reads them from an exported train incident, so new fires
+    can be added without re-running the calibration.
+    """
+    keys = keys_with("showcase") if keys is None else keys
+    trained_on = list(trained_on or keys_with("train"))
+    if params is None:
+        params = json.loads((OUT / "incidents" / trained_on[0] / "incident.json").read_text())["params"]
+    for key in keys:
+        print(f"[spread] showcase {key} with parameters fitted on {', '.join(trained_on)}: {params}")
+        inc = load_incident(key)
+        arrival, moist, wind = run_sim(inc, **params)
+        metrics = {**score(arrival, inc), "role": "showcase", "calibrated_on": trained_on}
+        for k in ("sorensen", "on_time", "growth_skill", "skill"):
+            if k in metrics:
+                metrics[f"out_of_sample_{k}"] = metrics[k]
+        export(key, inc, arrival, moist, wind, params, metrics)

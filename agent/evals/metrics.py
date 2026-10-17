@@ -8,6 +8,9 @@ import json
 import numpy as np
 
 LEAD_TARGET_H = 3.0     # a warning this far ahead of arrival earns full lead credit
+# Locations that needed a warning: destroyed homes (CAL FIRE damage records) or,
+# for fires without damage records, points inside the burn scar.
+NEEDED = ("destroyed", "burned")
 
 
 def _first(output, level):
@@ -17,14 +20,14 @@ def _first(output, level):
 
 def timely(output, category, observed_arrival_h, level="warn"):
     """1 if a destroyed home got `level` (or higher) before the fire was observed there."""
-    if category != "destroyed" or observed_arrival_h is None:
+    if category not in NEEDED or observed_arrival_h is None:
         return None
     h = _first(output, level)
     return float(h is not None and h < observed_arrival_h)
 
 
 def lead_time_h(output, category, observed_arrival_h, level="warn"):
-    if category != "destroyed" or observed_arrival_h is None:
+    if category not in NEEDED or observed_arrival_h is None:
         return None
     h = _first(output, level)
     return None if h is None else observed_arrival_h - h
@@ -33,7 +36,7 @@ def lead_time_h(output, category, observed_arrival_h, level="warn"):
 def lead_score(output, category, observed_arrival_h, level="warn"):
     lt = lead_time_h(output, category, observed_arrival_h, level)
     if lt is None:
-        return None if category != "destroyed" or observed_arrival_h is None else 0.0
+        return None if category not in NEEDED or observed_arrival_h is None else 0.0
     return float(np.clip(lt / LEAD_TARGET_H, 0.0, 1.0))
 
 
@@ -59,7 +62,7 @@ def summarize(rows, outputs):
     res = {}
     for scope in sorted({r["incident"] for r in rows}) + ["all"]:
         sel = [(r, o) for r, o in zip(rows, outputs) if scope == "all" or r["incident"] == scope]
-        des = [(r, o) for r, o in sel if r["category"] == "destroyed" and r["observed_arrival_h"] is not None]
+        des = [(r, o) for r, o in sel if r["category"] in NEEDED and r["observed_arrival_h"] is not None]
         out = [(r, o) for r, o in sel if r["category"] == "outside"]
         lw = [lead_time_h(o, r["category"], r["observed_arrival_h"], "warn") for r, o in des]
         le = [lead_time_h(o, r["category"], r["observed_arrival_h"], "evacuate") for r, o in des]

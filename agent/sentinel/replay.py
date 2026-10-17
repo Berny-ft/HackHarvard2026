@@ -8,13 +8,13 @@ from functools import lru_cache
 
 import numpy as np
 
+from .config import LLM_RECHECK_H
 from .geo import burn_probability, offsets_km
 from .policy import LLMPolicy, RulePolicy
 from .signals import assess, level_rank
 from .snapshot import load_incident, replay_snapshot
 
 ARRIVAL_RADIUS_KM = 0.75
-LLM_RECHECK_H = 3          # while something is going on, re-ask the LLM this often
 
 
 @lru_cache(maxsize=256)
@@ -44,7 +44,7 @@ def replay_subscriber(key, lat, lon, policy=None, hours=None, burn_prob="lookup"
 
         rule_changed = s["rule_level"] != last_rule
         busy = s["rule_level"] != "none" or current != "none"
-        if not isinstance(policy, LLMPolicy) or rule_changed or (busy and h - last_call >= LLM_RECHECK_H):
+        if not isinstance(policy, LLMPolicy) or rule_changed or (LLM_RECHECK_H and busy and h - last_call >= LLM_RECHECK_H):
             d = policy.decide(s, history)
             last_call = h
         else:
@@ -63,4 +63,4 @@ def replay_subscriber(key, lat, lon, policy=None, hours=None, burn_prob="lookup"
                     first[lvl] = h
 
     return {"first_hour": first, "alerts": alerts, "policy": policy.name,
-            "llm_calls": getattr(policy, "calls", 0)}
+            "llm_calls": getattr(policy, "calls", 0), "llm_tokens": getattr(policy, "tokens", 0)}

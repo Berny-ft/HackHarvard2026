@@ -94,21 +94,26 @@ def _compact(s):
 
 class LLMPolicy:
     name = "llm"
+    dry_run = False   # count the calls a run would make without making them
 
     def __init__(self, model=MODEL, client=None):
         self.model = model
-        self.client = client or gateway_client()
+        self.client = client or (None if self.dry_run else gateway_client())
         self.calls = 0
+        self.tokens = 0
 
     def decide(self, s, history):
         if s["rule_level"] == "none" and not history:
             return RulePolicy().decide(s, history)
         prompt = json.dumps({"signals": _compact(s), "alerts_already_sent": history[-4:]}, default=str)
         self.calls += 1
+        if self.dry_run:
+            return RulePolicy().decide(s, history) | {"reasons": ["dry run"]}
         resp = self.client.chat.completions.create(
             model=self.model, max_tokens=MAX_TOKENS,   # the gateway route rejects temperature
             messages=[{"role": "system", "content": SYSTEM}, {"role": "user", "content": prompt}],
         )
+        self.tokens += resp.usage.total_tokens if resp.usage else 0
         text = (resp.choices[0].message.content or "").strip()
         try:
             out = json.loads(text[text.index("{"):text.rindex("}") + 1])

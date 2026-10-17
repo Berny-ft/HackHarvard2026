@@ -334,3 +334,36 @@ code { font-family: var(--mono); font-size: 0.92em; color: var(--sage); backgrou
   .clock { min-width: 0; }
   .speed { display: none; }
 }
+
+/* ---------------------------------------------------------------- alert demo */
+
+.demo-btn {
+  display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; border-radius: 8px;
+  border: 1px solid var(--ember); background: rgba(255, 106, 43, 0.12); color: #ffd9c7;
+  font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; margin-left: 10px;
+  transition: background-color 140ms;
+}
+.demo-btn:hover { background: rgba(255, 106, 43, 0.22); }
+.demo-btn.on { border-color: var(--ridge-2); background: var(--canopy); color: var(--sage); font-weight: 500; }
+.demo-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember); }
+.demo-error { border-color: var(--flare); }
+.demo-error button { border: 0; background: transparent; color: var(--sage); font-size: 16px; cursor: pointer; margin-left: 6px; }
+.demo-address { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; margin: 12px 0; font-size: 12.5px; }
+.demo-address b { color: #f2f6f3; font-weight: 500; overflow-wrap: anywhere; }
+.demo-level {
+  display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--c); background: color-mix(in srgb, var(--c) 12%, transparent);
+  transition: border-color 300ms, background-color 300ms;
+}
+.demo-level b { color: var(--c); font-size: 18px; letter-spacing: -0.02em; }
+.demo-level span { color: var(--sage); font-size: 12.5px; }
+.demo-card .hh-time { cursor: default; text-align: center; }
+.email-chip {
+  display: inline-block; margin-top: 6px; font-size: 11px; padding: 2px 8px; border-radius: 99px;
+  border: 1px solid var(--ridge-2); color: var(--sage-2);
+}
+.email-chip.ok { border-color: var(--signal-dim); color: var(--signal); }
+.email-chip.ok::before { content: "✓ "; }
+.email-chip.bad { border-color: var(--flare); color: var(--flare); }
+.demo-sum { margin-top: 14px; }
+

@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-17T07:26:29.793279+00:00",
+ "updated": "2026-10-17T13:15:28.934874+00:00",
  "sources": {
   "weather": {
    "ok": true,
-   "summary": "40 points, min 1-h fuel moisture 3.7%, Santa Ana now at 3, forecast within 48h at 11"
+   "summary": "40 points, min 1-h fuel moisture 4.1%, Santa Ana now at 0, forecast within 48h at 6"
   },
   "red_flags": {
    "ok": true,
@@ -15,7 +15,7 @@
   },
   "hotspots": {
    "ok": true,
-   "summary": "36 in last 48h"
+   "summary": "57 in last 48h"
   },
   "perimeters": {
    "ok": true,
@@ -23,7 +23,7 @@
   },
   "incidents": {
    "ok": true,
-   "summary": "48 active in box"
+   "summary": "46 active in box"
   }
  }
 }

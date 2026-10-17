@@ -64,8 +64,8 @@ def _wx_record(r):
 
 # ------------------------------------------------------------------ replay
 
-# Both 2025 fires burned under an NWS "Particularly Dangerous Situation" Red Flag
-# Warning issued before ignition, so the replay treats it as in force throughout.
+# Each replayed fire burned under an NWS Red Flag Warning issued before ignition
+# (recorded per incident in incident.json), so the replay treats it as in force.
 HISTORICAL_RED_FLAG = "PDS Red Flag Warning (NWS Los Angeles/Oxnard), Jan 7-10 2025"
 
 
@@ -105,7 +105,7 @@ def replay_snapshot(key, hour):
     }
     as_of = (datetime.fromisoformat(inc["start"]) + timedelta(hours=hour)).isoformat()
     return Snapshot(as_of, fires, lambda la, lo: now, lambda la, lo: look,
-                    lambda la, lo: HISTORICAL_RED_FLAG, source=f"replay:{key}",
+                    lambda la, lo: inc.get("red_flag") or HISTORICAL_RED_FLAG, source=f"replay:{key}",
                     meta={"hour": hour, "incident": inc["name"]})
 
 

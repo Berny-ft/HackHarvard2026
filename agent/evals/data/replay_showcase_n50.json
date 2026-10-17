@@ -1,0 +1,3002 @@
+[
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.083478,
+  "lon": -118.944731,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 22.32,
+  "burn_probability_10y": 0.643
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.107241,
+  "lon": -118.708434,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.449
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.079855,
+  "lon": -118.712183,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 23.98,
+  "burn_probability_10y": 0.764
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.049703,
+  "lon": -118.794162,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.774
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.081192,
+  "lon": -118.792777,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.287
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.194532,
+  "lon": -118.753126,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.449
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.064659,
+  "lon": -118.79667,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.564
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.131002,
+  "lon": -118.691556,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 23.17,
+  "burn_probability_10y": 0.315
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.105731,
+  "lon": -118.732801,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.352
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.04292,
+  "lon": -118.826543,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.807
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.171147,
+  "lon": -118.789698,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.211
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.205291,
+  "lon": -118.667247,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 22.32,
+  "burn_probability_10y": 0.223
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.118942,
+  "lon": -118.765306,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.231
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.098101,
+  "lon": -118.763732,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.174
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.136723,
+  "lon": -118.688673,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 23.17,
+  "burn_probability_10y": 0.32
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.200408,
+  "lon": -118.695454,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.256
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.07276,
+  "lon": -118.852293,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.713
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.048639,
+  "lon": -118.916379,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 23.17,
+  "burn_probability_10y": 0.779
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.06212,
+  "lon": -118.827941,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.564
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.094198,
+  "lon": -118.799495,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.071
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.231991,
+  "lon": -118.756098,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.197
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.128711,
+  "lon": -118.78158,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.246
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.219349,
+  "lon": -118.724822,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.397
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.213444,
+  "lon": -118.718563,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.212
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.099655,
+  "lon": -118.857997,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.402
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.05632,
+  "lon": -118.940727,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 22.32,
+  "burn_probability_10y": 0.848
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.087306,
+  "lon": -118.979082,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 32.0,
+  "burn_probability_10y": 0.771
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.066585,
+  "lon": -118.87603,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.615
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.092996,
+  "lon": -118.95452,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 32.0,
+  "burn_probability_10y": 0.659
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.117028,
+  "lon": -118.828336,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.088
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.087915,
+  "lon": -118.904914,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.527
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.210803,
+  "lon": -118.754104,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.268
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.068676,
+  "lon": -118.86928,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.708
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.046474,
+  "lon": -118.727629,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 32.0,
+  "burn_probability_10y": 0.09
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.084854,
+  "lon": -118.919496,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 22.32,
+  "burn_probability_10y": 0.675
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.208279,
+  "lon": -118.715695,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.492
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.200185,
+  "lon": -118.738837,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.28,
+  "burn_probability_10y": 0.464
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.060563,
+  "lon": -118.816519,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.813
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.059081,
+  "lon": -118.918166,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 23.17,
+  "burn_probability_10y": 0.719
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.053475,
+  "lon": -118.926021,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 22.32,
+  "burn_probability_10y": 0.877
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.154336,
+  "lon": -118.682757,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 22.32,
+  "burn_probability_10y": 0.313
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.161159,
+  "lon": -118.717945,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 12.67,
+  "burn_probability_10y": 0.329
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.221767,
+  "lon": -118.724006,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.387
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.184091,
+  "lon": -118.830364,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 11.85,
+  "burn_probability_10y": 0.266
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.049183,
+  "lon": -118.721618,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 32.0,
+  "burn_probability_10y": 0.056
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.085527,
+  "lon": -118.717532,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 22.57,
+  "burn_probability_10y": 0.252
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.220604,
+  "lon": -118.715547,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.402
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.238412,
+  "lon": -118.767712,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.108
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.08975,
+  "lon": -118.805676,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 20.97,
+  "burn_probability_10y": 0.089
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "burned",
+  "lat": 34.23619,
+  "lon": -118.770366,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.98,
+  "burn_probability_10y": 0.133
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.144619,
+  "lon": -118.454299,
+  "damage": null,
+  "dist_to_perimeter_km": 19.52,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.016
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.076338,
+  "lon": -118.506871,
+  "damage": null,
+  "dist_to_perimeter_km": 16.59,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.076
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.186401,
+  "lon": -118.479215,
+  "damage": null,
+  "dist_to_perimeter_km": 15.91,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.290799,
+  "lon": -118.774706,
+  "damage": null,
+  "dist_to_perimeter_km": 5.38,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.539
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.165861,
+  "lon": -118.581181,
+  "damage": null,
+  "dist_to_perimeter_km": 7.87,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.013
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.325442,
+  "lon": -118.816132,
+  "damage": null,
+  "dist_to_perimeter_km": 9.36,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.592
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.170488,
+  "lon": -118.601808,
+  "damage": null,
+  "dist_to_perimeter_km": 5.93,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.271681,
+  "lon": -118.502799,
+  "damage": null,
+  "dist_to_perimeter_km": 14.63,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.168858,
+  "lon": -118.446107,
+  "damage": null,
+  "dist_to_perimeter_km": 19.34,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.334035,
+  "lon": -118.485391,
+  "damage": null,
+  "dist_to_perimeter_km": 19.25,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.609
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.243005,
+  "lon": -119.125992,
+  "damage": null,
+  "dist_to_perimeter_km": 18.29,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.164837,
+  "lon": -118.873269,
+  "damage": null,
+  "dist_to_perimeter_km": 3.17,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.075
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.067833,
+  "lon": -118.473168,
+  "damage": null,
+  "dist_to_perimeter_km": 19.79,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.019
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.263576,
+  "lon": -118.886132,
+  "damage": null,
+  "dist_to_perimeter_km": 7.48,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.013
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.224004,
+  "lon": -118.566436,
+  "damage": null,
+  "dist_to_perimeter_km": 7.55,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.164111,
+  "lon": -118.460208,
+  "damage": null,
+  "dist_to_perimeter_km": 18.25,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.144865,
+  "lon": -119.044897,
+  "damage": null,
+  "dist_to_perimeter_km": 5.35,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.723
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.316048,
+  "lon": -119.001124,
+  "damage": null,
+  "dist_to_perimeter_km": 19.2,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.2
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.12512,
+  "lon": -119.096325,
+  "damage": null,
+  "dist_to_perimeter_km": 9.16,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.296604,
+  "lon": -118.779316,
+  "damage": null,
+  "dist_to_perimeter_km": 6.0,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.507
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.359783,
+  "lon": -118.880304,
+  "damage": null,
+  "dist_to_perimeter_km": 15.11,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.801
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.121376,
+  "lon": -118.538414,
+  "damage": null,
+  "dist_to_perimeter_km": 12.09,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.23
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.277207,
+  "lon": -118.707166,
+  "damage": null,
+  "dist_to_perimeter_km": 4.62,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.397775,
+  "lon": -118.6778,
+  "damage": null,
+  "dist_to_perimeter_km": 17.67,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.334
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.309455,
+  "lon": -118.688844,
+  "damage": null,
+  "dist_to_perimeter_km": 8.04,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.348
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.284028,
+  "lon": -118.500629,
+  "damage": null,
+  "dist_to_perimeter_km": 15.35,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.01
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.290036,
+  "lon": -118.701013,
+  "damage": null,
+  "dist_to_perimeter_km": 5.95,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.006
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.413528,
+  "lon": -118.71451,
+  "damage": null,
+  "dist_to_perimeter_km": 19.66,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.205
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.297173,
+  "lon": -118.557439,
+  "damage": null,
+  "dist_to_perimeter_km": 11.49,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.386
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.128272,
+  "lon": -118.538139,
+  "damage": null,
+  "dist_to_perimeter_km": 11.97,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.265
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.349301,
+  "lon": -118.545384,
+  "damage": null,
+  "dist_to_perimeter_km": 16.38,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.309
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.186925,
+  "lon": -118.488956,
+  "damage": null,
+  "dist_to_perimeter_km": 15.02,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.005
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.259668,
+  "lon": -118.658445,
+  "damage": null,
+  "dist_to_perimeter_km": 2.68,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.105
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.344163,
+  "lon": -118.611771,
+  "damage": null,
+  "dist_to_perimeter_km": 12.91,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.566
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.299334,
+  "lon": -119.033209,
+  "damage": null,
+  "dist_to_perimeter_km": 19.97,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.078
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.321548,
+  "lon": -118.72331,
+  "damage": null,
+  "dist_to_perimeter_km": 9.71,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.554
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.304065,
+  "lon": -118.988842,
+  "damage": null,
+  "dist_to_perimeter_km": 17.49,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.15
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.254378,
+  "lon": -119.000363,
+  "damage": null,
+  "dist_to_perimeter_km": 14.55,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.08785,
+  "lon": -119.019222,
+  "damage": null,
+  "dist_to_perimeter_km": 2.42,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.655
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.360738,
+  "lon": -118.815256,
+  "damage": null,
+  "dist_to_perimeter_km": 13.17,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.601
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.409789,
+  "lon": -118.64994,
+  "damage": null,
+  "dist_to_perimeter_km": 19.11,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.054
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.133124,
+  "lon": -119.086174,
+  "damage": null,
+  "dist_to_perimeter_km": 8.37,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.221396,
+  "lon": -118.471461,
+  "damage": null,
+  "dist_to_perimeter_km": 16.27,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.296069,
+  "lon": -118.864432,
+  "damage": null,
+  "dist_to_perimeter_km": 8.54,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.015
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.311021,
+  "lon": -118.699933,
+  "damage": null,
+  "dist_to_perimeter_km": 8.25,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.555
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.239869,
+  "lon": -118.991885,
+  "damage": null,
+  "dist_to_perimeter_km": 12.89,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.007
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.167244,
+  "lon": -118.912425,
+  "damage": null,
+  "dist_to_perimeter_km": 4.32,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.051
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.122903,
+  "lon": -119.060538,
+  "damage": null,
+  "dist_to_perimeter_km": 5.85,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.594
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.176294,
+  "lon": -118.493696,
+  "damage": null,
+  "dist_to_perimeter_km": 14.9,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.007
+ },
+ {
+  "incident": "woolsey_2018",
+  "category": "outside",
+  "lat": 34.308805,
+  "lon": -118.896781,
+  "damage": null,
+  "dist_to_perimeter_km": 11.68,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.081
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.352203,
+  "lon": -118.962849,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 26.08,
+  "burn_probability_10y": 0.618
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.344303,
+  "lon": -119.033555,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 12.43,
+  "burn_probability_10y": 0.062
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.293668,
+  "lon": -118.994228,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.065
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.31062,
+  "lon": -118.978647,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.078
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.31037,
+  "lon": -119.065476,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.079
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.30912,
+  "lon": -118.991119,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.102
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.342686,
+  "lon": -119.033171,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 12.43,
+  "burn_probability_10y": 0.045
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.290406,
+  "lon": -118.995662,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.075
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.315397,
+  "lon": -119.085384,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 5.7,
+  "burn_probability_10y": 0.056
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.330926,
+  "lon": -118.983482,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 5.72,
+  "burn_probability_10y": 0.409
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.290061,
+  "lon": -119.087411,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.046
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.253109,
+  "lon": -119.044147,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.175
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.344638,
+  "lon": -118.956276,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.07,
+  "burn_probability_10y": 0.639
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.312937,
+  "lon": -119.051381,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.107
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.334309,
+  "lon": -119.041242,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.78,
+  "burn_probability_10y": 0.052
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.249,
+  "lon": -119.054087,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.108
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.324175,
+  "lon": -118.953457,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.415
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.347119,
+  "lon": -119.003286,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.78,
+  "burn_probability_10y": 0.21
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.331672,
+  "lon": -118.983603,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 5.72,
+  "burn_probability_10y": 0.5
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.33441,
+  "lon": -118.977139,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 5.72,
+  "burn_probability_10y": 0.538
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.305182,
+  "lon": -119.060952,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.219
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.319086,
+  "lon": -119.038509,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.133
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.254584,
+  "lon": -119.044182,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.183
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.306952,
+  "lon": -118.995728,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.067
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.312936,
+  "lon": -119.09987,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.78,
+  "burn_probability_10y": 0.007
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.301252,
+  "lon": -119.061228,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.05
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.291628,
+  "lon": -119.079112,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.051
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.332469,
+  "lon": -118.999642,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.434
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.336825,
+  "lon": -118.950477,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.45,
+  "burn_probability_10y": 0.698
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.340293,
+  "lon": -119.038104,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 12.43,
+  "burn_probability_10y": 0.054
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.303675,
+  "lon": -119.005929,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.119
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.252339,
+  "lon": -119.053247,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.212
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.311202,
+  "lon": -119.084374,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 5.7,
+  "burn_probability_10y": 0.084
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.314821,
+  "lon": -119.08782,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 5.7,
+  "burn_probability_10y": 0.079
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.330684,
+  "lon": -119.019471,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.347
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.321563,
+  "lon": -119.084331,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.78,
+  "burn_probability_10y": 0.064
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.285333,
+  "lon": -119.092076,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.043
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.331977,
+  "lon": -118.940589,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 26.08,
+  "burn_probability_10y": 0.664
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.288294,
+  "lon": -119.112637,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.2
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.345459,
+  "lon": -119.005855,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.78,
+  "burn_probability_10y": 0.126
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.252406,
+  "lon": -119.047402,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.238
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.321136,
+  "lon": -118.953693,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.265
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.304133,
+  "lon": -119.019093,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.087
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.307866,
+  "lon": -119.065018,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.058
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.289211,
+  "lon": -119.078383,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.046
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.326382,
+  "lon": -118.97579,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.406
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.284978,
+  "lon": -119.08887,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.044
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.287003,
+  "lon": -119.102523,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.03,
+  "burn_probability_10y": 0.063
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.322302,
+  "lon": -118.97623,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.346
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "burned",
+  "lat": 34.322113,
+  "lon": -118.969195,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.42,
+  "burn_probability_10y": 0.479
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.292045,
+  "lon": -118.739481,
+  "damage": null,
+  "dist_to_perimeter_km": 18.5,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.017
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.294453,
+  "lon": -119.153056,
+  "damage": null,
+  "dist_to_perimeter_km": 3.02,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.404845,
+  "lon": -118.756341,
+  "damage": null,
+  "dist_to_perimeter_km": 17.95,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.012
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.377283,
+  "lon": -119.12504,
+  "damage": null,
+  "dist_to_perimeter_km": 6.75,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.197
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.527695,
+  "lon": -118.990537,
+  "damage": null,
+  "dist_to_perimeter_km": 18.94,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.339
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.341513,
+  "lon": -118.765206,
+  "damage": null,
+  "dist_to_perimeter_km": 15.57,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.519
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.373125,
+  "lon": -119.101308,
+  "damage": null,
+  "dist_to_perimeter_km": 5.09,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.18
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.479843,
+  "lon": -119.190449,
+  "damage": null,
+  "dist_to_perimeter_km": 19.43,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.063
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.201807,
+  "lon": -118.846358,
+  "damage": null,
+  "dist_to_perimeter_km": 15.32,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.01
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.253947,
+  "lon": -119.251022,
+  "damage": null,
+  "dist_to_perimeter_km": 12.23,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.364401,
+  "lon": -119.075167,
+  "damage": null,
+  "dist_to_perimeter_km": 3.33,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.09
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.298694,
+  "lon": -118.756252,
+  "damage": null,
+  "dist_to_perimeter_km": 16.82,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.111
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.115366,
+  "lon": -118.970981,
+  "damage": null,
+  "dist_to_perimeter_km": 15.94,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.399
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.347264,
+  "lon": -119.232142,
+  "damage": null,
+  "dist_to_perimeter_km": 12.09,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.037
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.369408,
+  "lon": -119.045796,
+  "damage": null,
+  "dist_to_perimeter_km": 2.29,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.082
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.228313,
+  "lon": -119.190803,
+  "damage": null,
+  "dist_to_perimeter_km": 7.96,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.330255,
+  "lon": -119.131542,
+  "damage": null,
+  "dist_to_perimeter_km": 3.3,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.004
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.383185,
+  "lon": -119.067236,
+  "damage": null,
+  "dist_to_perimeter_km": 4.49,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.045
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.230879,
+  "lon": -119.209093,
+  "damage": null,
+  "dist_to_perimeter_km": 9.66,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.008
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.09964,
+  "lon": -118.954122,
+  "damage": null,
+  "dist_to_perimeter_km": 18.24,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.638
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.295051,
+  "lon": -118.931072,
+  "damage": null,
+  "dist_to_perimeter_km": 3.13,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.024
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.169473,
+  "lon": -119.166005,
+  "damage": null,
+  "dist_to_perimeter_km": 8.31,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.470502,
+  "lon": -118.880253,
+  "damage": null,
+  "dist_to_perimeter_km": 14.12,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.625
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.446483,
+  "lon": -119.052429,
+  "damage": null,
+  "dist_to_perimeter_km": 10.52,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.048
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.444302,
+  "lon": -119.061225,
+  "damage": null,
+  "dist_to_perimeter_km": 10.5,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.117
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.186084,
+  "lon": -118.856673,
+  "damage": null,
+  "dist_to_perimeter_km": 15.94,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.414652,
+  "lon": -118.790813,
+  "damage": null,
+  "dist_to_perimeter_km": 15.6,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.026
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.425188,
+  "lon": -119.1896,
+  "damage": null,
+  "dist_to_perimeter_km": 14.65,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.168
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.473982,
+  "lon": -119.01252,
+  "damage": null,
+  "dist_to_perimeter_km": 13.33,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.013
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.14145,
+  "lon": -118.930774,
+  "damage": null,
+  "dist_to_perimeter_km": 15.41,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.495
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.447096,
+  "lon": -119.147691,
+  "damage": null,
+  "dist_to_perimeter_km": 14.31,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.166
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.373709,
+  "lon": -118.895778,
+  "damage": null,
+  "dist_to_perimeter_km": 5.05,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.524
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.271244,
+  "lon": -118.794683,
+  "damage": null,
+  "dist_to_perimeter_km": 14.49,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.005
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.416247,
+  "lon": -118.782423,
+  "damage": null,
+  "dist_to_perimeter_km": 16.36,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.169
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.250726,
+  "lon": -118.873903,
+  "damage": null,
+  "dist_to_perimeter_km": 9.95,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.027
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.335346,
+  "lon": -119.160853,
+  "damage": null,
+  "dist_to_perimeter_km": 5.66,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.096
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.107552,
+  "lon": -118.944114,
+  "damage": null,
+  "dist_to_perimeter_km": 17.95,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.476
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.413073,
+  "lon": -118.936366,
+  "damage": null,
+  "dist_to_perimeter_km": 6.37,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.01
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.415859,
+  "lon": -118.865531,
+  "damage": null,
+  "dist_to_perimeter_km": 10.11,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.534
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.203812,
+  "lon": -118.80993,
+  "damage": null,
+  "dist_to_perimeter_km": 17.73,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.431
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.375919,
+  "lon": -118.804768,
+  "damage": null,
+  "dist_to_perimeter_km": 12.65,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.393
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.374244,
+  "lon": -119.174885,
+  "damage": null,
+  "dist_to_perimeter_km": 9.59,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.244
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.454223,
+  "lon": -119.231585,
+  "damage": null,
+  "dist_to_perimeter_km": 19.61,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.175674,
+  "lon": -119.080995,
+  "damage": null,
+  "dist_to_perimeter_km": 5.45,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.152445,
+  "lon": -118.880002,
+  "damage": null,
+  "dist_to_perimeter_km": 17.45,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.119
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.206747,
+  "lon": -119.151851,
+  "damage": null,
+  "dist_to_perimeter_km": 4.79,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.513981,
+  "lon": -118.947106,
+  "damage": null,
+  "dist_to_perimeter_km": 17.23,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.428
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.25024,
+  "lon": -118.840585,
+  "damage": null,
+  "dist_to_perimeter_km": 12.3,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.04
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.193245,
+  "lon": -118.887645,
+  "damage": null,
+  "dist_to_perimeter_km": 13.57,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.011
+ },
+ {
+  "incident": "mountain_2024",
+  "category": "outside",
+  "lat": 34.314713,
+  "lon": -119.223613,
+  "damage": null,
+  "dist_to_perimeter_km": 9.88,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.181
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.051514,
+  "lon": -118.675754,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.094
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.045233,
+  "lon": -118.673191,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.024
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.042471,
+  "lon": -118.718297,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.058
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.060568,
+  "lon": -118.697568,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.055
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.060467,
+  "lon": -118.676473,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.117
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.057454,
+  "lon": -118.707998,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.1
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.047587,
+  "lon": -118.705149,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.086
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.039092,
+  "lon": -118.714753,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.555
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.06935,
+  "lon": -118.697358,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.133
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.046631,
+  "lon": -118.66938,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.08
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.040288,
+  "lon": -118.700302,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.03
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.053258,
+  "lon": -118.678845,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.052
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.062898,
+  "lon": -118.686752,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.099
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.058941,
+  "lon": -118.679758,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.119
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.037501,
+  "lon": -118.701918,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.028
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.063788,
+  "lon": -118.691658,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.034
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.035607,
+  "lon": -118.700221,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.04
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.060729,
+  "lon": -118.672327,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.131
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.036849,
+  "lon": -118.722589,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 27.45,
+  "burn_probability_10y": 0.022
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.05285,
+  "lon": -118.722228,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.091
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.044401,
+  "lon": -118.720156,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.042
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.06204,
+  "lon": -118.702201,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.094
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.047489,
+  "lon": -118.676175,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.03
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.060305,
+  "lon": -118.697409,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.055
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.057647,
+  "lon": -118.700129,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.122
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.047737,
+  "lon": -118.679834,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.026
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.069645,
+  "lon": -118.702559,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.77,
+  "burn_probability_10y": 0.114
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.055105,
+  "lon": -118.679238,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.093
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.048453,
+  "lon": -118.717284,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.08
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.061558,
+  "lon": -118.669665,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.119
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.063814,
+  "lon": -118.682821,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.174
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.067227,
+  "lon": -118.684318,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.169
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.058046,
+  "lon": -118.700814,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.122
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.043746,
+  "lon": -118.688069,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.041
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.064177,
+  "lon": -118.681866,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.164
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.057527,
+  "lon": -118.715713,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.158
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.048558,
+  "lon": -118.70072,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.095
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.057177,
+  "lon": -118.704071,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.144
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.059513,
+  "lon": -118.666002,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.372
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.063994,
+  "lon": -118.705579,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.036
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.071064,
+  "lon": -118.69604,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.219
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.053671,
+  "lon": -118.681563,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.05
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.052416,
+  "lon": -118.687266,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.022
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.066206,
+  "lon": -118.69586,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.038
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.047982,
+  "lon": -118.664703,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.072
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.047205,
+  "lon": -118.678244,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.025
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.045594,
+  "lon": -118.729852,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.056
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.042063,
+  "lon": -118.704777,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.055
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.048426,
+  "lon": -118.682955,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.712
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "burned",
+  "lat": 34.071035,
+  "lon": -118.695466,
+  "damage": null,
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.85,
+  "burn_probability_10y": 0.219
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.220147,
+  "lon": -118.62048,
+  "damage": null,
+  "dist_to_perimeter_km": 17.76,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.034547,
+  "lon": -118.815305,
+  "damage": null,
+  "dist_to_perimeter_km": 7.5,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.894
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.07812,
+  "lon": -118.912259,
+  "damage": null,
+  "dist_to_perimeter_km": 16.82,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.679
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.233285,
+  "lon": -118.780689,
+  "damage": null,
+  "dist_to_perimeter_km": 19.01,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.103
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.13845,
+  "lon": -118.776284,
+  "damage": null,
+  "dist_to_perimeter_km": 9.77,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.214
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.136652,
+  "lon": -118.840702,
+  "damage": null,
+  "dist_to_perimeter_km": 13.76,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.033
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.110786,
+  "lon": -118.536245,
+  "damage": null,
+  "dist_to_perimeter_km": 13.15,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.17
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.068623,
+  "lon": -118.558808,
+  "damage": null,
+  "dist_to_perimeter_km": 9.72,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.255
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.018505,
+  "lon": -118.478134,
+  "damage": null,
+  "dist_to_perimeter_km": 17.08,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.081814,
+  "lon": -118.832411,
+  "damage": null,
+  "dist_to_perimeter_km": 9.82,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.357
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.073378,
+  "lon": -118.489483,
+  "damage": null,
+  "dist_to_perimeter_km": 16.12,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.045
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.141731,
+  "lon": -118.50227,
+  "damage": null,
+  "dist_to_perimeter_km": 17.52,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.014
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.126371,
+  "lon": -118.619432,
+  "damage": null,
+  "dist_to_perimeter_km": 8.38,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.545
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.170475,
+  "lon": -118.62565,
+  "damage": null,
+  "dist_to_perimeter_km": 12.54,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.065765,
+  "lon": -118.542382,
+  "damage": null,
+  "dist_to_perimeter_km": 11.17,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.218
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.230018,
+  "lon": -118.752617,
+  "damage": null,
+  "dist_to_perimeter_km": 17.86,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.238
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.053923,
+  "lon": -118.828283,
+  "damage": null,
+  "dist_to_perimeter_km": 8.8,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.592
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.135893,
+  "lon": -118.530131,
+  "damage": null,
+  "dist_to_perimeter_km": 15.0,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.174
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.125164,
+  "lon": -118.534564,
+  "damage": null,
+  "dist_to_perimeter_km": 14.02,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.237
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.137771,
+  "lon": -118.531807,
+  "damage": null,
+  "dist_to_perimeter_km": 14.98,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.126
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.115314,
+  "lon": -118.624769,
+  "damage": null,
+  "dist_to_perimeter_km": 7.08,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.058
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.158636,
+  "lon": -118.642252,
+  "damage": null,
+  "dist_to_perimeter_km": 10.73,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.150253,
+  "lon": -118.862208,
+  "damage": null,
+  "dist_to_perimeter_km": 16.24,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.133
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.142656,
+  "lon": -118.721584,
+  "damage": null,
+  "dist_to_perimeter_km": 7.8,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.238
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.136522,
+  "lon": -118.772595,
+  "damage": null,
+  "dist_to_perimeter_km": 9.38,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.277
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.085639,
+  "lon": -118.836131,
+  "damage": null,
+  "dist_to_perimeter_km": 10.29,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.388
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.22056,
+  "lon": -118.654279,
+  "damage": null,
+  "dist_to_perimeter_km": 16.83,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.434
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.130428,
+  "lon": -118.862336,
+  "damage": null,
+  "dist_to_perimeter_km": 14.86,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.017
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.171109,
+  "lon": -118.845147,
+  "damage": null,
+  "dist_to_perimeter_km": 16.8,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.011
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.17883,
+  "lon": -118.876587,
+  "damage": null,
+  "dist_to_perimeter_km": 19.4,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.004
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.167957,
+  "lon": -118.493714,
+  "damage": null,
+  "dist_to_perimeter_km": 19.78,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.007
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.121796,
+  "lon": -118.577534,
+  "damage": null,
+  "dist_to_perimeter_km": 10.55,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.131
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.030459,
+  "lon": -118.449671,
+  "damage": null,
+  "dist_to_perimeter_km": 19.53,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.122385,
+  "lon": -118.744459,
+  "damage": null,
+  "dist_to_perimeter_km": 6.54,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.265
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.088202,
+  "lon": -118.816425,
+  "damage": null,
+  "dist_to_perimeter_km": 8.77,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.274
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.162366,
+  "lon": -118.50981,
+  "damage": null,
+  "dist_to_perimeter_km": 18.23,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.106856,
+  "lon": -118.807136,
+  "damage": null,
+  "dist_to_perimeter_km": 9.25,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.081
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.013056,
+  "lon": -118.475015,
+  "damage": null,
+  "dist_to_perimeter_km": 17.47,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.107207,
+  "lon": -118.470435,
+  "damage": null,
+  "dist_to_perimeter_km": 18.68,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.151
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.21901,
+  "lon": -118.821628,
+  "damage": null,
+  "dist_to_perimeter_km": 19.38,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.026
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.090969,
+  "lon": -118.82705,
+  "damage": null,
+  "dist_to_perimeter_km": 9.78,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.366
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.081059,
+  "lon": -118.527015,
+  "damage": null,
+  "dist_to_perimeter_km": 12.87,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.235
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.109987,
+  "lon": -118.595629,
+  "damage": null,
+  "dist_to_perimeter_km": 8.43,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.198
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.210414,
+  "lon": -118.720531,
+  "damage": null,
+  "dist_to_perimeter_km": 15.2,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.396
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.199816,
+  "lon": -118.850537,
+  "damage": null,
+  "dist_to_perimeter_km": 19.41,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.014
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.095145,
+  "lon": -118.469969,
+  "damage": null,
+  "dist_to_perimeter_km": 18.35,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.069
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.104723,
+  "lon": -118.786319,
+  "damage": null,
+  "dist_to_perimeter_km": 7.73,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.091
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.250862,
+  "lon": -118.705287,
+  "damage": null,
+  "dist_to_perimeter_km": 19.59,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.566
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.088401,
+  "lon": -118.834071,
+  "damage": null,
+  "dist_to_perimeter_km": 10.24,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.448
+ },
+ {
+  "incident": "franklin_2024",
+  "category": "outside",
+  "lat": 34.203634,
+  "lon": -118.739882,
+  "damage": null,
+  "dist_to_perimeter_km": 14.74,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.5
+ }
+]

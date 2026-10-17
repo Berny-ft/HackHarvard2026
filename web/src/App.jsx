@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./styles.css";
 import MapView, { BASEMAPS, CAMERAS, LIGHTS } from "./MapView.jsx";
@@ -9,6 +9,9 @@ const INCIDENTS = [
   ["live", "Live"],
   ["eaton_2025", "Eaton 2025"],
   ["palisades_2025", "Palisades 2025"],
+  ["woolsey_2018", "Woolsey 2018"],
+  ["mountain_2024", "Mountain 2024"],
+  ["franklin_2024", "Franklin 2024"],
 ];
 
 const LIVE_LAYERS = [
@@ -43,11 +46,34 @@ async function loadIncident(key) {
   const get = (f) => fetch(`/data/incidents/${key}/${f}`).then((r) => r.json());
   const [info, series, perimeters, real, structures, detections] = await Promise.all([
     get("incident.json"), get("timeseries.json"), get("perimeters.geojson"),
-    get("real_perimeter.geojson"), get("structures.geojson"),
+    get("real_perimeter.geojson"),
+    get("structures.geojson").catch(() => ({ type: "FeatureCollection", features: [] })),
     get("detections.geojson").catch(() => ({ type: "FeatureCollection", features: [] })),
   ]);
   return { info, series, perimeters, real, structures, detections };
 }
+
+// Alert demo: move a fire's geometry by (dlon, dlat) so it burns toward the watched address.
+const shiftCoords = (c, dx, dy) => (typeof c[0] === "number" ? [c[0] + dx, c[1] + dy] : c.map((x) => shiftCoords(x, dx, dy)));
+const shiftFc = (fc, dx, dy) => ({
+  ...fc,
+  features: fc.features.map((f) => ({ ...f, geometry: f.geometry && { ...f.geometry, coordinates: shiftCoords(f.geometry.coordinates, dx, dy) } })),
+});
+function shiftData(d, dx, dy) {
+  return {
+    ...d,
+    info: { ...d.info, ignition: { ...d.info.ignition, lon: d.info.ignition.lon + dx, lat: d.info.ignition.lat + dy } },
+    perimeters: shiftFc(d.perimeters, dx, dy), real: shiftFc(d.real, dx, dy),
+    structures: shiftFc(d.structures, dx, dy), detections: shiftFc(d.detections, dx, dy),
+  };
+}
+const EMPTY_FC = { type: "FeatureCollection", features: [] };
+const api = (path, body) => fetch(`/api/demo/${path}`, body === undefined ? undefined : {
+  method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
+}).then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); });
+
+// Places that needed a warning: destroyed homes, or burned points on fires without damage records.
+const needed = (h) => h.category === "destroyed" || h.category === "burned";
 
 const levelAt = (alerts, hour) => {
   let lvl = "none";
@@ -77,6 +103,11 @@ export default function App() {
   const [basemap, setBasemap] = useState("standard");
   const [light, setLight] = useState("dusk");
   const [camera, setCamera] = useState("3d");
+  const [demo, setDemo] = useState(null);          // demo-server config while the alert demo runs
+  const [demoState, setDemoState] = useState(null);
+  const [demoError, setDemoError] = useState(null);
+  const demoRef = useRef(null);
+  demoRef.current = demo;
 
   useEffect(() => {
     document.title = "FireTrace map";
@@ -96,9 +127,41 @@ export default function App() {
     const url = new URL(window.location.href);
     if (incident === "live") url.searchParams.delete("fire"); else url.searchParams.set("fire", incident);
     window.history.replaceState({}, "", url);
+    if (demoRef.current && demoRef.current.incident !== incident) setDemo(null);
     if (incident === "live") return;
-    loadIncident(incident).then((d) => { setData(d); setHour(12); });
+    loadIncident(incident).then((d) => { setData(d); setHour(demoRef.current ? 0 : 12); });
   }, [incident]);
+
+  const startDemo = async () => {
+    try {
+      const cfg = await api(`config?incident=${incident}`);
+      setDemoState(await api("reset", {}));
+      setDemoError(null);
+      setSelected(null);
+      setPlaying(false);
+      setDemo(cfg);
+      if (incident !== cfg.incident) setIncident(cfg.incident); else setHour(0);
+    } catch {
+      setDemoError("Start the demo server first (in agent/: .venv/bin/python -m sentinel demo-server), and make sure this fire has a replay.");
+    }
+  };
+  const stopDemo = () => { setDemo(null); setDemoState(null); setPlaying(false); };
+
+  // Every hour the map shows, the sentinel decides for the watched address; emails go out server-side.
+  useEffect(() => {
+    if (!demo || !data) return;
+    api("step", { hour }).then(setDemoState).catch(() => setDemoError("Lost the demo server."));
+  }, [hour, demo, data]);
+
+  // Email delivery happens in the background; poll so each alert's status updates.
+  useEffect(() => {
+    if (!demo) return;
+    const id = setInterval(() => api("state").then(setDemoState).catch(() => {}), 1000);
+    return () => clearInterval(id);
+  }, [demo]);
+
+  const viewData = useMemo(() => (demo && data ? shiftData(data, demo.dlon, demo.dlat) : data), [data, demo]);
+  const demoHome = demo && { lon: demo.lon, lat: demo.lat, level: demoState?.now?.level ?? "none", label: "Your address" };
 
   useEffect(() => {
     if (!playing || !data) return;
@@ -151,7 +214,7 @@ export default function App() {
     type: "FeatureCollection",
     features: homes.map((h) => ({
       type: "Feature", geometry: { type: "Point", coordinates: [h.lon, h.lat] },
-      properties: { idx: h.idx, level: levelAt(h.alerts, hour), destroyed: h.category === "destroyed",
+      properties: { idx: h.idx, level: levelAt(h.alerts, hour), destroyed: needed(h),
                     selected: h.idx === selected },
     })),
   }), [homes, hour, selected]);
@@ -171,6 +234,11 @@ export default function App() {
             </button>
           ))}
         </nav>
+        {!isLive && (demo
+          ? <button className="demo-btn on" onClick={stopDemo}>Exit alert demo</button>
+          : <button className="demo-btn" onClick={startDemo} title="Replay this fire toward your address and get real alert emails">
+              <span className="demo-dot" aria-hidden="true" />Alert demo
+            </button>)}
         <span className="topbar-spacer" />
         <span className="topbar-meta">
           {isLive && live?.status && (
@@ -182,7 +250,8 @@ export default function App() {
 
       <main className="body">
         <section className="mapwrap">
-          <MapView incident={incident} data={data} hour={hour} layers={layers} households={homesGeo}
+          <MapView incident={incident} data={viewData} hour={hour} layers={layers}
+                   households={demo ? EMPTY_FC : homesGeo} home={demoHome}
                    basemap={basemap} light={light} camera={camera} focus={focus}
                    onSelectHousehold={setSelected} />
 
@@ -215,12 +284,16 @@ export default function App() {
 
           {!isLive && !data && <div className="loading"><span className="spinner" />Loading the {INCIDENTS.find(([k]) => k === incident)[1]} replay</div>}
           {isLive && <LiveBanner live={live} />}
+          {demoError && <div className="banner demo-error" role="alert"><b>Alert demo</b><span>{demoError}</span>
+            <button onClick={() => setDemoError(null)} aria-label="Dismiss">×</button></div>}
           <Legend live={isLive} />
         </section>
 
         <aside className="side">
           {isLive ? (
             <LiveSide live={live} onFocus={setFocus} patterns={patterns} risk={risk} />
+          ) : demo ? (
+            <DemoCard demo={demo} state={demoState} hour={hour} />
           ) : selectedHome ? (
             <HouseholdCard home={selectedHome} hour={hour} onClose={() => setSelected(null)}
                            onJump={(h) => { setPlaying(false); setHour(h); }} />
@@ -285,6 +358,53 @@ export default function App() {
   );
 }
 
+function DemoCard({ demo, state, hour }) {
+  const now = state?.now;
+  const alerts = state?.alerts ?? [];
+  const level = now?.level ?? "none";
+  const arrived = hour >= demo.arrival_h;
+  const first = (lvl) => alerts.find((a) => a.kind !== "fire-arrived" && LEVELS.indexOf(a.level) >= LEVELS.indexOf(lvl));
+  const lead = (a) => (a ? demo.arrival_h - a.hour : null);
+  const emailText = (e) => (e === "sent" ? "Email sent" : e === "sending" || e === "queued" ? "Sending email…" : `Email ${e}`);
+  return (
+    <div className="card demo-card">
+      <div className="card-head"><h3>Alert demo</h3><span className="num muted">T+{hour}h</span></div>
+      <p className="small-p muted">
+        The {demo.fire} ({new Date(demo.start).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}),
+        replayed toward this address. Real wind, spread and satellite detections; only the location moves.
+      </p>
+      <div className="demo-address">
+        <span className="muted">Watching</span><b>{demo.label}</b>
+        <span className="muted">Emails to</span><b>{demo.email || "nobody (set SENTINEL_ALERT_EMAIL)"}</b>
+      </div>
+      <div className="demo-level" style={{ "--c": LEVEL_COLOR[level] }}>
+        <b>{LEVEL_LABEL[level]}</b>
+        <span className="num">{now?.nearest_fire_km != null ? `Fire ${now.nearest_fire_km.toFixed(1)} km away` : "No fire yet"}
+          {now?.eta_h != null && now.eta_h < 24 ? ` · could arrive in ${Math.max(1, Math.round(now.eta_h))} h` : ""}</span>
+      </div>
+      <ol className="hh-alerts">
+        {alerts.length === 0 && <li className="hh-empty">Press play. Alerts appear here as the sentinel sends them.</li>}
+        {alerts.map((a) => (
+          <li key={a.id} style={{ "--c": a.kind === "fire-arrived" ? "var(--ember)" : LEVEL_COLOR[a.level] }}>
+            <span className="hh-time num">T+{(+a.hour).toFixed(a.kind === "fire-arrived" ? 1 : 0)}h</span>
+            <div>
+              <div className="hh-level">{a.kind === "fire-arrived" ? "Fire at your address" : LEVEL_LABEL[a.level]}</div>
+              <p>{a.message}</p>
+              <span className={`email-chip ${a.email === "sent" ? "ok" : a.email.startsWith("not") ? "bad" : ""}`}>{emailText(a.email)}</span>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <div className="arrivals demo-sum">
+        <div><b className="num">{arrived ? "Arrived" : `T+${demo.arrival_h.toFixed(1)}h`}</b><span>Fire reaches the address</span></div>
+        <div><b className="num ok">{first("warn") ? `${lead(first("warn")).toFixed(1)} h` : "–"}</b><span>warning before the fire</span></div>
+        <div><b className="num ok">{first("evacuate") ? `${lead(first("evacuate")).toFixed(1)} h` : "–"}</b><span>told to leave before the fire</span></div>
+      </div>
+      <p className="hint">Drag the timeline back to reset and replay. Change the address in agent/.env.</p>
+    </div>
+  );
+}
+
 function LayerGroup({ title, items, layers, toggle }) {
   return (
     <div className="layer-group">
@@ -344,7 +464,7 @@ function ReplayCard({ homes, hour }) {
   let arrived = 0, warned = 0, evac = 0, destroyed = 0;
   for (const h of homes) {
     counts[levelAt(h.alerts, hour)]++;
-    if (h.category !== "destroyed" || h.arrival_h == null) continue;
+    if (!needed(h) || h.arrival_h == null) continue;
     destroyed++;
     if (h.arrival_h <= hour) {
       arrived++;
@@ -355,7 +475,7 @@ function ReplayCard({ homes, hour }) {
   return (
     <div className="card replay-card">
       <div className="card-head"><h3>Sentinel replay</h3><span className="num muted">T+{hour}h</span></div>
-      <p className="small-p muted">{homes.length} households: {destroyed} later destroyed, the rest unharmed or outside the burn. Each sees only what was known at this hour.</p>
+      <p className="small-p muted">{homes.length} households: {destroyed} {homes.some((h) => h.category === "burned") ? "inside the burn scar" : "later destroyed"}, the rest {homes.some((h) => h.category === "undamaged") ? "unharmed or " : ""}outside the burn. Each sees only what was known at this hour.</p>
       <div className="levelbar" role="img" aria-label={LEVELS.map((l) => `${counts[l]} ${LEVEL_LABEL[l]}`).join(", ")}>
         {LEVELS.map((l) => (
           <span key={l} style={{ flexGrow: counts[l], background: LEVEL_COLOR[l], opacity: l === "none" ? 0.35 : 1 }} />
@@ -367,7 +487,7 @@ function ReplayCard({ homes, hour }) {
         ))}
       </div>
       <div className="arrivals">
-        <div><b className="num">{arrived}<small>/{destroyed}</small></b><span>Destroyed homes the fire has reached</span></div>
+        <div><b className="num">{arrived}<small>/{destroyed}</small></b><span>{homes.some((h) => h.category === "burned") ? "Burned places" : "Destroyed homes"} the fire has reached</span></div>
         <div><b className="num ok">{arrived ? pct(warned / arrived, 0) : "–"}</b><span>of those were told to get ready first</span></div>
         <div><b className="num ok">{arrived ? pct(evac / arrived, 0) : "–"}</b><span>were told to leave first</span></div>
       </div>
@@ -377,7 +497,8 @@ function ReplayCard({ homes, hour }) {
 }
 
 function HouseholdCard({ home, hour, onClose, onJump }) {
-  const label = { destroyed: "Destroyed home", undamaged: "Undamaged home", outside: "Outside the burn area" }[home.category];
+  const label = { destroyed: "Destroyed home", undamaged: "Undamaged home", burned: "Inside the burn scar",
+                  outside: "Outside the burn area" }[home.category];
   return (
     <div className="card household-card">
       <div className="card-head">
