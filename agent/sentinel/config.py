@@ -76,3 +76,17 @@ SMTP_FROM = os.environ.get("SMTP_FROM") or SMTP_USER
 TWILIO_SID = os.environ.get("TWILIO_ACCOUNT_SID")
 TWILIO_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
 TWILIO_FROM = os.environ.get("TWILIO_FROM")
+
+# --- texting, routes and departure windows -------------------------------
+PHOTON_PROJECT_ID = os.environ.get("PHOTON_PROJECT_ID")        # set => use the Photon channel via photon-bridge/
+PHOTON_BRIDGE_URL = os.environ.get("PHOTON_BRIDGE_URL", "http://127.0.0.1:3001")
+PHOTON_BRIDGE_SECRET = os.environ.get("PHOTON_BRIDGE_SECRET", "")
+PHOTON_NUMBER = os.environ.get("PHOTON_NUMBER")
+PHOTON_WEBHOOK_SECRET = os.environ.get("PHOTON_WEBHOOK_SECRET")
+REMINDER_EVERY_MIN = float(os.environ.get("SENTINEL_REMINDER_MIN", "10"))
+MAX_REMINDERS = int(os.environ.get("SENTINEL_MAX_REMINDERS", "6"))
+ROUTE_MAX_AGE_MIN = float(os.environ.get("SENTINEL_ROUTE_MAX_AGE_MIN", "5"))
+PUBLIC_URL = os.environ.get("SENTINEL_PUBLIC_URL", "http://localhost:8080")
+TZ = os.environ.get("SENTINEL_TZ", "America/Los_Angeles")
+DASH_TOKEN = os.environ.get("SENTINEL_DASH_TOKEN")
+WEB_HOST = os.environ.get("SENTINEL_WEB_HOST", "127.0.0.1")

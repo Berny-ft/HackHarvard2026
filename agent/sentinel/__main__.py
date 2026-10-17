@@ -4,14 +4,18 @@
   python -m sentinel replay eaton_2025 34.18 -118.13 [--policy llm]
   python -m sentinel scan                           # most threatened areas now
   python -m sentinel subscribe 34.18 -118.13 --webhook http://localhost:9000/hook
+  python -m sentinel subscribe 34.18 -118.13 --phone 818-555-0100 --consent
   python -m sentinel run [--once] [--every 15] [--policy llm] [--no-refresh] [--dry-run]
   python -m sentinel mcp [--http 8765] [--loop]
-  python -m sentinel demo [--address "..."] [--seconds-per-hour 3] [--policy llm]
+  python -m sentinel alert-demo [--address "..."] [--seconds-per-hour 3] [--policy llm]   # emails each alert
   python -m sentinel demo-server                    # API for the web map's "Alert demo"
   python -m sentinel webhook-sink [--port 9000]     # local receiver that verifies signatures
+  python -m sentinel demo --address "..." [--phone +1...] [--send] [--serve 8080]   # replay a past fire at one house
+  python -m sentinel web [--port 8080]              # inbound texts/voice, route page, dashboard
 """
 import argparse
 import json
+import os
 
 
 def main():
@@ -25,14 +29,14 @@ def main():
     sub.add_parser("scan")
     p = sub.add_parser("subscribe"); p.add_argument("lat", type=float); p.add_argument("lon", type=float)
     p.add_argument("--webhook"); p.add_argument("--phone"); p.add_argument("--email"); p.add_argument("--label")
-    p.add_argument("--min-level", default="watch")
+    p.add_argument("--min-level", default="watch"); p.add_argument("--consent", action="store_true")
     p = sub.add_parser("run"); p.add_argument("--once", action="store_true"); p.add_argument("--every", type=float, default=15)
     p.add_argument("--policy", default="rules"); p.add_argument("--no-refresh", action="store_true")
     p.add_argument("--dry-run", action="store_true")
     p = sub.add_parser("mcp"); p.add_argument("--http", type=int)
     p.add_argument("--loop", action="store_true", help="also run the alert loop in the background")
     p.add_argument("--every", type=float, default=15)
-    p = sub.add_parser("demo", help="replay a real fire moved to your address, emailing each alert")
+    p = sub.add_parser("alert-demo", help="replay a real fire moved to your address, emailing each alert")
     p.add_argument("--address"); p.add_argument("--lat", type=float); p.add_argument("--lon", type=float)
     p.add_argument("--incident", default="eaton_2025", help="eaton_2025, palisades_2025, woolsey_2018, mountain_2024, franklin_2024")
     p.add_argument("--seconds-per-hour", type=float, default=3.0); p.add_argument("--policy", default="rules")
@@ -43,6 +47,14 @@ def main():
     p.add_argument("--incident", default="eaton_2025", help="eaton_2025, palisades_2025, woolsey_2018, mountain_2024, franklin_2024")
     p.add_argument("--policy", default="rules"); p.add_argument("--email")
     p = sub.add_parser("webhook-sink"); p.add_argument("--port", type=int, default=9000)
+    p = sub.add_parser("demo"); p.add_argument("--address")
+    p.add_argument("--incident", default="eaton_2025"); p.add_argument("--phone")
+    p.add_argument("--lat", type=float); p.add_argument("--lon", type=float)
+    p.add_argument("--send", action="store_true", help="text the phone through Photon (default: print only)")
+    p.add_argument("--serve", type=int, metavar="PORT"); p.add_argument("--delay", type=float, default=8.0)
+    p = sub.add_parser("web"); p.add_argument("--port", type=int, default=8080)
+    p = sub.add_parser("call", help="phone the number now (Photon voice)"); p.add_argument("--phone")
+    p.add_argument("--message", default="This is a FireTrace Sentinel test call. A wildfire watch is in effect near your home.")
     a = ap.parse_args()
 
     if a.cmd == "threat":
@@ -65,7 +77,8 @@ def main():
         print(json.dumps(scan_region(), indent=1))
     elif a.cmd == "subscribe":
         from . import store
-        print(json.dumps(store.subscribe(a.lat, a.lon, a.label, a.webhook, a.phone, a.min_level, a.email), indent=1))
+        print(json.dumps(store.subscribe(a.lat, a.lon, a.label, a.webhook, a.phone, a.min_level, a.consent, a.email),
+                         indent=1))
     elif a.cmd == "run":
         from .live import cycle, run_forever
         kw = {"policy_name": a.policy, "refresh": not a.no_refresh, "dry_run": a.dry_run}
@@ -76,8 +89,8 @@ def main():
     elif a.cmd == "mcp":
         from .mcp_server import serve
         serve(a.http, loop=a.loop, every_min=a.every)
-    elif a.cmd == "demo":
-        from .demo import default_location, geocode, run
+    elif a.cmd == "alert-demo":
+        from .alert_demo import default_location, geocode, run
         if a.address:
             (lat, lon), label = geocode(a.address), a.address
         elif a.lat is not None and a.lon is not None:
@@ -85,11 +98,24 @@ def main():
         elif loc := default_location():
             lat, lon, label = loc
         else:
-            ap.error("demo needs --address, --lat/--lon, or SENTINEL_DEMO_ADDRESS in agent/.env")
+            ap.error("alert-demo needs --address, --lat/--lon, or SENTINEL_DEMO_ADDRESS in agent/.env")
         run(lat, lon, label, a.incident, a.seconds_per_hour, a.policy, a.email)
     elif a.cmd == "demo-server":
         from .demo_server import serve as demo_serve
         demo_serve(a.port, a.incident, a.policy, a.address, a.lat, a.lon, a.email)
+    elif a.cmd == "demo":
+        from .demo import main as demo
+        demo(a.address, a.incident, a.phone, a.send, a.serve, a.delay, a.lat, a.lon)
+    elif a.cmd == "call":
+        from .channels.voice import place_call
+        from .store import normalize_phone
+        phone = a.phone or os.environ.get("DEMO_PHONE")
+        if not phone:
+            raise SystemExit("Pass --phone or set DEMO_PHONE in agent/.env.")
+        print(place_call(normalize_phone(phone), a.message))
+    elif a.cmd == "web":
+        from .web import serve
+        serve(a.port)
     elif a.cmd == "webhook-sink":
         from .sink import serve
         serve(a.port)

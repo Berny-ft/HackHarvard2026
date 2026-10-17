@@ -82,14 +82,17 @@ def regional_overview() -> dict:
 
 
 @mcp.tool()
-def subscribe(lat: float, lon: float, label: str | None = None, min_level: str = "watch",
-              webhook_url: str | None = None, email: str | None = None, phone: str | None = None) -> dict:
+def subscribe(lat: float, lon: float, webhook_url: str | None = None, phone: str | None = None,
+              label: str | None = None, min_level: str = "watch", consent: bool = False,
+              email: str | None = None) -> dict:
     """Watch a location (home, work, school) continuously. The sentinel re-checks it every 15 minutes and records
     an alert whenever the level changes (none < watch < warn < evacuate, from min_level up). Collect alerts by
-    calling check_alerts(subscription_id) on a schedule; optionally also push them to webhook_url (signed JSON
-    POST), email or phone (SMS). Only the location and delivery addresses are stored. Returns the subscription
-    id and, if the place is already under threat, the first alert."""
-    sub = store.subscribe(lat, lon, label, webhook_url, phone, min_level, email)
+    calling check_alerts(subscription_id) on a schedule; optionally also push them: webhook_url receives a signed
+    JSON POST on every level change (header X-Sentinel-Signature: sha256=HMAC of the body), email receives the
+    alert, and phone receives texts (with evacuation windows and routes) only if consent is true. Returns the
+    subscription id and, if the place is already under threat, the first alert. Only the location and delivery
+    addresses are stored."""
+    sub = store.subscribe(lat, lon, label, webhook_url, phone, min_level, consent, email)
     first = evaluate_subscriber(sub, _snap(), get_policy(POLICY))
     return {"subscription_id": sub["id"], "check_every_minutes": 15,
             "first_alert": first, "current": _view(assess(_snap(), lat, lon))}

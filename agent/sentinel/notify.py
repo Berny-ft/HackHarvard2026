@@ -1,4 +1,4 @@
-"""Deliver alerts: signed webhooks for agents, email and SMS for people.
+"""Deliver alerts: signed webhooks for agents, email for people. Phone texts go through channels/.
 
 Email is the channel that reaches personal agents without an API: an agent
 that watches its person's inbox (Meta's Muse, for one) sees the alert and acts
@@ -87,14 +87,12 @@ def send_email(to, alert):
 
 def deliver(sub, alert):
     results = []
-    channels = ((send_webhook, sub.get("webhook_url")), (send_email, sub.get("email") or ALERT_EMAIL),
-                (send_sms, sub.get("phone")))
+    channels = ((send_webhook, sub.get("webhook_url")), (send_email, sub.get("email") or ALERT_EMAIL))
     for fn, target in channels:
         if not target:
             continue
         try:
-            arg = f"FireTrace {alert['level'].upper()}: {alert['message']}" if fn is send_sms else alert
-            results.append(fn(target, arg))
+            results.append(fn(target, alert))
         except (requests.RequestException, smtplib.SMTPException, OSError) as e:
             results.append({"channel": fn.__name__, "ok": False, "status": str(e)})
     return results

@@ -17,7 +17,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 from starlette.routing import Route
 
-from .demo import DemoSession, default_location
+from .alert_demo import DemoSession, default_location
 
 SESSION: DemoSession | None = None
 SURGE = None          # surge_sentinel.demo.SurgeDemoSession, created when the map picks an address
@@ -114,7 +114,7 @@ def serve(port=8787, incident="eaton_2025", policy="rules", address=None, lat=No
     POLICY = policy
     import uvicorn
 
-    from .demo import geocode
+    from .alert_demo import geocode
     if lat is not None and lon is not None:
         label = address or f"{lat:.4f}, {lon:.4f}"
     elif address:

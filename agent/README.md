@@ -115,3 +115,17 @@ optimistic. Two fires is a small sample.
 - `evals/`: dataset, metrics, local runner, calibration, Chalk Evaluation suite
 - `evals/export_web.py`: writes `modeling/out/sentinel/` (replay results and the live scan) for the web app
 - `deploy/sandbox.py`: Chalk sandbox deployment
+
+## Texting, routes and departure windows
+
+```
+python -m sentinel demo                      # offline walkthrough: warn, evacuate, replies, reminder, LEFT
+python -m sentinel web --port 8080           # / dashboard, /signup, /route/{token}, /photon/inbound, /photon/voice
+python -m sentinel subscribe LAT LON --phone 818-555-0100 --consent
+python -m sentinel run --every 5             # live loop (texts go to the console channel until Photon is wired)
+python -m unittest discover -s tests         # from agent/
+```
+
+Texts: WARN once (with an estimated planning window), EVACUATE once, then reminders until the person texts LEFT.
+NOW returns the live route and never marks the person as left. Web signup is double opt-in (reply YES).
+Set `SENTINEL_DASH_TOKEN` to protect the dashboard. Design and open items: `docs/IMPLEMENTATION_PLAN.md`.

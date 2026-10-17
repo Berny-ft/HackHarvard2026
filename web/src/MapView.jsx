@@ -477,7 +477,7 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
       <div className="map notoken">
         <div>
           <b>Mapbox token missing.</b>
-          <p>Add <code>VITE_MAPBOX_TOKEN=pk...</code> to <code>web/.env.local</code> and restart <code>npm run dev</code>.</p>
+          <p>Add <code>VITE_MAPBOX_TOKEN=pk...</code> to <code>.env.local</code> (repo root) and restart <code>npm run dev</code>.</p>
         </div>
       </div>
     );

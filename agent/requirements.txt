@@ -8,3 +8,6 @@ pydantic
 openai
 mcp>=2
 chalkcompute
+starlette
+uvicorn
+tzdata
