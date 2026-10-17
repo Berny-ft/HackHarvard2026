@@ -1,0 +1,24 @@
+{
+  "train": "history<= 2004, label 2005-2014",
+  "test": "history<= 2014, label 2015-2025",
+  "cells": 806129,
+  "test_burn_rate": 0.1860198553829474,
+  "auc": 0.7428094746044178,
+  "avg_precision": 0.32983972403668904,
+  "top10pct_capture": 0.20583371122195845,
+  "baseline_history_auc": 0.7106012938594244,
+  "baseline_history_top10pct_capture": 0.1635546426951906,
+  "importance_auc_drop": {
+    "years_since_burn": 0.0618,
+    "elevation": 0.0429,
+    "dist_coast_km": 0.0285,
+    "slope": 0.0267,
+    "tpi": 0.0116,
+    "fuel_group": 0.0103,
+    "dist_urban_km": 0.0099,
+    "times_burned": 0.0093,
+    "eastness": 0.0001,
+    "northness": -0.0004,
+    "canopy_cover": -0.0011
+  }
+}

@@ -1,0 +1,49 @@
+{
+ "key": "palisades_2025",
+ "name": "Palisades Fire",
+ "start": "2025-01-07T10:00:00",
+ "hours": 72,
+ "ignition": {
+  "lon": -118.543,
+  "lat": 34.072,
+  "note": "approximate public origin"
+ },
+ "resolution_m": 30,
+ "params": {
+  "adjust": 0.75,
+  "urban_factor": 0.1,
+  "hold_ros": 0.0,
+  "gust_weight": 0.5,
+  "spot": 4.0
+ },
+ "metrics": {
+  "sorensen": 0.8484302047898005,
+  "iou": 0.7367596895287913,
+  "sim_over_real_area": 0.9789362009933934,
+  "on_time": 0.30203498750446267,
+  "median_late_h": 12.245915619951944,
+  "n_detections": 2801,
+  "growth_log_error": 0.754879516699648,
+  "growth_skill": 0.47006724657212823,
+  "skill": 0.6592487256809644,
+  "out_of_sample_sorensen": 0.6243115138385003,
+  "out_of_sample_on_time": 0.2602641913602285,
+  "out_of_sample_growth_skill": 0.4295398453639665,
+  "out_of_sample_skill": 0.5269256796012334,
+  "out_of_sample_params": {
+   "adjust": 1.0,
+   "urban_factor": 0.1,
+   "hold_ros": 1.0,
+   "gust_weight": 0.5,
+   "spot": 4.0
+  },
+  "damage": {
+   "structures": 12081,
+   "destroyed": 6845,
+   "destroyed_reached_by_sim": 0.9899196493791088,
+   "undamaged_reached_by_sim": 0.9268525592055004
+  }
+ },
+ "final_sim_acres": 21812.9,
+ "real_acres": 23058.988944515007
+}

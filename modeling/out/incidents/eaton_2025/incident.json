@@ -1,0 +1,49 @@
+{
+ "key": "eaton_2025",
+ "name": "Eaton Fire",
+ "start": "2025-01-07T18:00:00",
+ "hours": 72,
+ "ignition": {
+  "lon": -118.0905,
+  "lat": 34.191,
+  "note": "approximate public origin"
+ },
+ "resolution_m": 30,
+ "params": {
+  "adjust": 0.75,
+  "urban_factor": 0.1,
+  "hold_ros": 0.0,
+  "gust_weight": 0.5,
+  "spot": 4.0
+ },
+ "metrics": {
+  "sorensen": 0.5368005407135996,
+  "iou": 0.36686764562870755,
+  "sim_over_real_area": 2.558917550245292,
+  "on_time": 0.26744868035190617,
+  "median_late_h": 10.05279990487766,
+  "n_detections": 1705,
+  "growth_log_error": 0.4533404524578512,
+  "growth_skill": 0.6355017386635092,
+  "skill": 0.5861511396885544,
+  "out_of_sample_sorensen": 0.4171882771996942,
+  "out_of_sample_on_time": 0.48914956011730204,
+  "out_of_sample_growth_skill": 0.43091957302945944,
+  "out_of_sample_skill": 0.42405392511457685,
+  "out_of_sample_params": {
+   "adjust": 0.75,
+   "urban_factor": 0.1,
+   "hold_ros": 0.0,
+   "gust_weight": 1.0,
+   "spot": 4.0
+  },
+  "damage": {
+   "structures": 18428,
+   "destroyed": 9419,
+   "destroyed_reached_by_sim": 0.8397919099692112,
+   "undamaged_reached_by_sim": 0.7706737706737706
+  }
+ },
+ "final_sim_acres": 34578.6,
+ "real_acres": 14053.117725841763
+}

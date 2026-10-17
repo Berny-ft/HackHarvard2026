@@ -1,0 +1,11 @@
+numpy
+pandas
+geopandas
+shapely
+pyproj
+rasterio
+scipy
+scikit-learn
+requests
+pyarrow
+pillow

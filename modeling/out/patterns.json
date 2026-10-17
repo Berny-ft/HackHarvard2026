@@ -1,0 +1,706 @@
+{
+ "region": "Los Angeles + Ventura counties",
+ "source": "CAL FIRE FRAP fire perimeters",
+ "n_fires_since_1950": 2644,
+ "yearly": [
+  {
+   "year": 1950,
+   "fires": 9,
+   "acres": 14436
+  },
+  {
+   "year": 1951,
+   "fires": 20,
+   "acres": 24231
+  },
+  {
+   "year": 1952,
+   "fires": 14,
+   "acres": 4318
+  },
+  {
+   "year": 1953,
+   "fires": 54,
+   "acres": 102459
+  },
+  {
+   "year": 1954,
+   "fires": 25,
+   "acres": 23508
+  },
+  {
+   "year": 1955,
+   "fires": 27,
+   "acres": 23953
+  },
+  {
+   "year": 1956,
+   "fires": 42,
+   "acres": 48820
+  },
+  {
+   "year": 1957,
+   "fires": 37,
+   "acres": 54364
+  },
+  {
+   "year": 1958,
+   "fires": 28,
+   "acres": 69754
+  },
+  {
+   "year": 1959,
+   "fires": 31,
+   "acres": 24303
+  },
+  {
+   "year": 1960,
+   "fires": 29,
+   "acres": 95927
+  },
+  {
+   "year": 1961,
+   "fires": 15,
+   "acres": 27147
+  },
+  {
+   "year": 1962,
+   "fires": 22,
+   "acres": 34413
+  },
+  {
+   "year": 1963,
+   "fires": 23,
+   "acres": 6742
+  },
+  {
+   "year": 1964,
+   "fires": 17,
+   "acres": 93906
+  },
+  {
+   "year": 1965,
+   "fires": 7,
+   "acres": 2500
+  },
+  {
+   "year": 1966,
+   "fires": 22,
+   "acres": 7094
+  },
+  {
+   "year": 1967,
+   "fires": 29,
+   "acres": 122246
+  },
+  {
+   "year": 1968,
+   "fires": 51,
+   "acres": 81041
+  },
+  {
+   "year": 1969,
+   "fires": 31,
+   "acres": 10607
+  },
+  {
+   "year": 1970,
+   "fires": 77,
+   "acres": 239400
+  },
+  {
+   "year": 1971,
+   "fires": 36,
+   "acres": 26684
+  },
+  {
+   "year": 1972,
+   "fires": 30,
+   "acres": 20250
+  },
+  {
+   "year": 1973,
+   "fires": 28,
+   "acres": 18465
+  },
+  {
+   "year": 1974,
+   "fires": 40,
+   "acres": 13532
+  },
+  {
+   "year": 1975,
+   "fires": 81,
+   "acres": 83536
+  },
+  {
+   "year": 1976,
+   "fires": 36,
+   "acres": 6807
+  },
+  {
+   "year": 1977,
+   "fires": 41,
+   "acres": 15802
+  },
+  {
+   "year": 1978,
+   "fires": 44,
+   "acres": 40134
+  },
+  {
+   "year": 1979,
+   "fires": 78,
+   "acres": 99356
+  },
+  {
+   "year": 1980,
+   "fires": 64,
+   "acres": 102781
+  },
+  {
+   "year": 1981,
+   "fires": 49,
+   "acres": 26723
+  },
+  {
+   "year": 1982,
+   "fires": 23,
+   "acres": 70090
+  },
+  {
+   "year": 1983,
+   "fires": 36,
+   "acres": 14871
+  },
+  {
+   "year": 1984,
+   "fires": 36,
+   "acres": 29524
+  },
+  {
+   "year": 1985,
+   "fires": 32,
+   "acres": 198310
+  },
+  {
+   "year": 1986,
+   "fires": 39,
+   "acres": 32322
+  },
+  {
+   "year": 1987,
+   "fires": 16,
+   "acres": 16990
+  },
+  {
+   "year": 1988,
+   "fires": 26,
+   "acres": 28021
+  },
+  {
+   "year": 1989,
+   "fires": 48,
+   "acres": 10732
+  },
+  {
+   "year": 1990,
+   "fires": 30,
+   "acres": 43785
+  },
+  {
+   "year": 1991,
+   "fires": 10,
+   "acres": 6189
+  },
+  {
+   "year": 1992,
+   "fires": 27,
+   "acres": 5518
+  },
+  {
+   "year": 1993,
+   "fires": 34,
+   "acres": 97089
+  },
+  {
+   "year": 1994,
+   "fires": 33,
+   "acres": 14404
+  },
+  {
+   "year": 1995,
+   "fires": 32,
+   "acres": 7526
+  },
+  {
+   "year": 1996,
+   "fires": 33,
+   "acres": 52867
+  },
+  {
+   "year": 1997,
+   "fires": 34,
+   "acres": 58386
+  },
+  {
+   "year": 1998,
+   "fires": 15,
+   "acres": 14193
+  },
+  {
+   "year": 1999,
+   "fires": 27,
+   "acres": 27474
+  },
+  {
+   "year": 2000,
+   "fires": 15,
+   "acres": 3372
+  },
+  {
+   "year": 2001,
+   "fires": 11,
+   "acres": 9119
+  },
+  {
+   "year": 2002,
+   "fires": 30,
+   "acres": 118545
+  },
+  {
+   "year": 2003,
+   "fires": 28,
+   "acres": 246923
+  },
+  {
+   "year": 2004,
+   "fires": 19,
+   "acres": 36557
+  },
+  {
+   "year": 2005,
+   "fires": 18,
+   "acres": 34981
+  },
+  {
+   "year": 2006,
+   "fires": 26,
+   "acres": 194668
+  },
+  {
+   "year": 2007,
+   "fires": 59,
+   "acres": 386404
+  },
+  {
+   "year": 2008,
+   "fires": 28,
+   "acres": 62833
+  },
+  {
+   "year": 2009,
+   "fires": 33,
+   "acres": 190727
+  },
+  {
+   "year": 2010,
+   "fires": 28,
+   "acres": 15437
+  },
+  {
+   "year": 2011,
+   "fires": 44,
+   "acres": 3181
+  },
+  {
+   "year": 2012,
+   "fires": 44,
+   "acres": 7777
+  },
+  {
+   "year": 2013,
+   "fires": 40,
+   "acres": 60922
+  },
+  {
+   "year": 2014,
+   "fires": 28,
+   "acres": 3545
+  },
+  {
+   "year": 2015,
+   "fires": 81,
+   "acres": 6690
+  },
+  {
+   "year": 2016,
+   "fires": 50,
+   "acres": 87564
+  },
+  {
+   "year": 2017,
+   "fires": 74,
+   "acres": 325191
+  },
+  {
+   "year": 2018,
+   "fires": 93,
+   "acres": 100764
+  },
+  {
+   "year": 2019,
+   "fires": 26,
+   "acres": 26822
+  },
+  {
+   "year": 2020,
+   "fires": 55,
+   "acres": 192830
+  },
+  {
+   "year": 2021,
+   "fires": 52,
+   "acres": 4995
+  },
+  {
+   "year": 2022,
+   "fires": 27,
+   "acres": 6759
+  },
+  {
+   "year": 2023,
+   "fires": 10,
+   "acres": 4899
+  },
+  {
+   "year": 2024,
+   "fires": 32,
+   "acres": 101736
+  },
+  {
+   "year": 2025,
+   "fires": 25,
+   "acres": 57097
+  }
+ ],
+ "monthly_since_1990": [
+  {
+   "month": 1,
+   "fires": 45,
+   "acres": 53744
+  },
+  {
+   "month": 2,
+   "fires": 17,
+   "acres": 13153
+  },
+  {
+   "month": 3,
+   "fires": 15,
+   "acres": 2215
+  },
+  {
+   "month": 4,
+   "fires": 54,
+   "acres": 6949
+  },
+  {
+   "month": 5,
+   "fires": 97,
+   "acres": 74481
+  },
+  {
+   "month": 6,
+   "fires": 188,
+   "acres": 103002
+  },
+  {
+   "month": 7,
+   "fires": 242,
+   "acres": 386281
+  },
+  {
+   "month": 8,
+   "fires": 187,
+   "acres": 349948
+  },
+  {
+   "month": 9,
+   "fires": 150,
+   "acres": 500507
+  },
+  {
+   "month": 10,
+   "fires": 127,
+   "acres": 584931
+  },
+  {
+   "month": 11,
+   "fires": 66,
+   "acres": 184607
+  },
+  {
+   "month": 12,
+   "fires": 48,
+   "acres": 343719
+  }
+ ],
+ "causes_since_1990": {
+  "Unknown": {
+   "fires": 698,
+   "acres": 941795
+  },
+  "Miscellaneous": {
+   "fires": 150,
+   "acres": 509073
+  },
+  "Equipment use": {
+   "fires": 132,
+   "acres": 460880
+  },
+  "Arson": {
+   "fires": 55,
+   "acres": 290624
+  },
+  "Debris burning": {
+   "fires": 9,
+   "acres": 189456
+  },
+  "Power line": {
+   "fires": 33,
+   "acres": 104679
+  },
+  "Playing with fire": {
+   "fires": 21,
+   "acres": 41615
+  },
+  "Vehicle": {
+   "fires": 59,
+   "acres": 32831
+  },
+  "Campfire": {
+   "fires": 31,
+   "acres": 17332
+  },
+  "Escaped prescribed burn": {
+   "fires": 1,
+   "acres": 10592
+  },
+  "Aircraft": {
+   "fires": 7,
+   "acres": 8970
+  },
+  "Lightning": {
+   "fires": 35,
+   "acres": 6364
+  },
+  "Smoking": {
+   "fires": 13,
+   "acres": 2312
+  },
+  "Non-firefighter training": {
+   "fires": 1,
+   "acres": 806
+  },
+  "Structure": {
+   "fires": 5,
+   "acres": 362
+  },
+  "Illegal campfire": {
+   "fires": 1,
+   "acres": 78
+  }
+ },
+ "largest_fires": [
+  {
+   "name": "Thomas",
+   "year": 2017,
+   "acres": 281791,
+   "alarm": "2017-12-04",
+   "cause": "Miscellaneous"
+  },
+  {
+   "name": "Zaca",
+   "year": 2007,
+   "acres": 240359,
+   "alarm": "2007-07-04",
+   "cause": "Equipment use"
+  },
+  {
+   "name": "Day",
+   "year": 2006,
+   "acres": 161816,
+   "alarm": "2006-09-04",
+   "cause": "Debris burning"
+  },
+  {
+   "name": "Station",
+   "year": 2009,
+   "acres": 160833,
+   "alarm": "2009-08-26",
+   "cause": "Arson"
+  },
+  {
+   "name": "Wheeler #2",
+   "year": 1985,
+   "acres": 122687,
+   "alarm": "1985-07-01",
+   "cause": "Miscellaneous"
+  },
+  {
+   "name": "Bobcat",
+   "year": 2020,
+   "acres": 115998,
+   "alarm": "2020-09-06",
+   "cause": "Unknown"
+  },
+  {
+   "name": "Clampitt",
+   "year": 1970,
+   "acres": 115537,
+   "alarm": "1970-09-25",
+   "cause": "Power line"
+  },
+  {
+   "name": "Simi",
+   "year": 2003,
+   "acres": 107570,
+   "alarm": "2003-10-25",
+   "cause": "Unknown"
+  },
+  {
+   "name": "Woolsey",
+   "year": 2018,
+   "acres": 89551,
+   "alarm": "2018-11-08",
+   "cause": "Power line"
+  },
+  {
+   "name": "Coyote",
+   "year": 1964,
+   "acres": 65339,
+   "alarm": "1964-09-22",
+   "cause": "Unknown"
+  },
+  {
+   "name": "Piru",
+   "year": 2003,
+   "acres": 63726,
+   "alarm": "2003-10-23",
+   "cause": "Equipment use"
+  },
+  {
+   "name": "Ranch",
+   "year": 2007,
+   "acres": 58410,
+   "alarm": "2007-10-20",
+   "cause": "Equipment use"
+  },
+  {
+   "name": "Bridge",
+   "year": 2024,
+   "acres": 55724,
+   "alarm": "2024-09-08",
+   "cause": "Unknown"
+  },
+  {
+   "name": "Mill/Usfs",
+   "year": 1975,
+   "acres": 51220,
+   "alarm": "1975-11-22",
+   "cause": "Unknown"
+  },
+  {
+   "name": "Paseo Grande",
+   "year": 1967,
+   "acres": 51076,
+   "alarm": null,
+   "cause": "Unknown"
+  }
+ ],
+ "fire_weather": {
+  "tiers": {
+   "Santa Ana": {
+    "rule": "wind from 340-110 deg, gusts >= 25 mph, min RH <= 20%",
+    "share_of_days": 0.04423619154586829,
+    "days_per_year": 16.1,
+    "share_of_1000ac_fire_starts": 0.27884615384615385,
+    "share_of_large_fire_acres": 0.30661451483415375,
+    "lift": 6.3035750615425306,
+    "days_by_month": {
+     "1": 0.072,
+     "2": 0.071,
+     "3": 0.044,
+     "4": 0.049,
+     "5": 0.026,
+     "6": 0.01,
+     "7": 0.001,
+     "8": 0.002,
+     "9": 0.021,
+     "10": 0.08,
+     "11": 0.091,
+     "12": 0.066
+    }
+   },
+   "Extreme Santa Ana": {
+    "rule": "wind from 340-110 deg, gusts >= 40 mph, min RH <= 15%",
+    "share_of_days": 0.004796836427877809,
+    "days_per_year": 1.8,
+    "share_of_1000ac_fire_starts": 0.11538461538461539,
+    "share_of_large_fire_acres": 0.22898709639316583,
+    "lift": 24.054315196998125,
+    "days_by_month": {
+     "1": 0.007,
+     "2": 0.004,
+     "3": 0.002,
+     "4": 0.006,
+     "5": 0.002,
+     "6": 0.001,
+     "7": 0.0,
+     "8": 0.0,
+     "9": 0.002,
+     "10": 0.014,
+     "11": 0.011,
+     "12": 0.009
+    }
+   }
+  },
+  "fire_start_conditions": {
+   "median_rh_min": 21.0,
+   "median_gust_mph": 22.8,
+   "median_temp_max_f": 84.2,
+   "large_fire_median_rh_min": 11.5,
+   "large_fire_median_gust_mph": 24.6,
+   "all_days_median_rh_min": 34.0,
+   "all_days_median_gust_mph": 21.0
+  }
+ },
+ "landscape": {
+  "fuel_group": {
+   "urban": 0.0556,
+   "nonburnable": 0.0396,
+   "grass": 0.3043,
+   "grass_shrub": 0.5248,
+   "shrub": 0.6807,
+   "timber_understory": 0.615,
+   "timber_litter": 0.5593
+  },
+  "slope_deg": {
+   "0-5": 0.1964,
+   "5-10": 0.5829,
+   "10-20": 0.7247,
+   "20-30": 0.8163,
+   "30-90": 0.8536
+  },
+  "elevation_m": {
+   "0-250": 0.3989,
+   "250-500": 0.6838,
+   "500-1000": 0.4812,
+   "1000-1500": 0.5956,
+   "1500-2000": 0.568,
+   "2000-4000": 0.5008
+  },
+  "note": "share of cells burned at least once 2000-2025 (burnable fuels only for terrain bins)"
+ }
+}

@@ -1,0 +1,16 @@
+# Secrets
+.env
+.env.*
+
+# Reference video (216 MB, too large for git)
+*.mp4
+
+# Environments / deps / caches
+node_modules/
+.venv/
+__pycache__/
+dist/
+.DS_Store
+
+# Raw downloads (re-created by `python -m wildfire fetch`)
+modeling/data/
