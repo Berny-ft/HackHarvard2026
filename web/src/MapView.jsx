@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
+import { WindAnimator } from "./wind.js";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -69,6 +70,9 @@ async function loadStatic() {
   ]);
   return {
     risk, timesBurned, history, redFlags, power, perims, hot,
+    windStations: (Array.isArray(weather) ? weather : []).map((r) => ({
+      lon: r.lon, lat: r.lat, dir: r.wind_dir_deg, mph: r.wind_mph, gust: r.gust_mph,
+    })),
     weather: points(weather, (r) => ({
       level: Math.max(r.santa_ana_level_now, r.santa_ana_level_peak_48h),
       label: `${Math.round(r.max_gust_48h_mph)} mph · ${r.min_fuel_moisture_48h_pct}%`,
@@ -227,8 +231,24 @@ function flyToIncident(map, incident, data, camera) {
   });
 }
 
+function applyWind(wind, s, stat) {
+  if (!wind) return;
+  const dark = s.basemap === "satellite" || s.basemap === "dark" ||
+    (BASEMAPS[s.basemap].standard && (s.light === "dusk" || s.light === "night"));
+  wind.setTheme(dark);
+  wind.setVisible(!!s.layers.wind);
+  if (s.incident === "live") {
+    if (stat?.windStations.length) wind.setStations(stat.windStations);
+  } else if (s.data) {
+    const r = s.data.series[Math.min(s.hour, s.data.series.length - 1)];
+    wind.setUniform(r.wind_dir_deg, r.wind_mph, r.gust_mph);
+  }
+}
+
 export default function MapView({ incident, data, hour, layers, basemap, light, camera, onReady }) {
   const el = useRef(null);
+  const canvasRef = useRef(null);
+  const windRef = useRef(null);
   const mapRef = useRef(null);
   const staticRef = useRef(null);
   const ready = useRef(false);
@@ -243,10 +263,12 @@ export default function MapView({ incident, data, hour, layers, basemap, light, 
     setIncidentData(map, s.incident, s.data);
     setTime(map, s.hour);
     setVisibility(map, s.incident, s.layers);
+    applyWind(windRef.current, s, staticRef.current);
   };
 
   useEffect(() => {
     if (!mapboxgl.accessToken) return;
+    ready.current = false;
     const map = new mapboxgl.Map({
       container: el.current,
       style: BASEMAPS[basemap].style,
@@ -255,6 +277,8 @@ export default function MapView({ incident, data, hour, layers, basemap, light, 
       maxPitch: 85,
     });
     mapRef.current = map;
+    windRef.current = new WindAnimator(map, canvasRef.current);
+    if (import.meta.env.DEV) Object.assign(window, { __map: map, __wind: windRef.current });
     map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "top-left");
     map.addControl(new mapboxgl.ScaleControl({ unit: "imperial" }), "bottom-left");
 
@@ -269,8 +293,17 @@ export default function MapView({ incident, data, hour, layers, basemap, light, 
         flyToIncident(map, state.current.incident, state.current.data, state.current.camera);
       }
     });
-    return () => map.remove();
+    return () => {
+      ready.current = false;
+      windRef.current?.destroy();
+      map.remove();
+    };
   }, []);
+
+  // Wind follows the incident hour (or live stations), theme and toggle.
+  useEffect(() => {
+    applyWind(windRef.current, state.current, staticRef.current);
+  }, [incident, data, hour, layers, basemap, light]);
 
   // Basemap swap: setStyle wipes custom layers; style.load reinstalls them.
   const lastBasemap = useRef(basemap);
@@ -329,5 +362,10 @@ export default function MapView({ incident, data, hour, layers, basemap, light, 
       </div>
     );
   }
-  return <div ref={el} className="map" />;
+  return (
+    <>
+      <div ref={el} className="map" />
+      <canvas ref={canvasRef} className="wind" />
+    </>
+  );
 }

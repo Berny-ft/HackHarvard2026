@@ -37,7 +37,7 @@ select {
 }
 
 .body { display: grid; grid-template-columns: 1fr 300px; min-height: 0; }
-.mapwrap { position: relative; min-height: 0; }
+.mapwrap { position: relative; min-height: 0; overflow: hidden; }
 .map { position: absolute; inset: 0; }
 .loading {
   position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
@@ -122,3 +122,5 @@ dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
 .notoken { display: grid; place-items: center; background: #e9e5de; text-align: center; padding: 24px; }
 .banner { top: 12px; left: 56px; transform: none; }
 @media (max-width: 900px) { .viewbar { top: 56px; } }
+
+.wind { position: absolute; inset: 0; pointer-events: none; }

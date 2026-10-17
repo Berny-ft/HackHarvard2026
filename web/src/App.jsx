@@ -14,6 +14,7 @@ const LIVE_LAYERS = [
   ["activeFires", "Active Fires (NIFC)", "#ff3b1f"],
   ["hotspots", "Satellite Hot Spots (FIRMS)", "#ffb000"],
   ["powerLines", "Power Lines (OSM)", "#ffd23f"],
+  ["wind", "Wind (animated)", "#9fb7d6"],
 ];
 
 const INCIDENT_LAYERS = [
@@ -21,6 +22,7 @@ const INCIDENT_LAYERS = [
   ["real", "Real Perimeter (CAL FIRE)", "#ffffff"],
   ["structures", "Structures Reached (DINS)", "#b3261e"],
   ["detections", "Satellite Detections (FIRMS)", "#ffb000"],
+  ["wind", "Wind (animated)", "#9fb7d6"],
 ];
 
 const LAYER_LABELS = [
@@ -55,7 +57,7 @@ export default function App() {
   const [risk, setRisk] = useState(null);
   const [layers, setLayers] = useState({
     spread: true, real: true, structures: true, detections: true, risk: false, timesBurned: false, history: false,
-    redFlags: true, santaAna: true, activeFires: true, hotspots: true, powerLines: false,
+    wind: true, redFlags: true, santaAna: true, activeFires: true, hotspots: true, powerLines: false,
   });
   const isLive = incident === "live";
   const [basemap, setBasemap] = useState("standard");
