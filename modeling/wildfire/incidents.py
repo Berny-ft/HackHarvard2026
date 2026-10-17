@@ -17,7 +17,7 @@ from shapely.ops import unary_union
 
 from . import fetch, observations
 from .config import CRS, DATA, INCIDENT_RES, INCIDENTS, OUT, keys_with
-from .export import save_overlay
+from .export import save_arrival_texture, save_overlay
 from .features import load_perimeters, load_raster
 from .spread import simulate
 
@@ -195,6 +195,7 @@ def export(key, inc, arrival, moist, wind, params, metrics):
     with rasterio.open(d / "arrival_hours.tif", "w", **{**prof, "dtype": "float32", "nodata": np.nan}) as dst:
         dst.write(hrs, 1)
     save_overlay(hrs, prof, f"incidents/{key}/spread", vmin=0, vmax=hours, cmap="time")
+    save_arrival_texture(hrs, prof, f"incidents/{key}/arrival", hours, res)
     (d / "perimeters.geojson").write_text(json.dumps(_isochrones(arrival, prof, res, hours)))
     (d / "real_perimeter.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": [{
         "type": "Feature", "properties": {"source": "CAL FIRE FRAP"},

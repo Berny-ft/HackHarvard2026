@@ -2,6 +2,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./styles.css";
 import MapView, { BASEMAPS, CAMERAS, LIGHTS } from "./MapView.jsx";
+import { loadArrival } from "./fire.js";
 import { Chart } from "./Charts.jsx";
 import { LEVEL_COLOR, LEVEL_LABEL, Logo, navigate, pct } from "./shared.jsx";
 
@@ -26,6 +27,7 @@ const LIVE_LAYERS = [
 const INCIDENT_LAYERS = [
   ["households", "Sentinel households", "var(--signal)"],
   ["spread", "Modeled spread", "#e5482a"],
+  ["smoke", "Flames, embers & smoke (3D)", "#b9b2a8"],
   ["real", "Final perimeter (CAL FIRE)", "#ffffff"],
   ["structures", "Structures reached", "#b3261e"],
   ["detections", "Satellite detections", "#ffb000"],
@@ -44,13 +46,13 @@ const PT = { timeZone: "America/Los_Angeles" };
 
 async function loadIncident(key) {
   const get = (f) => fetch(`/data/incidents/${key}/${f}`).then((r) => r.json());
-  const [info, series, perimeters, real, structures, detections] = await Promise.all([
-    get("incident.json"), get("timeseries.json"), get("perimeters.geojson"),
+  const [info, series, arrival, real, structures, detections] = await Promise.all([
+    get("incident.json"), get("timeseries.json"), loadArrival(`/data/incidents/${key}`),
     get("real_perimeter.geojson"),
     get("structures.geojson").catch(() => ({ type: "FeatureCollection", features: [] })),
     get("detections.geojson").catch(() => ({ type: "FeatureCollection", features: [] })),
   ]);
-  return { info, series, perimeters, real, structures, detections };
+  return { info, series, arrival, real, structures, detections };
 }
 
 // Alert demo: move a fire's geometry by (dlon, dlat) so it burns toward the watched address.
@@ -63,7 +65,7 @@ function shiftData(d, dx, dy) {
   return {
     ...d,
     info: { ...d.info, ignition: { ...d.info.ignition, lon: d.info.ignition.lon + dx, lat: d.info.ignition.lat + dy } },
-    perimeters: shiftFc(d.perimeters, dx, dy), real: shiftFc(d.real, dx, dy),
+    shift: [dx, dy], real: shiftFc(d.real, dx, dy),
     structures: shiftFc(d.structures, dx, dy), detections: shiftFc(d.detections, dx, dy),
   };
 }
@@ -95,7 +97,7 @@ export default function App() {
   const [focus, setFocus] = useState(null);
   const [layersOpen, setLayersOpen] = useState(() => window.innerWidth > 900);
   const [layers, setLayers] = useState({
-    spread: true, real: true, structures: false, detections: true, households: true,
+    spread: true, smoke: true, real: true, structures: false, detections: true, households: true,
     risk: false, timesBurned: false, history: false,
     wind: true, redFlags: true, santaAna: true, activeFires: true, hotspots: true, powerLines: false, scan: true,
   });
@@ -250,7 +252,7 @@ export default function App() {
 
       <main className="body">
         <section className="mapwrap">
-          <MapView incident={incident} data={viewData} hour={hour} layers={layers}
+          <MapView incident={incident} data={viewData} hour={hour} playRate={playing ? speed / 0.42 : 0} layers={layers}
                    households={demo ? EMPTY_FC : homesGeo} home={demoHome}
                    basemap={basemap} light={light} camera={camera} focus={focus}
                    onSelectHousehold={setSelected} />

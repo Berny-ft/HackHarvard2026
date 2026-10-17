@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import { WindAnimator } from "./wind.js";
+import { FireRenderer } from "./fire.js";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -26,7 +27,6 @@ export const LAYER_GROUPS = {
   risk: ["risk"],
   timesBurned: ["times-burned"],
   history: ["history-fill", "history-line"],
-  spread: ["perim-fill", "perim-rings", "perim-front"],
   real: ["real-line"],
   structures: ["structures"],
   detections: ["detections"],
@@ -39,9 +39,9 @@ export const LAYER_GROUPS = {
   scan: ["scan-cells", "scan-core"],
 };
 const LIVE_KEYS = new Set(["redFlags", "santaAna", "powerLines", "activeFires", "hotspots", "scan"]);
-const INCIDENT_KEYS = new Set(["spread", "real", "structures", "detections", "households"]);
+const INCIDENT_KEYS = new Set(["real", "structures", "detections", "households"]);
 const LEVEL_PAINT = ["match", ["get", "level"], "evacuate", "#ff6a2b", "warn", "#ffb547", "watch", "#8fb3dc", "#5d7268"];
-const INCIDENT_SOURCES = ["perims", "real", "structures", "ignition", "detections"];
+const INCIDENT_SOURCES = ["real", "structures", "ignition", "detections"];
 
 const SA_COLOR = ["match", ["get", "level"], 2, "#7a0f0f", 1, "#d9482b", "#6b8e3a"];
 const LABEL_PAINT = { "text-color": "#fff", "text-halo-color": "rgba(0,0,0,0.75)", "text-halo-width": 1.4 };
@@ -89,7 +89,7 @@ async function loadStatic() {
   };
 }
 
-function install(map, s, isStandard) {
+function install(map, s, isStandard, fire) {
   // Standard styles place custom layers in slots and support emissive (glow at night).
   const add = (layer, slot = "middle") => {
     const l = { ...layer, paint: { ...(layer.paint || {}) } };
@@ -145,11 +145,8 @@ function install(map, s, isStandard) {
         paint: { "circle-radius": 3, "circle-color": LEVEL_PAINT, "circle-stroke-color": "#0c1714", "circle-stroke-width": 1 } }, "top");
 
   for (const id of INCIDENT_SOURCES) map.addSource(id, { type: "geojson", data: EMPTY });
-  add({ id: "perim-fill", type: "fill", source: "perims", paint: { "fill-color": "#e5482a", "fill-opacity": 0.42 } });
-  add({ id: "perim-rings", type: "line", source: "perims",
-        paint: { "line-color": ["interpolate", ["linear"], ["get", "hour"], 0, "#ffe27a", 36, "#f08a2c", 72, "#b3261e"],
-                 "line-width": 1, "line-opacity": 0.85 } });
-  add({ id: "perim-front", type: "line", source: "perims", paint: { "line-color": "#ffcf4a", "line-width": 3, "line-blur": 1 } });
+  // Modeled spread: shader-drawn fire front on the terrain + three.js flames, embers and smoke.
+  fire?.attach(isStandard);
   add({ id: "real-line", type: "line", source: "real",
         paint: { "line-color": "#ffffff", "line-width": 2, "line-dasharray": [2, 1.5] } });
   add({
@@ -226,7 +223,6 @@ function setIncidentData(map, incident, data) {
     for (const id of INCIDENT_SOURCES) map.getSource(id)?.setData(EMPTY);
     return;
   }
-  map.getSource("perims").setData(data.perimeters);
   map.getSource("real").setData(data.real);
   map.getSource("structures").setData(data.structures);
   map.getSource("detections").setData(data.detections);
@@ -239,10 +235,6 @@ function setIncidentData(map, incident, data) {
 }
 
 function setTime(map, hour) {
-  const h = Math.max(1, hour);
-  map.setFilter("perim-fill", ["==", ["get", "hour"], h]);
-  map.setFilter("perim-front", ["==", ["get", "hour"], h]);
-  map.setFilter("perim-rings", ["all", ["<=", ["get", "hour"], hour], ["==", ["%", ["get", "hour"], 6], 0]]);
   // Satellite detections from the last 6 hours, fading with age.
   map.setFilter("detections", ["all", ["<=", ["get", "hour"], hour], [">", ["get", "hour"], hour - 6]]);
   map.setPaintProperty("detections", "circle-opacity", ["interpolate", ["linear"], ["get", "hour"], hour - 6, 0.25, hour, 1]);
@@ -250,8 +242,9 @@ function setTime(map, hour) {
     ["<=", ["to-number", ["get", "sim_arrival_hr"]], hour]]);
 }
 
-function setVisibility(map, incident, layers) {
+function setVisibility(map, incident, layers, fire) {
   const live = incident === "live";
+  fire?.setVisible(!live && !!layers.spread, !!layers.smoke);
   for (const [key, ids] of Object.entries(LAYER_GROUPS)) {
     const scoped = LIVE_KEYS.has(key) ? live : INCIDENT_KEYS.has(key) ? !live : true;
     for (const id of ids) if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", layers[key] && scoped ? "visible" : "none");
@@ -273,10 +266,11 @@ function flyToIncident(map, incident, data, camera, home) {
   });
 }
 
-function applyWind(wind, s, stat) {
+function applyWind(wind, s, stat, fire) {
   if (!wind) return;
   const dark = s.basemap === "satellite" || s.basemap === "dark" ||
     (BASEMAPS[s.basemap].standard && (s.light === "dusk" || s.light === "night"));
+  fire?.setTheme(BASEMAPS[s.basemap].standard ? s.light === "dusk" || s.light === "night" : s.basemap === "dark");
   wind.setTheme(dark);
   wind.setVisible(!!s.layers.wind);
   if (s.incident === "live") {
@@ -284,6 +278,7 @@ function applyWind(wind, s, stat) {
   } else if (s.data) {
     const r = s.data.series[Math.min(s.hour, s.data.series.length - 1)];
     wind.setUniform(r.wind_dir_deg, r.wind_mph, r.gust_mph);
+    fire?.setWind(r.wind_dir_deg, r.wind_mph);
   }
 }
 
@@ -293,10 +288,11 @@ function homeGeo(home) {
     properties: { level: home.level, label: home.label } }] };
 }
 
-export default function MapView({ incident, data, hour, layers, households, home, basemap, light, camera, focus, onReady, onSelectHousehold }) {
+export default function MapView({ incident, data, hour, playRate = 0, layers, households, home, basemap, light, camera, focus, onReady, onSelectHousehold }) {
   const el = useRef(null);
   const canvasRef = useRef(null);
   const windRef = useRef(null);
+  const fireRef = useRef(null);
   const mapRef = useRef(null);
   const staticRef = useRef(null);
   const ready = useRef(false);
@@ -307,13 +303,15 @@ export default function MapView({ incident, data, hour, layers, households, home
   const restore = (map) => {
     const s = state.current;
     if (BASEMAPS[s.basemap].standard) map.setConfigProperty("basemap", "lightPreset", s.light);
-    install(map, staticRef.current, !!BASEMAPS[s.basemap].standard);
+    install(map, staticRef.current, !!BASEMAPS[s.basemap].standard, fireRef.current);
     setIncidentData(map, s.incident, s.data);
+    fireRef.current.setData(s.incident === "live" ? null : s.data?.arrival, s.data?.shift);
+    fireRef.current.setHour(s.hour);
     map.getSource("households").setData(s.incident === "live" ? EMPTY : s.households || EMPTY);
     map.getSource("demo-home").setData(homeGeo(s.home));
     setTime(map, s.hour);
-    setVisibility(map, s.incident, s.layers);
-    applyWind(windRef.current, s, staticRef.current);
+    setVisibility(map, s.incident, s.layers, fireRef.current);
+    applyWind(windRef.current, s, staticRef.current, fireRef.current);
   };
 
   useEffect(() => {
@@ -328,7 +326,8 @@ export default function MapView({ incident, data, hour, layers, households, home
     });
     mapRef.current = map;
     windRef.current = new WindAnimator(map, canvasRef.current);
-    if (import.meta.env.DEV) Object.assign(window, { __map: map, __wind: windRef.current });
+    fireRef.current = new FireRenderer(map);
+    if (import.meta.env.DEV) Object.assign(window, { __map: map, __wind: windRef.current, __fire: fireRef.current });
     map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "bottom-right");
     map.addControl(new mapboxgl.ScaleControl({ unit: "imperial" }), "bottom-right");
     map.on("click", "households", (e) => state.current.onSelectHousehold?.(e.features[0].properties.idx));
@@ -353,13 +352,14 @@ export default function MapView({ incident, data, hour, layers, households, home
     return () => {
       ready.current = false;
       windRef.current?.destroy();
+      fireRef.current?.destroy();
       map.remove();
     };
   }, []);
 
   // Wind follows the incident hour (or live stations), theme and toggle.
   useEffect(() => {
-    applyWind(windRef.current, state.current, staticRef.current);
+    applyWind(windRef.current, state.current, staticRef.current, fireRef.current);
   }, [incident, data, hour, layers, basemap, light]);
 
   // Basemap swap: setStyle wipes custom layers; style.load reinstalls them.
@@ -381,7 +381,8 @@ export default function MapView({ incident, data, hour, layers, households, home
     const map = mapRef.current;
     if (!ready.current) return;
     setIncidentData(map, incident, data);
-    setVisibility(map, incident, layers);
+    fireRef.current.setData(incident === "live" ? null : data?.arrival, data?.shift);
+    setVisibility(map, incident, layers, fireRef.current);
     flyToIncident(map, incident, data, camera, home);
   }, [incident, data]);
 
@@ -402,8 +403,9 @@ export default function MapView({ incident, data, hour, layers, households, home
   }, [camera]);
 
   useEffect(() => {
+    fireRef.current?.setHour(hour, playRate);
     if (ready.current) setTime(mapRef.current, hour);
-  }, [hour, data]);
+  }, [hour, data, playRate]);
 
   useEffect(() => {
     if (ready.current) mapRef.current.getSource("households")?.setData(incident === "live" ? EMPTY : households || EMPTY);
@@ -418,7 +420,7 @@ export default function MapView({ incident, data, hour, layers, households, home
   }, [focus]);
 
   useEffect(() => {
-    if (ready.current) setVisibility(mapRef.current, incident, layers);
+    if (ready.current) setVisibility(mapRef.current, incident, layers, fireRef.current);
   }, [layers, incident]);
 
   if (!mapboxgl.accessToken) {

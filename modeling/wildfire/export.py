@@ -64,6 +64,32 @@ def save_overlay(arr, prof, name, vmin, vmax, cmap="fire"):
         {"image": f"{name}.png", "coordinates": corners, "vmin": vmin, "vmax": vmax}, indent=1))
 
 
+def save_arrival_texture(hrs, prof, name, hours, res_m):
+    """Pack fire arrival time into a PNG the web app decodes on the GPU.
+
+    R,G: arrival hour as 16 bits over [0, hours] (65535 = never burns within the replay).
+    B:   spread rate, 0-255 on a sqrt scale up to 3 km/h (head fire vs backing fire).
+    A:   255 so browsers never premultiply the data.
+    """
+    # Rate of spread from the arrival-time gradient on the native (metric) grid, in km/h.
+    burns = np.isfinite(hrs) & (hrs <= hours)
+    gy, gx = np.gradient(np.where(burns, hrs, hours * 1.5), res_m)
+    grad = np.hypot(gx, gy)
+    ros = np.where(burns & (grad > 0), 1e-3 / np.maximum(grad, 1e-9), 0)
+    merc, corners = to_web_mercator(np.where(burns, hrs, np.nan), prof)
+    ros, _ = to_web_mercator(ros, prof)
+    burns = np.isfinite(merc)
+    q = np.where(burns, np.round(np.clip(merc, 0, hours) / hours * 65534), 65535).astype(np.uint16)
+    ros = np.nan_to_num(ros)
+    b = np.round(np.sqrt(np.clip(ros / 3.0, 0, 1)) * 255).astype(np.uint8)
+    rgba = np.stack([(q >> 8).astype(np.uint8), (q & 255).astype(np.uint8), b,
+                     np.full(q.shape, 255, np.uint8)], axis=-1)
+    Image.fromarray(rgba, "RGBA").save(OUT / f"{name}.png", optimize=True)
+    (OUT / f"{name}.json").write_text(json.dumps(
+        {"image": f"{name}.png", "coordinates": corners, "hours": hours,
+         "width": int(rgba.shape[1]), "height": int(rgba.shape[0])}, indent=1))
+
+
 def save_json(name, obj):
     OUT.mkdir(exist_ok=True)
     (OUT / name).write_text(json.dumps(obj, indent=1, default=str))
