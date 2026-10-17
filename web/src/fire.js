@@ -9,10 +9,11 @@
 import mapboxgl from "mapbox-gl";
 import * as THREE from "three";
 import { SUN, exaggerationAt, loadDem } from "./terrain.js";
-import { BURN_HOURS, buildingFrame, buildingGeometry, buildingMaterial, buildingTexture, groundBuildings } from "./buildings.js";
+import { BURN_HOURS, IRONBOW, buildingFrame, buildingGeometry, buildingMaterial, buildingTexture, groundBuildings } from "./buildings.js";
 
 const GROUND = "fire-ground";
 const AIR = "fire-air";
+const VEIL = "fire-thermal"; // thermal mode: cools the basemap to a dark sensor background
 const MAX_CANVAS = 1400;
 const GROUND_FPS = 24; // drape uploads re-render terrain tiles, so keep them modest
 
@@ -115,9 +116,11 @@ const GROUND_FRAG = /* glsl */ `
   uniform vec3 uSunDir;   // east, south, up
   uniform vec3 uSunColor;
   uniform float uAmbient;
+  uniform float uThermal;
   in vec2 vUv;
   out vec4 outColor;
   ${NOISE}
+  ${IRONBOW}
 
   // Bilinear over burnable cells only (x = arrival, y = spread, z = coverage), so
   // cells that never burn don't smear fake arrival times along the final edge.
@@ -188,6 +191,7 @@ const GROUND_FRAG = /* glsl */ `
 
     vec3 col = vec3(0.0);
     float alpha = 0.0;
+    float temp = 0.0; // thermal: 0 cold ground .. 1 flaming front
 
     // Burn scar: charcoal, with ash texture and faint 6-hour isochrones.
     if (dt > 0.0) {
@@ -210,6 +214,9 @@ const GROUND_FRAG = /* glsl */ `
       float glow = smoulder * (0.35 * n + speck * 1.3);
       col = mix(col, flameRamp(clamp(glow * 0.75, 0.0, 0.8)), clamp(glow, 0.0, 1.0));
       alpha = max(alpha, clamp(glow * 1.2, 0.0, 0.95));
+      // Scar cools over hours; smouldering pockets stay hot.
+      temp = 0.14 + 0.06 * ash + 0.32 * exp(-dt / 7.0) + 0.04 * (relief - 1.0);
+      temp = mix(temp, 0.78, clamp(glow, 0.0, 1.0) * 0.85);
     }
 
     // Flaming front: white-hot at the leading edge, cooling to deep red behind.
@@ -222,6 +229,7 @@ const GROUND_FRAG = /* glsl */ `
       float fa = clamp(heat * 1.6, 0.0, 1.0);
       col = mix(col, fc, fa);
       alpha = max(alpha, fa);
+      temp = max(temp, mix(temp, 0.62 + 0.38 * clamp(heat * 1.2, 0.0, 1.0), fa));
     }
 
     // Radiant glow just ahead of the front.
@@ -231,9 +239,16 @@ const GROUND_FRAG = /* glsl */ `
       float ga = k * k * (0.3 + 0.5 * ros) * (0.7 + 0.5 * n);
       col = mix(col, vec3(1.0, 0.42, 0.08), ga * (1.0 - alpha));
       alpha = max(alpha, ga);
+      temp = max(temp, 0.1 + 0.45 * ga);
     }
 
     alpha *= inside;
+    if (uThermal > 0.5) {
+      float ta = min(1.0, alpha * 1.3);
+      float grain = (hash(gl_FragCoord.xy + floor(uClock * 24.0) * 7.31) - 0.5) * 0.03; // sensor noise
+      outColor = vec4(ironbow(clamp(temp + grain, 0.0, 1.0)) * ta, ta);
+      return;
+    }
     outColor = vec4(col * alpha, alpha); // premultiplied
   }
 `;
@@ -292,12 +307,14 @@ const PARTICLE_FRAG = /* glsl */ `
   uniform float uKind;
   uniform float uClock;
   uniform float uDark;
+  uniform float uThermal;
   in vec2 vCorner;
   in float vAge;
   in float vSeed;
   in float vHeight;
   out vec4 outColor;
   ${NOISE}
+  ${IRONBOW}
 
   void main() {
     float r = length(vCorner) * 2.0;
@@ -309,12 +326,14 @@ const PARTICLE_FRAG = /* glsl */ `
       float h = edge * (1.0 - vAge) * (1.1 - 0.6 * y);
       vec3 c = mix(vec3(0.9, 0.15, 0.02), vec3(1.0, 0.65, 0.15), smoothstep(0.2, 0.7, h));
       c = mix(c, vec3(1.0, 0.95, 0.75), smoothstep(0.75, 1.0, h));
+      if (uThermal > 0.5) c = ironbow(0.65 + 0.35 * clamp(h, 0.0, 1.0));
       outColor = vec4(c * h, 0.0); // additive
     } else if (uKind < 1.5) {
       float tw = 0.6 + 0.4 * sin(uClock * 18.0 + vSeed * 60.0);
       float core = exp(-r * r * 6.0);
       float fade = smoothstep(0.0, 0.08, vAge) * (1.0 - smoothstep(0.55, 1.0, vAge));
       vec3 c = mix(vec3(1.0, 0.35, 0.05), vec3(1.0, 0.85, 0.5), core);
+      if (uThermal > 0.5) c = ironbow(0.82 + 0.18 * core);
       outColor = vec4(c * core * fade * tw * 1.6, 0.0);
     } else {
       float n = fbmN(vCorner * 3.0 + vSeed * 13.0 + vec2(0.0, -vAge * 1.5), 3);
@@ -329,6 +348,8 @@ const PARTICLE_FRAG = /* glsl */ `
       c = mix(c, vec3(0.08, 0.07, 0.07), soot * 0.85);
       c = mix(c, vec3(1.0, 0.45, 0.15), lit * (0.25 + 0.45 * uDark));
       float a = puff * fade * mix(0.22, 0.26, uDark) * (1.0 + 0.6 * soot);
+      // Long-wave IR sees through smoke: only a faint warm haze low in the plume.
+      if (uThermal > 0.5) { c = ironbow(0.2 + 0.35 * lit); a *= 0.15; }
       outColor = vec4(c * a, a);
     }
   }
@@ -361,6 +382,7 @@ function makeSystem(kind) {
     uniforms: {
       uClock: { value: 0 }, uViewport: { value: new THREE.Vector2(1, 1) }, uWind: { value: new THREE.Vector3() },
       uKind: { value: kind }, uMatrix: { value: new THREE.Matrix4() }, uDark: { value: 1 },
+      uThermal: { value: 0 },
     },
     transparent: true,
     depthTest: true,
@@ -396,6 +418,7 @@ export class FireRenderer {
     this.visible = true;
     this.smoke = true;
     this.dark = 1;
+    this.thermal = false;
     this.wind = { dir: 0, mph: 0 };
     this.showBuildings = true;
     this.bldIn = null;     // buildings passed in (loadBuildings)
@@ -424,6 +447,7 @@ export class FireRenderer {
         uDem: { value: null }, uDemSize: { value: new THREE.Vector2(1, 1) }, uDemXf: { value: new THREE.Vector4() },
         uDemMpp: { value: 10 }, uHasDem: { value: 0 }, uExag: { value: 2 },
         uSunDir: { value: new THREE.Vector3(0, 0, 1) }, uSunColor: { value: new THREE.Vector3(1, 1, 1) }, uAmbient: { value: 0.4 },
+        uThermal: { value: 0 },
       },
       depthTest: false,
       depthWrite: false,
@@ -460,6 +484,14 @@ export class FireRenderer {
     const map = this.map;
     this.air?.dispose();
     this.air = null;
+    if (!map.getSource(VEIL)) {
+      const world = [[[-180, -85], [180, -85], [180, 85], [-180, 85], [-180, -85]]];
+      map.addSource(VEIL, { type: "geojson", data: { type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: world } } });
+    }
+    const veil = { id: VEIL, type: "fill", source: VEIL, layout: { visibility: "none" },
+                   paint: { "fill-color": "#0a0418", "fill-opacity": 0.86, "fill-antialias": false } };
+    if (slotted) { veil.slot = "middle"; veil.paint["fill-emissive-strength"] = 1; }
+    map.addLayer(veil);
     if (!map.getSource(GROUND)) {
       map.addSource(GROUND, { type: "canvas", canvas: this.canvas, coordinates: this.corners(), animate: false });
     }
@@ -638,6 +670,16 @@ export class FireRenderer {
     u.uAmbient.value = this.light.ambient;
   }
 
+  /** Thermal camera view: fire, buildings and particles in an ironbow palette over a cold veil. */
+  setThermal(on) {
+    this.thermal = !!on;
+    const v = this.thermal ? 1 : 0;
+    this.groundMat.uniforms.uThermal.value = v;
+    this.bldMat.uniforms.uThermal.value = v;
+    for (const s of this.systems) s.mat.uniforms.uThermal.value = v;
+    this.sync();
+  }
+
   setVisible(visible, smoke = true, buildings = true) {
     this.visible = visible;
     this.smoke = smoke;
@@ -652,6 +694,7 @@ export class FireRenderer {
       src.setCoordinates(this.corners());
     }
     if (map.getLayer(GROUND)) map.setLayoutProperty(GROUND, "visibility", this.visible && this.arr ? "visible" : "none");
+    if (map.getLayer(VEIL)) map.setLayoutProperty(VEIL, "visibility", this.visible && this.arr && this.thermal ? "visible" : "none");
     const air = this.visible && this.arr && (this.smoke || (this.showBuildings && this.bldMesh));
     if (map.getLayer(AIR)) map.setLayoutProperty(AIR, "visibility", air ? "visible" : "none");
   }

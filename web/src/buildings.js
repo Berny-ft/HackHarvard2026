@@ -13,6 +13,18 @@ import * as THREE from "three";
 const TEX_W = 2048;
 
 /** Per damage class (0 no record, 1 none, 2 affected, 3 minor, 4 major, 5 destroyed). */
+// Thermal camera palette ("ironbow"): 0 = coldest in frame, 1 = saturated hot.
+export const IRONBOW = /* glsl */ `
+  vec3 ironbow(float t) {
+    vec3 c = mix(vec3(0.0, 0.0, 0.02), vec3(0.16, 0.01, 0.38), smoothstep(0.0, 0.18, t));
+    c = mix(c, vec3(0.56, 0.02, 0.55), smoothstep(0.15, 0.38, t));
+    c = mix(c, vec3(0.9, 0.22, 0.12), smoothstep(0.35, 0.58, t));
+    c = mix(c, vec3(1.0, 0.62, 0.0), smoothstep(0.55, 0.78, t));
+    c = mix(c, vec3(1.0, 0.92, 0.42), smoothstep(0.75, 0.92, t));
+    return mix(c, vec3(1.0), smoothstep(0.9, 1.0, t));
+  }
+`;
+
 export const BURN_HOURS = [0.7, 0.3, 0.5, 0.9, 2.2, 3.2];
 
 export async function loadBuildings(base) {
@@ -239,6 +251,7 @@ const FRAG = /* glsl */ `
   uniform vec3 uSunDir;   // east, south, up
   uniform vec3 uSunColor;
   uniform float uAmbient;
+  uniform float uThermal;
   in vec3 vNormal;
   in vec2 vWall;
   in vec2 vXY;
@@ -249,6 +262,7 @@ const FRAG = /* glsl */ `
   in float vRoof;
   out vec4 outColor;
   ${NOISE}
+  ${IRONBOW}
 
   vec3 flameRamp(float h) {
     vec3 c = mix(vec3(0.45, 0.04, 0.0), vec3(0.95, 0.22, 0.03), smoothstep(0.0, 0.35, h));
@@ -271,6 +285,7 @@ const FRAG = /* glsl */ `
     float burn = burnHours(vDamage);
     float dt = vDt;
     float yFrac = clamp(vWall.y / max(vHeight, 1.0), 0.0, 1.0);
+    float temp = 0.1 + 0.08 * lam; // thermal: sun-warmed sides read a touch warmer
 
     // Windows: lit after dark until the fire reaches the house.
     float win = 0.0;
@@ -285,7 +300,10 @@ const FRAG = /* glsl */ `
 
     vec3 glow = vec3(0.0);
     // The approaching front lights the house orange.
-    if (dt > -1.5 && dt < 0.0) glow += vec3(1.0, 0.38, 0.08) * exp(dt / 0.3) * (0.25 + 0.35 * (1.0 - yFrac)) * (0.6 + 0.4 * uDark);
+    if (dt > -1.5 && dt < 0.0) {
+      glow += vec3(1.0, 0.38, 0.08) * exp(dt / 0.3) * (0.25 + 0.35 * (1.0 - yFrac)) * (0.6 + 0.4 * uDark);
+      temp += 0.3 * exp(dt / 0.3);
+    }
 
     if (dt >= 0.0) {
       // Char: total on destroyed homes, a soot band on scorched ones.
@@ -295,6 +313,7 @@ const FRAG = /* glsl */ `
       float ash = fbm3(vXY * 0.6 + vWall * 0.4);
       vec3 charcoal = mix(vec3(0.05, 0.045, 0.04), vec3(0.18, 0.16, 0.14), ash) * (0.5 + 0.7 * lam);
       col = mix(col, charcoal, clamp(soot, 0.0, 1.0));
+      temp = max(temp, 0.18 + 0.3 * exp(-dt / 6.0) * charAmt);
 
       // Flames climbing the walls and through the roof while it burns.
       float env = smoothstep(0.0, 0.06, dt) * (1.0 - smoothstep(burn * 0.45, burn, dt));
@@ -309,13 +328,17 @@ const FRAG = /* glsl */ `
       // Interior fire behind the windows.
       heat = max(heat, env * win * step(3.5, vDamage) * (0.6 + 0.25 * sin(uClock * 9.0 + vSeed * 40.0)));
       glow += flameRamp(clamp(heat * 0.85, 0.0, 0.85)) * heat * 1.5;
+      temp = max(temp, mix(temp, 0.62 + 0.38 * clamp(heat * 1.3, 0.0, 1.0), smoothstep(0.0, 0.25, heat)));
 
       // Smouldering rubble for hours afterwards.
       if (vDamage > 3.5) {
         float speck = smoothstep(0.62, 0.92, vnoise(vXY * 1.7 + vWall * 0.9) * 0.7 + vnoise(vXY * 5.0 + uClock * 0.7) * 0.4);
-        glow += vec3(1.0, 0.3, 0.05) * speck * exp(-max(dt - burn * 0.6, 0.0) / 6.0) * (1.0 - smoothstep(0.0, 0.4, yFrac)) * 1.4;
+        float ember = speck * exp(-max(dt - burn * 0.6, 0.0) / 6.0) * (1.0 - smoothstep(0.0, 0.4, yFrac));
+        glow += vec3(1.0, 0.3, 0.05) * ember * 1.4;
+        temp = max(temp, mix(temp, 0.8, clamp(ember, 0.0, 1.0)));
       }
     }
+    if (uThermal > 0.5) { outColor = vec4(ironbow(clamp(temp, 0.0, 1.0)), 1.0); return; }
     outColor = vec4(col + glow, 1.0);
   }
 `;
@@ -328,7 +351,7 @@ export function buildingMaterial() {
     uniforms: {
       uMatrix: { value: new THREE.Matrix4() }, uData: { value: null }, uT: { value: 0 }, uExag: { value: 1 },
       uClock: { value: 0 }, uDark: { value: 0 }, uSunDir: { value: new THREE.Vector3(0, 0, 1) },
-      uSunColor: { value: new THREE.Vector3(1, 1, 1) }, uAmbient: { value: 0.4 },
+      uSunColor: { value: new THREE.Vector3(1, 1, 1) }, uAmbient: { value: 0.4 }, uThermal: { value: 0 },
     },
     side: THREE.DoubleSide,
     depthTest: true,

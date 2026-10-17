@@ -15,7 +15,9 @@ export const BASEMAPS = {
   terrain: { label: "Terrain", style: "mapbox://styles/mapbox/outdoors-v12" },
   dark: { label: "Dark", style: "mapbox://styles/mapbox/dark-v11" },
 };
-export const LIGHTS = ["day", "dawn", "dusk", "night"];
+export const LIGHTS = ["day", "dawn", "dusk", "night", "thermal"];
+// Thermal is a camera mode over a night basemap, not a Mapbox light preset.
+const lightPreset = (light) => (light === "thermal" ? "night" : light);
 export const CAMERAS = {
   "3d": { label: "3D", pitch: 62 },
   "2d": { label: "2D", pitch: 0, bearing: 0 },
@@ -310,10 +312,13 @@ function flyToIncident(map, incident, data, camera, home) {
 
 function applyWind(wind, s, stat, fire) {
   if (!wind) return;
+  const standard = BASEMAPS[s.basemap].standard;
+  const light = lightPreset(s.light);
   const dark = s.basemap === "satellite" || s.basemap === "dark" ||
-    (BASEMAPS[s.basemap].standard && (s.light === "dusk" || s.light === "night"));
-  fire?.setTheme(BASEMAPS[s.basemap].standard ? s.light === "dusk" || s.light === "night" : s.basemap === "dark");
-  fire?.setLight(BASEMAPS[s.basemap].standard ? s.light : s.basemap === "dark" ? "night" : "day");
+    (standard && (light === "dusk" || light === "night"));
+  fire?.setTheme(standard ? light === "dusk" || light === "night" : s.basemap === "dark");
+  fire?.setLight(standard ? light : s.basemap === "dark" ? "night" : "day");
+  fire?.setThermal(standard && s.light === "thermal");
   setReliefTheme(wind.map, dark);
   wind.setTheme(dark);
   wind.setVisible(!!s.layers.wind);
@@ -346,7 +351,7 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
 
   const restore = (map) => {
     const s = state.current;
-    if (BASEMAPS[s.basemap].standard) map.setConfigProperty("basemap", "lightPreset", s.light);
+    if (BASEMAPS[s.basemap].standard) map.setConfigProperty("basemap", "lightPreset", lightPreset(s.light));
     install(map, staticRef.current, !!BASEMAPS[s.basemap].standard, fireRef.current);
     setIncidentData(map, s.incident, s.data);
     fireRef.current.setData(s.incident === "live" ? null : s.data?.arrival, s.data?.shift, s.data?.buildings);
@@ -364,7 +369,7 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
     const map = new mapboxgl.Map({
       container: el.current,
       style: BASEMAPS[basemap].style,
-      config: BASEMAPS[basemap].standard ? { basemap: { lightPreset: light } } : undefined,
+      config: BASEMAPS[basemap].standard ? { basemap: { lightPreset: lightPreset(light) } } : undefined,
       ...CAMERAS.overview,
       maxPitch: 85,
     });
@@ -418,7 +423,7 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
 
   useEffect(() => {
     const map = mapRef.current;
-    if (ready.current && BASEMAPS[basemap].standard) map.setConfigProperty("basemap", "lightPreset", light);
+    if (ready.current && BASEMAPS[basemap].standard) map.setConfigProperty("basemap", "lightPreset", lightPreset(light));
   }, [light]);
 
   useEffect(() => {
