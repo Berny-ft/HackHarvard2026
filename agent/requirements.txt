@@ -2,6 +2,7 @@ numpy
 rasterio
 shapely
 requests
+pillow
 pyarrow
 pydantic
 openai

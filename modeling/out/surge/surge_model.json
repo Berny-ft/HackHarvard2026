@@ -1,0 +1,96 @@
+{
+ "params": {
+  "k_wind": 0.008,
+  "shelf_exp": 0.0,
+  "tau_h": 3.0
+ },
+ "trained_on": [
+  "sandy_2012",
+  "matthew_2016"
+ ],
+ "storms": {
+  "sandy_2012": {
+   "role": "train",
+   "gauges": {
+    "8518750": {
+     "rmse_ft": 2.0033067598059056,
+     "peak_obs_ft": 8.625083333333334,
+     "peak_sim_ft": 7.886532302039032,
+     "peak_hour_obs": 73,
+     "peak_hour_sim": 78
+    },
+    "8516945": {
+     "rmse_ft": 2.2207429536209515,
+     "peak_obs_ft": 12.028,
+     "peak_sim_ft": 10.298262704719935,
+     "peak_hour_obs": 71,
+     "peak_hour_sim": 67
+    },
+    "8531680": {
+     "rmse_ft": 1.2975765772135686,
+     "peak_obs_ft": 7.06925,
+     "peak_sim_ft": 4.379130485106909,
+     "peak_hour_obs": 71,
+     "peak_hour_sim": 71
+    }
+   }
+  },
+  "matthew_2016": {
+   "role": "train",
+   "gauges": {
+    "8670870": {
+     "rmse_ft": 1.1932388207477,
+     "peak_obs_ft": 6.326916666666667,
+     "peak_sim_ft": 6.357282669119863,
+     "peak_hour_obs": 80,
+     "peak_hour_sim": 77
+    },
+    "8665530": {
+     "rmse_ft": 1.6441514644612643,
+     "peak_obs_ft": 5.030833333333333,
+     "peak_sim_ft": 8.734248698194987,
+     "peak_hour_obs": 82,
+     "peak_hour_sim": 83
+    }
+   }
+  },
+  "irma_2017": {
+   "role": "showcase",
+   "gauges": {
+    "8723214": {
+     "rmse_ft": 0.817043352894246,
+     "peak_obs_ft": 3.4904166666666665,
+     "peak_sim_ft": 3.5605293823093005,
+     "peak_hour_obs": 79,
+     "peak_hour_sim": 75
+    },
+    "8722670": {
+     "rmse_ft": 1.072061316466884,
+     "peak_obs_ft": 2.021,
+     "peak_sim_ft": 2.7705214635874977,
+     "peak_hour_obs": 84,
+     "peak_hour_sim": 78
+    }
+   }
+  },
+  "isabel_2003": {
+   "role": "showcase",
+   "gauges": {
+    "8638610": {
+     "rmse_ft": 1.2853002548369288,
+     "peak_obs_ft": 5.303583333333333,
+     "peak_sim_ft": 10.139565167656754,
+     "peak_hour_obs": 81,
+     "peak_hour_sim": 83
+    },
+    "8632200": {
+     "rmse_ft": 1.5675780209336123,
+     "peak_obs_ft": 3.5035000000000007,
+     "peak_sim_ft": 8.05564386994531,
+     "peak_hour_obs": 80,
+     "peak_hour_sim": 85
+    }
+   }
+  }
+ }
+}

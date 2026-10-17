@@ -1,0 +1,2 @@
+- When expected flooding is several feet deep on low ground, issue evacuation at roughly 36 hours until flooding rather than waiting for a shorter lead time or a smaller storm distance.
+- When ground height and spill level are both high and expected depth is only about 1–2 feet or less, prefer a warning over evacuation based solely on a severe high-scenario depth, even when flooding is forecast within 8–21 hours.

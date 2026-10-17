@@ -1,0 +1,45 @@
+{
+ "limit": 4,
+ "model": "openai/gpt-6.1-sol",
+ "lessons": "- When expected flooding is several feet deep on low ground, issue evacuation at roughly 36 hours until flooding rather than waiting for a shorter lead time or a smaller storm distance.\n- When ground height and spill level are both high and expected depth is only about 1\u20132 feet or less, prefer a warning over evacuation based solely on a severe high-scenario depth, even when flooding is forecast within 8\u201321 hours.",
+ "tokens": 207511,
+ "train_before": {
+  "flooded_n": 8,
+  "spared_n": 8,
+  "high_n": 8,
+  "warned_in_time": 1.0,
+  "evacuate_in_time": 1.0,
+  "evacuate_12h_ahead": 0.875,
+  "median_warn_lead_h": 24.1,
+  "median_evacuate_lead_h": 14.24,
+  "needless_evacuation_rate": 0.375,
+  "false_warning_rate": 0.0,
+  "alerts_per_household": 0.792
+ },
+ "held_out_before": {
+  "flooded_n": 8,
+  "spared_n": 8,
+  "high_n": 8,
+  "warned_in_time": 1.0,
+  "evacuate_in_time": 1.0,
+  "evacuate_12h_ahead": 1.0,
+  "median_warn_lead_h": 45.36,
+  "median_evacuate_lead_h": 36.38,
+  "needless_evacuation_rate": 0.625,
+  "false_warning_rate": 0.125,
+  "alerts_per_household": 1.625
+ },
+ "held_out_after": {
+  "flooded_n": 8,
+  "spared_n": 8,
+  "high_n": 8,
+  "warned_in_time": 1.0,
+  "evacuate_in_time": 1.0,
+  "evacuate_12h_ahead": 1.0,
+  "median_warn_lead_h": 45.36,
+  "median_evacuate_lead_h": 45.36,
+  "needless_evacuation_rate": 0.625,
+  "false_warning_rate": 0.125,
+  "alerts_per_household": 1.042
+ }
+}

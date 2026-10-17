@@ -1,0 +1,137 @@
+{
+ "best": {
+  "high_factor": 1.0,
+  "high_pad_ft": 0.0,
+  "evacuate_h": 24.0,
+  "evacuate_high_depth_ft": 3.0,
+  "warn_h": 24.0
+ },
+ "train": {
+  "flooded_n": 60,
+  "spared_n": 60,
+  "high_n": 60,
+  "warned_in_time": 1.0,
+  "evacuate_in_time": 1.0,
+  "evacuate_12h_ahead": 0.933,
+  "median_warn_lead_h": 15.18,
+  "median_evacuate_lead_h": 15.18,
+  "needless_evacuation_rate": 0.4,
+  "false_warning_rate": 0.0,
+  "alerts_per_household": 2.606
+ },
+ "held_out": {
+  "flooded_n": 60,
+  "spared_n": 60,
+  "high_n": 60,
+  "warned_in_time": 1.0,
+  "evacuate_in_time": 1.0,
+  "evacuate_12h_ahead": 1.0,
+  "median_warn_lead_h": 34.94,
+  "median_evacuate_lead_h": 34.94,
+  "needless_evacuation_rate": 0.667,
+  "false_warning_rate": 0.0,
+  "alerts_per_household": 3.111
+ },
+ "top": [
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.0,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 3.0,
+    "warn_h": 24.0
+   }
+  },
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.0,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 3.0,
+    "warn_h": 36.0
+   }
+  },
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.0,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 6.0,
+    "warn_h": 24.0
+   }
+  },
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.0,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 6.0,
+    "warn_h": 36.0
+   }
+  },
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.0,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 99.0,
+    "warn_h": 24.0
+   }
+  },
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.0,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 99.0,
+    "warn_h": 36.0
+   }
+  },
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.5,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 6.0,
+    "warn_h": 24.0
+   }
+  },
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.5,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 6.0,
+    "warn_h": 36.0
+   }
+  },
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.5,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 99.0,
+    "warn_h": 24.0
+   }
+  },
+  {
+   "score": 0.533,
+   "knobs": {
+    "high_factor": 1.0,
+    "high_pad_ft": 0.5,
+    "evacuate_h": 24.0,
+    "evacuate_high_depth_ft": 99.0,
+    "warn_h": 36.0
+   }
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "updated": "2026-10-17T17:12:48.173093+00:00",
+ "bbox": [
+  -82.5,
+  24.3,
+  -66.5,
+  45.5
+ ],
+ "sources": {
+  "nhc_storms": {
+   "ok": true,
+   "summary": "0 active Atlantic storms"
+  },
+  "water_levels": {
+   "ok": true,
+   "summary": "23 gauges, highest anomaly +1.9 ft"
+  },
+  "nws_alerts": {
+   "ok": true,
+   "summary": "7 coastal alerts over 31 zones"
+  }
+ }
+}

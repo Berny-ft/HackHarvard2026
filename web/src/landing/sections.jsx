@@ -360,7 +360,7 @@ export function ChalkStack() {
 // A small Python highlighter: enough for the excerpts above.
 const PY = /(#.*$)|("""[^]*?"""|"(?:[^"\\]|\\.)*"|f"(?:[^"\\]|\\.)*")|(@[\w.]+)|\b(def|class|return|from|import|if|and|not|for|in|or|None|True|False)\b|\b(\d+(?:\.\d+)?)\b|\b([A-Za-z_]\w*)(?=\()/g;
 
-function highlight(line) {
+export function highlight(line) {
   const out = [];
   let last = 0, m;
   PY.lastIndex = 0;

@@ -34,6 +34,15 @@ code { font-family: var(--mono); font-size: 0.92em; color: var(--sage); backgrou
 }
 .incident-tabs button:hover { color: var(--sage); }
 .incident-tabs button.on { background: var(--canopy-2); color: #f2f6f3; box-shadow: 0 0 0 1px var(--ridge-2) inset; }
+/* Fire | Surge switch */
+.hazard-switch { display: inline-flex; padding: 3px; gap: 2px; border-radius: 9px; background: var(--canopy); border: 1px solid var(--ridge); }
+.hazard-switch a {
+  padding: 5px 11px; border-radius: 6px; font-size: 12.5px; font-weight: 500; color: var(--lichen); text-decoration: none;
+  transition: color 120ms, background 120ms;
+}
+.hazard-switch a:hover { color: var(--sage); }
+.hazard-switch a.on { background: var(--ridge); color: #fff; }
+
 .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember); position: relative; }
 .incident-tabs button.on .live-dot::after {
   content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 1px solid var(--ember);

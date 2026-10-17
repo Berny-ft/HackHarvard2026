@@ -1,0 +1,82 @@
+[
+ {
+  "key": "sandy_2012",
+  "name": "Hurricane Sandy",
+  "place": "New York Harbor",
+  "year": 2012,
+  "role": "train",
+  "start": "2012-10-27T00:00:00Z",
+  "hours": 96,
+  "center": {
+   "lon": -73.995,
+   "lat": 40.7
+  },
+  "peak": {
+   "hour": 73,
+   "water_ft": 11.211,
+   "gauge": "The Battery, NY",
+   "flooded_acres": 49926,
+   "max_depth_ft": 6.9
+  }
+ },
+ {
+  "key": "matthew_2016",
+  "name": "Hurricane Matthew",
+  "place": "Savannah and Tybee Island",
+  "year": 2016,
+  "role": "train",
+  "start": "2016-10-05T00:00:00Z",
+  "hours": 120,
+  "center": {
+   "lon": -80.99000000000001,
+   "lat": 32.03
+  },
+  "peak": {
+   "hour": 79,
+   "water_ft": 8.465,
+   "gauge": "Fort Pulaski, GA",
+   "flooded_acres": 59195,
+   "max_depth_ft": 5.1
+  }
+ },
+ {
+  "key": "irma_2017",
+  "name": "Hurricane Irma",
+  "place": "Miami and Biscayne Bay",
+  "year": 2017,
+  "role": "showcase",
+  "start": "2017-09-07T12:00:00Z",
+  "hours": 96,
+  "center": {
+   "lon": -80.22,
+   "lat": 25.79
+  },
+  "peak": {
+   "hour": 77,
+   "water_ft": 3.845,
+   "gauge": "Virginia Key, FL",
+   "flooded_acres": 13351,
+   "max_depth_ft": 3.2
+  }
+ },
+ {
+  "key": "isabel_2003",
+  "name": "Hurricane Isabel",
+  "place": "Norfolk and Hampton Roads",
+  "year": 2003,
+  "role": "showcase",
+  "start": "2003-09-15T12:00:00Z",
+  "hours": 96,
+  "center": {
+   "lon": -76.225,
+   "lat": 36.94
+  },
+  "peak": {
+   "hour": 81,
+   "water_ft": 6.276,
+   "gauge": "Sewells Point, VA",
+   "flooded_acres": 14211,
+   "max_depth_ft": 5.0
+  }
+ }
+]

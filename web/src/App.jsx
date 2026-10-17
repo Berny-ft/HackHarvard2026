@@ -229,6 +229,10 @@ export default function App() {
     <div className={`app ${isLive ? "is-live" : "is-incident"}`}>
       <header className="topbar">
         <a href="/" onClick={navigate} className="topbar-logo" aria-label="FireTrace home"><Logo /></a>
+        <nav className="hazard-switch" aria-label="Hazard">
+          <a href="/map" className="on" aria-current="page">Fire</a>
+          <a href="/surge/map" onClick={navigate}>Surge</a>
+        </nav>
         <nav className="incident-tabs" aria-label="Choose a view">
           {INCIDENTS.map(([k, label]) => (
             <button key={k} className={k === incident ? "on" : ""} aria-pressed={k === incident} onClick={() => setIncident(k)}>

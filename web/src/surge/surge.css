@@ -1,0 +1,95 @@
+/* SurgeTrace: the fire app's components, re-tinted for the Atlantic at night.
+   Overriding the tokens re-skins every shared class in styles.css. */
+
+.surge {
+  --night: #06131d;
+  --canopy: #0b1c29;
+  --canopy-2: #102534;
+  --ridge: #1a3346;
+  --ridge-2: #284a62;
+  --sage: #dcebf2;
+  --sage-2: #a6c0cf;
+  --lichen: #6f8ea1;
+  --ember: #ff5f6d;          /* leave now */
+  --ember-deep: #c8394a;
+  --flare: #ffc145;          /* get ready */
+  --signal: #7ff0d0;         /* in time */
+  --signal-dim: #3f8f7c;
+  --sky: #7cc7ff;            /* watch */
+  --tide: #1aa6c4;
+  --foam: #e9f7ff;
+  background: var(--night);
+  color: var(--sage);
+}
+.surge ::selection { background: rgba(127, 240, 208, 0.3); }
+.surge :focus-visible { outline-color: var(--signal); }
+.surge .mapwrap { background: #04101a; }
+.surge .scrub-fill { background: linear-gradient(90deg, var(--tide), var(--signal)); }
+.surge .app-boot { background: var(--night); }
+
+.pick-banner { border-color: var(--signal); top: auto; bottom: 56px; }
+.pick-banner .banner-dot { background: var(--signal); box-shadow: 0 0 0 3px rgba(127, 240, 208, 0.25); animation: pulse 1.4s ease-in-out infinite; }
+.pick-anchor {
+  margin-left: 6px; padding: 4px 10px; border-radius: 7px; border: 1px solid var(--signal-dim);
+  background: color-mix(in srgb, var(--signal) 12%, transparent); color: var(--signal); font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.pick-anchor:hover { background: color-mix(in srgb, var(--signal) 22%, transparent); }
+@keyframes pulse { 50% { opacity: 0.4; } }
+
+.role-chip { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.role-chip.train { color: var(--flare); background: color-mix(in srgb, var(--flare) 14%, transparent); }
+.role-chip.showcase { color: var(--signal); background: color-mix(in srgb, var(--signal) 14%, transparent); }
+
+.scrub-peak {
+  position: absolute; top: -2px; transform: translateX(-50%); font-size: 10px; font-weight: 600; color: var(--foam);
+  pointer-events: none; padding: 0 4px; border-radius: 4px; background: color-mix(in srgb, var(--tide) 45%, transparent);
+}
+
+.gauge-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.gauge-list button {
+  width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 70px 56px; align-items: center; gap: 10px;
+  padding: 6px 6px; border: 0; border-radius: 7px; background: transparent; cursor: pointer; text-align: left; font-size: 12.5px;
+}
+.gauge-list button:hover { background: var(--canopy-2); }
+.gauge-list span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gauge-bar { height: 5px; border-radius: 3px; background: var(--ridge); overflow: hidden; }
+.gauge-bar i { display: block; height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--tide), var(--signal)); }
+.gauge-list .num { text-align: right; font-size: 12px; }
+.gauge-list .hot { color: var(--flare); }
+
+/* ------------------------------------------------------------ surge landing */
+
+.landing.surge .btn-primary, .landing.surge .btn-small { color: #032018; }
+.landing.surge .btn-primary:hover, .landing.surge .btn-small:hover { background: #a6f7e0; }
+.landing.surge .btn-ghost { background: rgba(6, 19, 29, 0.4); }
+.landing.surge .nav.is-scrolled { background: rgba(6, 19, 29, 0.82); }
+.landing.surge .hero { background: radial-gradient(120% 90% at 72% 55%, #0c2536 0%, var(--night) 62%); }
+.landing.surge .hero-shade {
+  background:
+    linear-gradient(90deg, rgba(6, 19, 29, 0.92) 0%, rgba(6, 19, 29, 0.7) 34%, rgba(6, 19, 29, 0) 62%),
+    linear-gradient(0deg, var(--night) 0%, rgba(6, 19, 29, 0) 32%),
+    linear-gradient(180deg, rgba(6, 19, 29, 0.7) 0%, rgba(6, 19, 29, 0) 18%);
+}
+@media (max-width: 900px) {
+  .landing.surge .hero-shade { background: linear-gradient(0deg, var(--night) 8%, rgba(6, 19, 29, 0.82) 48%, rgba(6, 19, 29, 0.15) 100%); }
+}
+.landing.surge .readout { background: rgba(6, 19, 29, 0.62); }
+.landing.surge .console { background: linear-gradient(180deg, var(--canopy) 0%, #081823 100%); }
+.landing.surge .code { background: #051019; }
+.landing.surge .code pre { color: #c8d8e2; }
+.landing.surge .ln { color: #34536a; }
+.landing.surge .c-kw { color: #7ff0d0; }
+.landing.surge .c-com { color: #57748a; }
+.landing.surge .stack-list button:hover { background: rgba(16, 37, 52, 0.55); }
+.landing.surge .leads-legend i.hatch { background: repeating-linear-gradient(45deg, var(--ember) 0 1.5px, rgba(255, 95, 109, 0.15) 1.5px 4px); }
+.k-sea { color: #468caf; }
+.k-low { color: var(--sage-2); }
+.k-wet { color: var(--tide); }
+.track-water { color: var(--tide) !important; }
+.track-water i { background: var(--tide) !important; box-shadow: 0 0 12px rgba(26, 166, 196, 0.8) !important; }
+.lessons { border: 1px solid var(--ridge-2); border-radius: 12px; padding: 18px 20px; background: var(--canopy); }
+.lessons h3 { font-size: 15px; margin-bottom: 10px !important; }
+.lessons ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--sage-2); font-size: 14px; line-height: 1.55; }
+.lessons li::marker { color: var(--signal); }
+.surge .banner { background: rgba(8, 26, 40, 0.9); color: var(--sage); border-color: rgba(255, 95, 109, 0.55); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6); }
+.surge .pick-banner { border-color: var(--signal-dim); box-shadow: 0 10px 30px -10px rgba(127, 240, 208, 0.35); }
