@@ -1,0 +1,6002 @@
+[
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.187316,
+  "lon": -118.153195,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.043
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.192728,
+  "lon": -118.142595,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.112
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.201655,
+  "lon": -118.149119,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.083
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.203978,
+  "lon": -118.142731,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.08
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.1944,
+  "lon": -118.155757,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.11
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.194137,
+  "lon": -118.129677,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.076
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.196448,
+  "lon": -118.118218,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.058
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.197722,
+  "lon": -118.147449,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.116
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.195618,
+  "lon": -118.157608,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.088
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189036,
+  "lon": -118.126965,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.087
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.192753,
+  "lon": -118.15155,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.167
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.200217,
+  "lon": -118.127905,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.043
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.201953,
+  "lon": -118.123978,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.076
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.197869,
+  "lon": -118.15377,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.138
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189876,
+  "lon": -118.114305,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.079
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.202489,
+  "lon": -118.144858,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.103
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189349,
+  "lon": -118.142331,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.119
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189765,
+  "lon": -118.143587,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.189
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.206524,
+  "lon": -118.143295,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.064
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.195424,
+  "lon": -118.13347,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.084
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.20171,
+  "lon": -118.158609,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.07
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.203909,
+  "lon": -118.143354,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.08
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.199355,
+  "lon": -118.15399,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.086
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.18892,
+  "lon": -118.149031,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.161
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.195027,
+  "lon": -118.153659,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.138
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.188795,
+  "lon": -118.119467,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.103
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.202146,
+  "lon": -118.133705,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.063
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.199816,
+  "lon": -118.146361,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.116
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.205445,
+  "lon": -118.142132,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.062
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.203016,
+  "lon": -118.146994,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.105
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.200552,
+  "lon": -118.123782,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.066
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.188656,
+  "lon": -118.14287,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.117
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.187915,
+  "lon": -118.116495,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.068
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.196246,
+  "lon": -118.12158,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.061
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.194546,
+  "lon": -118.139122,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.43,
+  "burn_probability_10y": 0.092
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.191148,
+  "lon": -118.147133,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.164
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.202779,
+  "lon": -118.151979,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.099
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.17906,
+  "lon": -118.129364,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.125
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.204428,
+  "lon": -118.146563,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.09
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.194823,
+  "lon": -118.149488,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.174
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.199239,
+  "lon": -118.132605,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.057
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.183787,
+  "lon": -118.12262,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.059
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.192087,
+  "lon": -118.147005,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.164
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.184475,
+  "lon": -118.12278,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.083
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.198875,
+  "lon": -118.128842,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.051
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.196179,
+  "lon": -118.140334,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.43,
+  "burn_probability_10y": 0.123
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.191632,
+  "lon": -118.147806,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.154
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.202556,
+  "lon": -118.153192,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.093
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189793,
+  "lon": -118.154019,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.121
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.19154,
+  "lon": -118.12936,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.067
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189315,
+  "lon": -118.125413,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.093
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.196533,
+  "lon": -118.146809,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.116
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.195793,
+  "lon": -118.150027,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.143
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.181733,
+  "lon": -118.130805,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.095
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.198492,
+  "lon": -118.141336,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.115
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.187392,
+  "lon": -118.129552,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.089
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.198727,
+  "lon": -118.148721,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.115
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.180822,
+  "lon": -118.128031,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.035
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.192337,
+  "lon": -118.150665,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.169
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.201442,
+  "lon": -118.152874,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.089
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.20065,
+  "lon": -118.143534,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.7,
+  "burn_probability_10y": 0.101
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.201998,
+  "lon": -118.136343,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.068
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.182678,
+  "lon": -118.102333,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.12,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.026
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.183856,
+  "lon": -118.152512,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.012
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.192941,
+  "lon": -118.128501,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.077
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.188133,
+  "lon": -118.1282,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.087
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189319,
+  "lon": -118.155641,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.107
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.186711,
+  "lon": -118.126233,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.098
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.183074,
+  "lon": -118.157849,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.111
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.193429,
+  "lon": -118.112227,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.085
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.191222,
+  "lon": -118.146103,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.164
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.19716,
+  "lon": -118.149226,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.119
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.192222,
+  "lon": -118.136833,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.43,
+  "burn_probability_10y": 0.108
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.201653,
+  "lon": -118.144387,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.113
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.184705,
+  "lon": -118.127924,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.112
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.19795,
+  "lon": -118.128429,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.051
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.191796,
+  "lon": -118.118042,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.082
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.192292,
+  "lon": -118.137115,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.43,
+  "burn_probability_10y": 0.112
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.20361,
+  "lon": -118.142361,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.08
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.202607,
+  "lon": -118.137471,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.068
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.216548,
+  "lon": -118.145203,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.095
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.19487,
+  "lon": -118.140085,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.43,
+  "burn_probability_10y": 0.125
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.188002,
+  "lon": -118.159161,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.015
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.188345,
+  "lon": -118.135843,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.124
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.184304,
+  "lon": -118.124453,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.108
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.192597,
+  "lon": -118.116682,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.063
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.196692,
+  "lon": -118.135561,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.098
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.195812,
+  "lon": -118.158085,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.088
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.198743,
+  "lon": -118.134039,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.076
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189319,
+  "lon": -118.139835,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.43,
+  "burn_probability_10y": 0.113
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.196449,
+  "lon": -118.148877,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.121
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.193054,
+  "lon": -118.111732,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.071
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189546,
+  "lon": -118.14841,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.161
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.185537,
+  "lon": -118.129699,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.114
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.195016,
+  "lon": -118.138356,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.43,
+  "burn_probability_10y": 0.118
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.189848,
+  "lon": -118.15297,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.123
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.186999,
+  "lon": -118.116606,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.076
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.185569,
+  "lon": -118.123507,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.112
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.203725,
+  "lon": -118.131216,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.056
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "destroyed",
+  "lat": 34.198654,
+  "lon": -118.144651,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.125
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.19184,
+  "lon": -118.158338,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.018
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.176043,
+  "lon": -118.021236,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.272
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.183563,
+  "lon": -118.127886,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.082
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.171617,
+  "lon": -118.03076,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.174
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.179077,
+  "lon": -118.12815,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 7.82,
+  "burn_probability_10y": 0.023
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.178695,
+  "lon": -118.091545,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.102
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.174791,
+  "lon": -118.043618,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.598
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.204155,
+  "lon": -118.161278,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.095
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.176757,
+  "lon": -118.134954,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.022
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.182351,
+  "lon": -118.085845,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.368
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.186498,
+  "lon": -118.123595,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.112
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.17368,
+  "lon": -118.044595,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.199
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.165674,
+  "lon": -118.094747,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.16,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.179295,
+  "lon": -118.136579,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.07,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.014
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.165629,
+  "lon": -118.101913,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.1,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.193209,
+  "lon": -118.161518,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.1,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.029
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.185382,
+  "lon": -118.15574,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.112
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.17066,
+  "lon": -118.072532,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.07,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.031
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.172322,
+  "lon": -118.043231,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.15,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.084
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.166208,
+  "lon": -118.097826,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.034
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.182057,
+  "lon": -118.156485,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.01
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.181458,
+  "lon": -118.124413,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.048
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.173633,
+  "lon": -118.043864,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.209
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.165466,
+  "lon": -118.100189,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.11,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.170925,
+  "lon": -118.034328,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.153
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.170512,
+  "lon": -118.099756,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.15,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.006
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.190817,
+  "lon": -118.123573,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.076
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.1749,
+  "lon": -118.079989,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.21,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.034
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.186938,
+  "lon": -118.157667,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.017
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.202855,
+  "lon": -118.123442,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.076
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.170707,
+  "lon": -118.099065,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.09,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.005
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.183458,
+  "lon": -118.151959,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.012
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.18117,
+  "lon": -118.154828,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.178
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.1867,
+  "lon": -118.123077,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.068
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.182952,
+  "lon": -118.102011,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.11,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.019
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.180337,
+  "lon": -118.131976,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.82,
+  "burn_probability_10y": 0.098
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.163299,
+  "lon": -118.094611,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.35,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.184766,
+  "lon": -118.105876,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.03
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.168187,
+  "lon": -118.070835,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.15,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.027
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.174199,
+  "lon": -118.073796,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.133
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.170878,
+  "lon": -118.053646,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.07,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.049
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.171851,
+  "lon": -118.080211,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.14,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.027
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.173864,
+  "lon": -118.045104,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.199
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.17929,
+  "lon": -118.118852,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.09,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.019
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.174338,
+  "lon": -118.04579,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.253
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.193769,
+  "lon": -118.16074,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.029
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.184147,
+  "lon": -118.155418,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.023
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.198129,
+  "lon": -118.150006,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.115
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.187759,
+  "lon": -118.15472,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.107
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.171468,
+  "lon": -118.027778,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.022
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.184617,
+  "lon": -118.103057,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.058
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.176776,
+  "lon": -118.135851,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.017
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.163221,
+  "lon": -118.081236,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.011
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.171324,
+  "lon": -118.039419,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.085
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.179318,
+  "lon": -118.135293,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.086
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.181591,
+  "lon": -118.126269,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.085
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.182157,
+  "lon": -118.158387,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.111
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.187759,
+  "lon": -118.136161,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.14
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.187344,
+  "lon": -118.154633,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.107
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.182099,
+  "lon": -118.134009,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.11
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.161184,
+  "lon": -118.083872,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.015
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.171432,
+  "lon": -118.069819,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.032
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.189541,
+  "lon": -118.114404,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.079
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.187957,
+  "lon": -118.16087,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.11,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.011
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.180927,
+  "lon": -118.136579,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.021
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.163679,
+  "lon": -118.096793,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.26,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.183073,
+  "lon": -118.123461,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.059
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.194402,
+  "lon": -118.159491,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.124
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.186641,
+  "lon": -118.117007,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.091
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.196883,
+  "lon": -118.151576,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.141
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.182968,
+  "lon": -118.113231,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.018
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.186003,
+  "lon": -118.141846,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.066
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.177689,
+  "lon": -118.090709,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.13,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.09
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.194771,
+  "lon": -118.161103,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.035
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.205331,
+  "lon": -118.159957,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.07,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.113
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.16317,
+  "lon": -118.096833,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.31,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.178107,
+  "lon": -118.117582,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.18,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.017
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.198572,
+  "lon": -118.151649,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.119
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.170214,
+  "lon": -118.069984,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.029
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.186867,
+  "lon": -118.15569,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.031
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.199957,
+  "lon": -118.158054,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.158
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.192116,
+  "lon": -118.156808,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.106
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.18485,
+  "lon": -118.143142,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.09,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.074
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.181652,
+  "lon": -118.158448,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.005
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.191706,
+  "lon": -118.111214,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.054
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.191077,
+  "lon": -118.161609,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.09,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.035
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.184806,
+  "lon": -118.123916,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.108
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.179891,
+  "lon": -118.133476,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.088
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.189491,
+  "lon": -118.108826,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.09,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.069
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.175095,
+  "lon": -118.022046,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.058
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.19736,
+  "lon": -118.15691,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 18.33,
+  "burn_probability_10y": 0.16
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.169373,
+  "lon": -118.069502,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 7.02,
+  "burn_probability_10y": 0.027
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.185938,
+  "lon": -118.139944,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.148
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.170508,
+  "lon": -118.037846,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.09,
+  "observed_arrival_h": 7.43,
+  "burn_probability_10y": 0.097
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.171157,
+  "lon": -118.076003,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.167
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.199941,
+  "lon": -118.159732,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 16.33,
+  "burn_probability_10y": 0.122
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.179109,
+  "lon": -118.131214,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 8.68,
+  "burn_probability_10y": 0.092
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.183656,
+  "lon": -118.113413,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.018
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.198791,
+  "lon": -118.126234,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.047
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "undamaged",
+  "lat": 34.185656,
+  "lon": -118.113342,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.68,
+  "burn_probability_10y": 0.043
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.128576,
+  "lon": -118.000325,
+  "damage": null,
+  "dist_to_perimeter_km": 5.41,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.184973,
+  "lon": -118.337203,
+  "damage": null,
+  "dist_to_perimeter_km": 16.24,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.188569,
+  "lon": -118.209672,
+  "damage": null,
+  "dist_to_perimeter_km": 4.52,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.194
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.338288,
+  "lon": -118.101435,
+  "damage": null,
+  "dist_to_perimeter_km": 11.24,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.535
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.310473,
+  "lon": -118.076959,
+  "damage": null,
+  "dist_to_perimeter_km": 8.05,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.54
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.120238,
+  "lon": -117.964202,
+  "damage": null,
+  "dist_to_perimeter_km": 7.97,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.009
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.083572,
+  "lon": -117.994804,
+  "damage": null,
+  "dist_to_perimeter_km": 10.17,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.008
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.210455,
+  "lon": -117.822592,
+  "damage": null,
+  "dist_to_perimeter_km": 17.78,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.414
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.11675,
+  "lon": -118.267473,
+  "damage": null,
+  "dist_to_perimeter_km": 12.37,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.004
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.278442,
+  "lon": -118.014073,
+  "damage": null,
+  "dist_to_perimeter_km": 7.39,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.505
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.024282,
+  "lon": -118.256703,
+  "damage": null,
+  "dist_to_perimeter_km": 19.56,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.14266,
+  "lon": -117.890695,
+  "damage": null,
+  "dist_to_perimeter_km": 12.14,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.006
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.027031,
+  "lon": -118.092245,
+  "damage": null,
+  "dist_to_perimeter_km": 14.92,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.011
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.366948,
+  "lon": -118.105577,
+  "damage": null,
+  "dist_to_perimeter_km": 14.43,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.536
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.023418,
+  "lon": -118.019323,
+  "damage": null,
+  "dist_to_perimeter_km": 16.31,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.116
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.110175,
+  "lon": -117.887295,
+  "damage": null,
+  "dist_to_perimeter_km": 14.14,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.328368,
+  "lon": -118.185225,
+  "damage": null,
+  "dist_to_perimeter_km": 11.97,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.63
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.106407,
+  "lon": -118.098818,
+  "damage": null,
+  "dist_to_perimeter_km": 6.26,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.110017,
+  "lon": -117.994664,
+  "damage": null,
+  "dist_to_perimeter_km": 7.46,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.008
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.135663,
+  "lon": -117.950297,
+  "damage": null,
+  "dist_to_perimeter_km": 7.75,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.161805,
+  "lon": -117.999396,
+  "damage": null,
+  "dist_to_perimeter_km": 2.4,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.028
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.327618,
+  "lon": -118.11147,
+  "damage": null,
+  "dist_to_perimeter_km": 10.27,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.632
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.179906,
+  "lon": -117.986405,
+  "damage": null,
+  "dist_to_perimeter_km": 2.49,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.41
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.26412,
+  "lon": -118.025338,
+  "damage": null,
+  "dist_to_perimeter_km": 5.55,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.126
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.185091,
+  "lon": -117.803635,
+  "damage": null,
+  "dist_to_perimeter_km": 19.28,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.415
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.001686,
+  "lon": -118.056222,
+  "damage": null,
+  "dist_to_perimeter_km": 17.88,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.006
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.034438,
+  "lon": -118.086806,
+  "damage": null,
+  "dist_to_perimeter_km": 14.09,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.006
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.351724,
+  "lon": -118.200496,
+  "damage": null,
+  "dist_to_perimeter_km": 14.91,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.725
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.225405,
+  "lon": -117.870661,
+  "damage": null,
+  "dist_to_perimeter_km": 13.9,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.21
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.381308,
+  "lon": -118.076682,
+  "damage": null,
+  "dist_to_perimeter_km": 15.88,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.535
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.205934,
+  "lon": -117.845602,
+  "damage": null,
+  "dist_to_perimeter_km": 15.61,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.624
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.359111,
+  "lon": -118.017106,
+  "damage": null,
+  "dist_to_perimeter_km": 14.72,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.623
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 33.993419,
+  "lon": -118.010261,
+  "damage": null,
+  "dist_to_perimeter_km": 19.68,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.242
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.304872,
+  "lon": -118.067618,
+  "damage": null,
+  "dist_to_perimeter_km": 7.55,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.249
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.189774,
+  "lon": -117.908112,
+  "damage": null,
+  "dist_to_perimeter_km": 9.69,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.156
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.026734,
+  "lon": -118.232171,
+  "damage": null,
+  "dist_to_perimeter_km": 18.35,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.204557,
+  "lon": -117.888076,
+  "damage": null,
+  "dist_to_perimeter_km": 11.74,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.356
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.204325,
+  "lon": -118.251336,
+  "damage": null,
+  "dist_to_perimeter_km": 8.22,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.594
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.213227,
+  "lon": -117.843544,
+  "damage": null,
+  "dist_to_perimeter_km": 15.95,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.411
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.137868,
+  "lon": -118.206993,
+  "damage": null,
+  "dist_to_perimeter_km": 6.58,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.298435,
+  "lon": -118.13407,
+  "damage": null,
+  "dist_to_perimeter_km": 7.16,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.706
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.034387,
+  "lon": -118.21556,
+  "damage": null,
+  "dist_to_perimeter_km": 17.02,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.004
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.12279,
+  "lon": -118.247798,
+  "damage": null,
+  "dist_to_perimeter_km": 10.51,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.014
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 33.99094,
+  "lon": -118.1085,
+  "damage": null,
+  "dist_to_perimeter_km": 19.02,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.296522,
+  "lon": -118.266876,
+  "damage": null,
+  "dist_to_perimeter_km": 13.29,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.467
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.14446,
+  "lon": -118.138653,
+  "damage": null,
+  "dist_to_perimeter_km": 3.58,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.117279,
+  "lon": -118.352234,
+  "damage": null,
+  "dist_to_perimeter_km": 19.23,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.102
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.122657,
+  "lon": -118.192714,
+  "damage": null,
+  "dist_to_perimeter_km": 7.19,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.016
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.176057,
+  "lon": -117.955711,
+  "damage": null,
+  "dist_to_perimeter_km": 5.35,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.188
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.133249,
+  "lon": -118.076245,
+  "damage": null,
+  "dist_to_perimeter_km": 3.21,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.005
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.196757,
+  "lon": -118.199809,
+  "damage": null,
+  "dist_to_perimeter_km": 3.53,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.051
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.072613,
+  "lon": -117.893122,
+  "damage": null,
+  "dist_to_perimeter_km": 16.29,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.262164,
+  "lon": -118.267723,
+  "damage": null,
+  "dist_to_perimeter_km": 11.3,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.729
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.152495,
+  "lon": -117.81794,
+  "damage": null,
+  "dist_to_perimeter_km": 18.29,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.455
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.273967,
+  "lon": -118.067385,
+  "damage": null,
+  "dist_to_perimeter_km": 4.25,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.047
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.03046,
+  "lon": -118.12281,
+  "damage": null,
+  "dist_to_perimeter_km": 14.94,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.006
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.299012,
+  "lon": -118.236496,
+  "damage": null,
+  "dist_to_perimeter_km": 11.47,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.529
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.208058,
+  "lon": -118.252619,
+  "damage": null,
+  "dist_to_perimeter_km": 8.35,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.427
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.169367,
+  "lon": -117.984807,
+  "damage": null,
+  "dist_to_perimeter_km": 3.04,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.148
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.286312,
+  "lon": -117.985982,
+  "damage": null,
+  "dist_to_perimeter_km": 9.87,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.489
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.226299,
+  "lon": -117.835269,
+  "damage": null,
+  "dist_to_perimeter_km": 17.03,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.37
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.035821,
+  "lon": -118.263077,
+  "damage": null,
+  "dist_to_perimeter_km": 18.74,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.331661,
+  "lon": -118.32139,
+  "damage": null,
+  "dist_to_perimeter_km": 19.63,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.342
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.272111,
+  "lon": -117.841027,
+  "damage": null,
+  "dist_to_perimeter_km": 18.61,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.312
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.295021,
+  "lon": -118.16487,
+  "damage": null,
+  "dist_to_perimeter_km": 7.84,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.507
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.25675,
+  "lon": -117.962503,
+  "damage": null,
+  "dist_to_perimeter_km": 9.27,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.253
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.121614,
+  "lon": -118.19859,
+  "damage": null,
+  "dist_to_perimeter_km": 7.55,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.01
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.072536,
+  "lon": -117.986301,
+  "damage": null,
+  "dist_to_perimeter_km": 11.58,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.054826,
+  "lon": -117.908276,
+  "damage": null,
+  "dist_to_perimeter_km": 16.83,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 33.994748,
+  "lon": -118.031225,
+  "damage": null,
+  "dist_to_perimeter_km": 19.06,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.332
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.138798,
+  "lon": -118.217594,
+  "damage": null,
+  "dist_to_perimeter_km": 7.23,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.013
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.274542,
+  "lon": -118.357239,
+  "damage": null,
+  "dist_to_perimeter_km": 19.36,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.026
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.363451,
+  "lon": -118.024891,
+  "damage": null,
+  "dist_to_perimeter_km": 14.89,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.805
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.352087,
+  "lon": -117.944336,
+  "damage": null,
+  "dist_to_perimeter_km": 17.72,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.225
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.196514,
+  "lon": -118.227634,
+  "damage": null,
+  "dist_to_perimeter_km": 6.07,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.029
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.268228,
+  "lon": -118.318123,
+  "damage": null,
+  "dist_to_perimeter_km": 15.78,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.059
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.315655,
+  "lon": -118.083964,
+  "damage": null,
+  "dist_to_perimeter_km": 8.61,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.305
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.2393,
+  "lon": -117.884478,
+  "damage": null,
+  "dist_to_perimeter_km": 13.34,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.211
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.371471,
+  "lon": -117.950496,
+  "damage": null,
+  "dist_to_perimeter_km": 19.04,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.778
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.1288,
+  "lon": -118.119111,
+  "damage": null,
+  "dist_to_perimeter_km": 4.47,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.21797,
+  "lon": -118.253346,
+  "damage": null,
+  "dist_to_perimeter_km": 8.46,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.149
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.063819,
+  "lon": -118.115501,
+  "damage": null,
+  "dist_to_perimeter_km": 11.19,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.214829,
+  "lon": -117.928078,
+  "damage": null,
+  "dist_to_perimeter_km": 8.55,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.102
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.184804,
+  "lon": -117.886871,
+  "damage": null,
+  "dist_to_perimeter_km": 11.62,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.211
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.347555,
+  "lon": -118.262318,
+  "damage": null,
+  "dist_to_perimeter_km": 17.18,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.539
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.286212,
+  "lon": -118.1133,
+  "damage": null,
+  "dist_to_perimeter_km": 5.71,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.764
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.026093,
+  "lon": -118.022849,
+  "damage": null,
+  "dist_to_perimeter_km": 15.97,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.06
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.102971,
+  "lon": -117.989211,
+  "damage": null,
+  "dist_to_perimeter_km": 8.38,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.024
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.310951,
+  "lon": -118.008931,
+  "damage": null,
+  "dist_to_perimeter_km": 10.47,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.371
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 33.988744,
+  "lon": -118.098969,
+  "damage": null,
+  "dist_to_perimeter_km": 19.19,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.193878,
+  "lon": -117.951999,
+  "damage": null,
+  "dist_to_perimeter_km": 5.73,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.208
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.076346,
+  "lon": -118.109693,
+  "damage": null,
+  "dist_to_perimeter_km": 9.72,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.228125,
+  "lon": -118.209787,
+  "damage": null,
+  "dist_to_perimeter_km": 4.86,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.613
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.342397,
+  "lon": -118.242151,
+  "damage": null,
+  "dist_to_perimeter_km": 15.69,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.651
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.118971,
+  "lon": -118.020474,
+  "damage": null,
+  "dist_to_perimeter_km": 5.79,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.275693,
+  "lon": -118.230625,
+  "damage": null,
+  "dist_to_perimeter_km": 9.25,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.687
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.198644,
+  "lon": -117.843434,
+  "damage": null,
+  "dist_to_perimeter_km": 15.7,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.651
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.138857,
+  "lon": -118.308833,
+  "damage": null,
+  "dist_to_perimeter_km": 14.65,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.424
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.145387,
+  "lon": -117.940114,
+  "damage": null,
+  "dist_to_perimeter_km": 7.93,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "eaton_2025",
+  "category": "outside",
+  "lat": 34.151585,
+  "lon": -118.16797,
+  "damage": null,
+  "dist_to_perimeter_km": 3.34,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.032
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.042487,
+  "lon": -118.559173,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.23
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.053732,
+  "lon": -118.652437,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.214
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.038728,
+  "lon": -118.655904,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.092
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.049167,
+  "lon": -118.545824,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.096
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.046118,
+  "lon": -118.536325,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.138
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.078094,
+  "lon": -118.557985,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.67,
+  "burn_probability_10y": 0.293
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.063766,
+  "lon": -118.641068,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.155
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.042998,
+  "lon": -118.559666,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.104
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.045283,
+  "lon": -118.529095,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.105
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.04722,
+  "lon": -118.518563,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.132
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.041778,
+  "lon": -118.575018,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.093
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.042573,
+  "lon": -118.54636,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.098
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.043372,
+  "lon": -118.524138,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.071
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.039273,
+  "lon": -118.528184,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.081
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.051013,
+  "lon": -118.535152,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.07
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.048931,
+  "lon": -118.571403,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.092
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.044864,
+  "lon": -118.54681,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.084
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.04177,
+  "lon": -118.522235,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.067
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.042615,
+  "lon": -118.518474,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.204
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.041651,
+  "lon": -118.576074,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.103
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.043436,
+  "lon": -118.549192,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.136
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.046336,
+  "lon": -118.544826,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.083
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.052132,
+  "lon": -118.522193,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.147
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.072149,
+  "lon": -118.554283,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.233
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.038121,
+  "lon": -118.613434,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.12
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.03455,
+  "lon": -118.527303,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.087
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.040232,
+  "lon": -118.531537,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.115
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.044558,
+  "lon": -118.529696,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.115
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.043126,
+  "lon": -118.519797,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.204
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.048066,
+  "lon": -118.518464,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.109
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.054436,
+  "lon": -118.535377,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.16
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.047075,
+  "lon": -118.519746,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.132
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.038339,
+  "lon": -118.646123,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.031
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.042823,
+  "lon": -118.52662,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.063
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.053493,
+  "lon": -118.544658,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.166
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.049052,
+  "lon": -118.527295,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.227
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.047825,
+  "lon": -118.535848,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.093
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.075491,
+  "lon": -118.558087,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.17
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.04585,
+  "lon": -118.645646,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.206
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.045539,
+  "lon": -118.537801,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.138
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.051144,
+  "lon": -118.643236,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.172
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.038204,
+  "lon": -118.538202,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.063
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.046689,
+  "lon": -118.544788,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.083
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.052865,
+  "lon": -118.525449,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.117
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.041208,
+  "lon": -118.53881,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.098
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.043866,
+  "lon": -118.537324,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.225
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.073876,
+  "lon": -118.655746,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.438
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.066292,
+  "lon": -118.649021,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.256
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.048861,
+  "lon": -118.516942,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.082
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.049365,
+  "lon": -118.518202,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.095
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.043014,
+  "lon": -118.529186,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.13
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.05166,
+  "lon": -118.519357,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.12
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.039775,
+  "lon": -118.531116,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.084
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.044207,
+  "lon": -118.529821,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.165
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.039738,
+  "lon": -118.594173,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.08
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.049735,
+  "lon": -118.523348,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.121
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.051405,
+  "lon": -118.523363,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.089
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.044682,
+  "lon": -118.52212,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.119
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.046384,
+  "lon": -118.533049,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.185
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.040905,
+  "lon": -118.52994,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.101
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.046076,
+  "lon": -118.521174,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.147
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.041156,
+  "lon": -118.519174,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.204
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.047232,
+  "lon": -118.522892,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.117
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.039682,
+  "lon": -118.612602,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.114
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.04883,
+  "lon": -118.517957,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.082
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.044351,
+  "lon": -118.622196,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.163
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.049536,
+  "lon": -118.548081,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.133
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.049711,
+  "lon": -118.513363,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.67,
+  "burn_probability_10y": 0.067
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.036199,
+  "lon": -118.525252,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.085
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.052335,
+  "lon": -118.649486,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.241
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.034699,
+  "lon": -118.52731,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.087
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.037273,
+  "lon": -118.616296,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.083
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.053838,
+  "lon": -118.544356,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.156
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.042736,
+  "lon": -118.545609,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.098
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.050258,
+  "lon": -118.518379,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.099
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.038598,
+  "lon": -118.540281,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.06
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.054948,
+  "lon": -118.53909,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.155
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.054964,
+  "lon": -118.512616,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.67,
+  "burn_probability_10y": 0.134
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.04718,
+  "lon": -118.519854,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.132
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.079237,
+  "lon": -118.568199,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.175
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.048304,
+  "lon": -118.546647,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.095
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.048538,
+  "lon": -118.523184,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.153
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.050826,
+  "lon": -118.513848,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.67,
+  "burn_probability_10y": 0.06
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.049368,
+  "lon": -118.519212,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.099
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.0788,
+  "lon": -118.560785,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.212
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.045232,
+  "lon": -118.624009,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.198
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.041069,
+  "lon": -118.558313,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.112
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.046799,
+  "lon": -118.521494,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.152
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.039757,
+  "lon": -118.582714,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.04
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.044197,
+  "lon": -118.57568,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.171
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.057507,
+  "lon": -118.539133,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.196
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.045328,
+  "lon": -118.521264,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.147
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.041191,
+  "lon": -118.539057,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.098
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.04483,
+  "lon": -118.521984,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.119
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.048682,
+  "lon": -118.517857,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.082
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.036145,
+  "lon": -118.528184,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.143
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.041927,
+  "lon": -118.551374,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.096
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.075335,
+  "lon": -118.560042,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.148
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.043393,
+  "lon": -118.533572,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.082
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "destroyed",
+  "lat": 34.034986,
+  "lon": -118.518153,
+  "damage": "Destroyed (>50%)",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.068
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.046609,
+  "lon": -118.533903,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.185
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.044058,
+  "lon": -118.556395,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.071
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.052274,
+  "lon": -118.537493,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.069
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.048706,
+  "lon": -118.529962,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.073
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.039197,
+  "lon": -118.553942,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.041
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.071906,
+  "lon": -118.559475,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.09,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.184
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.064608,
+  "lon": -118.678601,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.274
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.058406,
+  "lon": -118.550225,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.201
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.035389,
+  "lon": -118.518073,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.068
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.053817,
+  "lon": -118.533395,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.154
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.040879,
+  "lon": -118.543501,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.095
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.080181,
+  "lon": -118.564381,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.213
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.072874,
+  "lon": -118.562948,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.155
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.045695,
+  "lon": -118.639173,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.123
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.086019,
+  "lon": -118.601474,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.13,
+  "observed_arrival_h": 28.02,
+  "burn_probability_10y": 0.206
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.085283,
+  "lon": -118.593544,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.09,
+  "observed_arrival_h": 16.68,
+  "burn_probability_10y": 0.096
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.04829,
+  "lon": -118.533759,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.154
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.076402,
+  "lon": -118.551151,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.351
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.049021,
+  "lon": -118.519622,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.45,
+  "burn_probability_10y": 0.109
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.078522,
+  "lon": -118.563201,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.058
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.092409,
+  "lon": -118.503949,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.14,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.112
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.043824,
+  "lon": -118.560739,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.115
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.042965,
+  "lon": -118.53548,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.07,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.068
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.075124,
+  "lon": -118.555356,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 4.67,
+  "burn_probability_10y": 0.284
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.090159,
+  "lon": -118.503999,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.1,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.323
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.058102,
+  "lon": -118.548596,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.186
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.069412,
+  "lon": -118.603702,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.304
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.043058,
+  "lon": -118.647576,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.2
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.038954,
+  "lon": -118.556023,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.083
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.072548,
+  "lon": -118.54867,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.353
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.050873,
+  "lon": -118.644611,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.199
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.08511,
+  "lon": -118.594408,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 16.68,
+  "burn_probability_10y": 0.168
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.086888,
+  "lon": -118.592875,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 16.68,
+  "burn_probability_10y": 0.12
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.034906,
+  "lon": -118.523109,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.1,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.14
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.073595,
+  "lon": -118.618173,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.87
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.10798,
+  "lon": -118.50242,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 58.37,
+  "burn_probability_10y": 0.124
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.039153,
+  "lon": -118.613871,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.133
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.055863,
+  "lon": -118.540674,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.152
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.046371,
+  "lon": -118.56911,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.069
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.044651,
+  "lon": -118.540715,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.066
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.035581,
+  "lon": -118.520829,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.16,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.136
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.037555,
+  "lon": -118.519782,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.104
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.039599,
+  "lon": -118.659414,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.076
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.060683,
+  "lon": -118.546512,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.148
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.089519,
+  "lon": -118.590816,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.09,
+  "observed_arrival_h": 16.68,
+  "burn_probability_10y": 0.125
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.074681,
+  "lon": -118.562687,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.18,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.099
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.047152,
+  "lon": -118.508692,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.07,
+  "observed_arrival_h": 4.67,
+  "burn_probability_10y": 0.071
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.055669,
+  "lon": -118.54608,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.154
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.073527,
+  "lon": -118.547913,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.353
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.054754,
+  "lon": -118.54703,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.135
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.069347,
+  "lon": -118.559466,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.07,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.255
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.04157,
+  "lon": -118.557427,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.07,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.108
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.083537,
+  "lon": -118.639287,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.01,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.882
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.037443,
+  "lon": -118.637957,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.073
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.040284,
+  "lon": -118.652206,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.046
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.042713,
+  "lon": -118.570463,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.072
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.057889,
+  "lon": -118.549129,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.201
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.044077,
+  "lon": -118.642772,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.124
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.043621,
+  "lon": -118.572158,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.087
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.07484,
+  "lon": -118.554821,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.07,
+  "burn_probability_10y": 0.311
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.054553,
+  "lon": -118.541144,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.17
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.045266,
+  "lon": -118.532303,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.1
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.068549,
+  "lon": -118.598912,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.258
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.041821,
+  "lon": -118.557686,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.108
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.048606,
+  "lon": -118.548994,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.109
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.037809,
+  "lon": -118.648798,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.053
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.113266,
+  "lon": -118.500679,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.082
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.042707,
+  "lon": -118.552475,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.096
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.082747,
+  "lon": -118.597669,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 16.68,
+  "burn_probability_10y": 0.243
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.075377,
+  "lon": -118.552339,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.326
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.047969,
+  "lon": -118.54569,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.079
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.042489,
+  "lon": -118.569388,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.069
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.039604,
+  "lon": -118.518761,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.02,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.186
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.051555,
+  "lon": -118.531098,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.067
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.076564,
+  "lon": -118.563918,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.16,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.099
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.07705,
+  "lon": -118.551431,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.374
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.033404,
+  "lon": -118.520779,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.074
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.047191,
+  "lon": -118.530439,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.047
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.039341,
+  "lon": -118.517122,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.08,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.082
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.051356,
+  "lon": -118.54184,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.059
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.06275,
+  "lon": -118.550964,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.163
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.040361,
+  "lon": -118.640885,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.187
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.087449,
+  "lon": -118.6022,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.15,
+  "observed_arrival_h": 28.02,
+  "burn_probability_10y": 0.204
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.121307,
+  "lon": -118.506155,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 58.37,
+  "burn_probability_10y": 0.033
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.063123,
+  "lon": -118.551968,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.312
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.050829,
+  "lon": -118.543951,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.132
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.042829,
+  "lon": -118.535207,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.068
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.047807,
+  "lon": -118.534694,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.1,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.093
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.042902,
+  "lon": -118.558012,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.11
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.052195,
+  "lon": -118.644723,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.217
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.069973,
+  "lon": -118.551379,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 1.77,
+  "burn_probability_10y": 0.293
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.049407,
+  "lon": -118.508909,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.06,
+  "observed_arrival_h": 4.67,
+  "burn_probability_10y": 0.104
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.067938,
+  "lon": -118.617869,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 10.68,
+  "burn_probability_10y": 0.265
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.038077,
+  "lon": -118.522702,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.04,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.191
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.043775,
+  "lon": -118.536065,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.07,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.068
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.038305,
+  "lon": -118.652831,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.03,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.034
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.092239,
+  "lon": -118.504307,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.12,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.112
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.047591,
+  "lon": -118.534531,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.12,
+  "observed_arrival_h": 2.65,
+  "burn_probability_10y": 0.153
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.047797,
+  "lon": -118.525873,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.0,
+  "observed_arrival_h": 3.07,
+  "burn_probability_10y": 0.105
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "undamaged",
+  "lat": 34.043753,
+  "lon": -118.511786,
+  "damage": "No Damage",
+  "dist_to_perimeter_km": 0.05,
+  "observed_arrival_h": 15.02,
+  "burn_probability_10y": 0.139
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.898601,
+  "lon": -118.389642,
+  "damage": null,
+  "dist_to_perimeter_km": 18.84,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.222965,
+  "lon": -118.589877,
+  "damage": null,
+  "dist_to_perimeter_km": 11.27,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.966727,
+  "lon": -118.373921,
+  "damage": null,
+  "dist_to_perimeter_km": 15.15,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.23576,
+  "lon": -118.733753,
+  "damage": null,
+  "dist_to_perimeter_km": 17.91,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.161
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.029863,
+  "lon": -118.479944,
+  "damage": null,
+  "dist_to_perimeter_km": 3.25,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.015733,
+  "lon": -118.789936,
+  "damage": null,
+  "dist_to_perimeter_km": 11.23,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.01
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.01565,
+  "lon": -118.320356,
+  "damage": null,
+  "dist_to_perimeter_km": 17.46,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.998221,
+  "lon": -118.32116,
+  "damage": null,
+  "dist_to_perimeter_km": 18.04,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.266547,
+  "lon": -118.410472,
+  "damage": null,
+  "dist_to_perimeter_km": 17.93,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.021
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.933934,
+  "lon": -118.423754,
+  "damage": null,
+  "dist_to_perimeter_km": 13.82,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.005
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.149735,
+  "lon": -118.756203,
+  "damage": null,
+  "dist_to_perimeter_km": 10.49,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.009
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.20948,
+  "lon": -118.718984,
+  "damage": null,
+  "dist_to_perimeter_km": 14.74,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.374
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.075693,
+  "lon": -118.299843,
+  "damage": null,
+  "dist_to_perimeter_km": 18.55,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.889524,
+  "lon": -118.38587,
+  "damage": null,
+  "dist_to_perimeter_km": 19.84,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.015
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.222581,
+  "lon": -118.372036,
+  "damage": null,
+  "dist_to_perimeter_km": 16.65,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.243157,
+  "lon": -118.519719,
+  "damage": null,
+  "dist_to_perimeter_km": 12.62,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.996788,
+  "lon": -118.399795,
+  "damage": null,
+  "dist_to_perimeter_km": 11.49,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.231212,
+  "lon": -118.76639,
+  "damage": null,
+  "dist_to_perimeter_km": 18.57,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.158
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.111136,
+  "lon": -118.712628,
+  "damage": null,
+  "dist_to_perimeter_km": 4.65,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.243
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.078691,
+  "lon": -118.449464,
+  "damage": null,
+  "dist_to_perimeter_km": 4.97,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.028
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.047809,
+  "lon": -118.775375,
+  "damage": null,
+  "dist_to_perimeter_km": 8.57,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.765
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.183985,
+  "lon": -118.423281,
+  "damage": null,
+  "dist_to_perimeter_km": 10.31,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.287627,
+  "lon": -118.480539,
+  "damage": null,
+  "dist_to_perimeter_km": 17.8,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.054
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.00345,
+  "lon": -118.430072,
+  "damage": null,
+  "dist_to_perimeter_km": 8.7,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.309917,
+  "lon": -118.539574,
+  "damage": null,
+  "dist_to_perimeter_km": 19.98,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.312
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.918565,
+  "lon": -118.381844,
+  "damage": null,
+  "dist_to_perimeter_km": 17.7,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.12948,
+  "lon": -118.298422,
+  "damage": null,
+  "dist_to_perimeter_km": 18.79,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.78
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.00301,
+  "lon": -118.342313,
+  "damage": null,
+  "dist_to_perimeter_km": 16.02,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.009
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.049098,
+  "lon": -118.757727,
+  "damage": null,
+  "dist_to_perimeter_km": 6.97,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.864
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.151515,
+  "lon": -118.786718,
+  "damage": null,
+  "dist_to_perimeter_km": 12.62,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.006
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.13921,
+  "lon": -118.489299,
+  "damage": null,
+  "dist_to_perimeter_km": 2.5,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.021
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.901795,
+  "lon": -118.390864,
+  "damage": null,
+  "dist_to_perimeter_km": 18.5,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.108408,
+  "lon": -118.89251,
+  "damage": null,
+  "dist_to_perimeter_km": 19.52,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.813
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.196753,
+  "lon": -118.655042,
+  "damage": null,
+  "dist_to_perimeter_km": 12.14,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.029
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.119484,
+  "lon": -118.691093,
+  "damage": null,
+  "dist_to_perimeter_km": 4.47,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.329
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.029513,
+  "lon": -118.343602,
+  "damage": null,
+  "dist_to_perimeter_km": 14.97,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.271669,
+  "lon": -118.657489,
+  "damage": null,
+  "dist_to_perimeter_km": 18.76,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.043
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.152862,
+  "lon": -118.681731,
+  "damage": null,
+  "dist_to_perimeter_km": 7.93,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.279
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.082281,
+  "lon": -118.835894,
+  "damage": null,
+  "dist_to_perimeter_km": 13.9,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.465
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.073915,
+  "lon": -118.384331,
+  "damage": null,
+  "dist_to_perimeter_km": 10.77,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.012397,
+  "lon": -118.316207,
+  "damage": null,
+  "dist_to_perimeter_km": 17.94,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.151752,
+  "lon": -118.370802,
+  "damage": null,
+  "dist_to_perimeter_km": 12.78,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.11698,
+  "lon": -118.416782,
+  "damage": null,
+  "dist_to_perimeter_km": 7.79,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.037
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.129139,
+  "lon": -118.64411,
+  "damage": null,
+  "dist_to_perimeter_km": 4.96,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.061
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.174833,
+  "lon": -118.629685,
+  "damage": null,
+  "dist_to_perimeter_km": 8.78,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.150882,
+  "lon": -118.600415,
+  "damage": null,
+  "dist_to_perimeter_km": 5.02,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.012
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.920885,
+  "lon": -118.412599,
+  "damage": null,
+  "dist_to_perimeter_km": 15.59,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.006
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.247453,
+  "lon": -118.621805,
+  "damage": null,
+  "dist_to_perimeter_km": 14.86,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.013
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.037998,
+  "lon": -118.873019,
+  "damage": null,
+  "dist_to_perimeter_km": 17.58,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.073
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.246051,
+  "lon": -118.585352,
+  "damage": null,
+  "dist_to_perimeter_km": 13.64,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.990216,
+  "lon": -118.41766,
+  "damage": null,
+  "dist_to_perimeter_km": 10.39,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.944711,
+  "lon": -118.376921,
+  "damage": null,
+  "dist_to_perimeter_km": 16.2,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.995541,
+  "lon": -118.337636,
+  "damage": null,
+  "dist_to_perimeter_km": 16.73,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.016211,
+  "lon": -118.389226,
+  "damage": null,
+  "dist_to_perimeter_km": 11.46,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.017
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.125983,
+  "lon": -118.68899,
+  "damage": null,
+  "dist_to_perimeter_km": 5.1,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.208
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.238259,
+  "lon": -118.632774,
+  "damage": null,
+  "dist_to_perimeter_km": 14.43,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.011
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.177744,
+  "lon": -118.721612,
+  "damage": null,
+  "dist_to_perimeter_km": 11.48,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.35
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.064558,
+  "lon": -118.843527,
+  "damage": null,
+  "dist_to_perimeter_km": 14.54,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.775
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.162463,
+  "lon": -118.338778,
+  "damage": null,
+  "dist_to_perimeter_km": 15.96,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.24876,
+  "lon": -118.660412,
+  "damage": null,
+  "dist_to_perimeter_km": 16.79,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.562
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.166502,
+  "lon": -118.550504,
+  "damage": null,
+  "dist_to_perimeter_km": 4.32,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.004
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.045885,
+  "lon": -118.293636,
+  "damage": null,
+  "dist_to_perimeter_km": 19.19,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.219604,
+  "lon": -118.765575,
+  "damage": null,
+  "dist_to_perimeter_km": 17.39,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.349
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.098506,
+  "lon": -118.657646,
+  "damage": null,
+  "dist_to_perimeter_km": 2.03,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.289
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.110134,
+  "lon": -118.291057,
+  "damage": null,
+  "dist_to_perimeter_km": 19.36,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.01
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.144402,
+  "lon": -118.588458,
+  "damage": null,
+  "dist_to_perimeter_km": 3.71,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.051
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.164478,
+  "lon": -118.37846,
+  "damage": null,
+  "dist_to_perimeter_km": 12.67,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.286096,
+  "lon": -118.425193,
+  "damage": null,
+  "dist_to_perimeter_km": 19.19,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.058781,
+  "lon": -118.427545,
+  "damage": null,
+  "dist_to_perimeter_km": 6.76,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.051121,
+  "lon": -118.781028,
+  "damage": null,
+  "dist_to_perimeter_km": 8.98,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.734
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.229275,
+  "lon": -118.459512,
+  "damage": null,
+  "dist_to_perimeter_km": 12.16,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.286636,
+  "lon": -118.448153,
+  "damage": null,
+  "dist_to_perimeter_km": 18.44,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.003
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.041268,
+  "lon": -118.395545,
+  "damage": null,
+  "dist_to_perimeter_km": 10.01,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.008
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.09354,
+  "lon": -118.754062,
+  "damage": null,
+  "dist_to_perimeter_km": 6.75,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.404
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.9214,
+  "lon": -118.42609,
+  "damage": null,
+  "dist_to_perimeter_km": 14.79,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.024
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.975813,
+  "lon": -118.332693,
+  "damage": null,
+  "dist_to_perimeter_km": 18.07,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.195216,
+  "lon": -118.479984,
+  "damage": null,
+  "dist_to_perimeter_km": 7.95,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.283265,
+  "lon": -118.457792,
+  "damage": null,
+  "dist_to_perimeter_km": 17.82,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.01
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.214269,
+  "lon": -118.545016,
+  "damage": null,
+  "dist_to_perimeter_km": 9.48,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.159866,
+  "lon": -118.458211,
+  "damage": null,
+  "dist_to_perimeter_km": 6.14,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.133844,
+  "lon": -118.686828,
+  "damage": null,
+  "dist_to_perimeter_km": 5.91,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.327
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.266664,
+  "lon": -118.501271,
+  "damage": null,
+  "dist_to_perimeter_km": 15.27,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.274482,
+  "lon": -118.503078,
+  "damage": null,
+  "dist_to_perimeter_km": 16.12,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.004
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.208957,
+  "lon": -118.683663,
+  "damage": null,
+  "dist_to_perimeter_km": 14.12,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.36
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.081846,
+  "lon": -118.352421,
+  "damage": null,
+  "dist_to_perimeter_km": 13.8,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.243287,
+  "lon": -118.698221,
+  "damage": null,
+  "dist_to_perimeter_km": 18.04,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.73
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.2023,
+  "lon": -118.56726,
+  "damage": null,
+  "dist_to_perimeter_km": 8.54,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.900972,
+  "lon": -118.413547,
+  "damage": null,
+  "dist_to_perimeter_km": 17.3,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.02
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.078595,
+  "lon": -118.86054,
+  "damage": null,
+  "dist_to_perimeter_km": 16.14,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.632
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.252212,
+  "lon": -118.458107,
+  "damage": null,
+  "dist_to_perimeter_km": 14.55,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.251624,
+  "lon": -118.505548,
+  "damage": null,
+  "dist_to_perimeter_km": 13.58,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.016416,
+  "lon": -118.325674,
+  "damage": null,
+  "dist_to_perimeter_km": 16.97,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.0
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.232166,
+  "lon": -118.419846,
+  "damage": null,
+  "dist_to_perimeter_km": 14.31,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.167313,
+  "lon": -118.697053,
+  "damage": null,
+  "dist_to_perimeter_km": 9.72,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.469
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.285301,
+  "lon": -118.482133,
+  "damage": null,
+  "dist_to_perimeter_km": 17.52,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.127
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.042914,
+  "lon": -118.405835,
+  "damage": null,
+  "dist_to_perimeter_km": 9.04,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.006
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.127068,
+  "lon": -118.849483,
+  "damage": null,
+  "dist_to_perimeter_km": 16.28,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.069
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.056834,
+  "lon": -118.329293,
+  "damage": null,
+  "dist_to_perimeter_km": 15.81,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 33.960607,
+  "lon": -118.45399,
+  "damage": null,
+  "dist_to_perimeter_km": 9.78,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.001
+ },
+ {
+  "incident": "palisades_2025",
+  "category": "outside",
+  "lat": 34.256393,
+  "lon": -118.433345,
+  "damage": null,
+  "dist_to_perimeter_km": 15.91,
+  "observed_arrival_h": null,
+  "burn_probability_10y": 0.002
+ }
+]

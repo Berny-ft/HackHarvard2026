@@ -1,0 +1,9 @@
+numpy
+rasterio
+shapely
+requests
+pyarrow
+pydantic
+openai
+mcp>=2
+chalkcompute
