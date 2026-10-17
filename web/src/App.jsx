@@ -1,39 +1,43 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
+import "mapbox-gl/dist/mapbox-gl.css";
+import "./styles.css";
 import MapView, { BASEMAPS, CAMERAS, LIGHTS } from "./MapView.jsx";
 import { Chart } from "./Charts.jsx";
+import { LEVEL_COLOR, LEVEL_LABEL, Logo, navigate, pct } from "./shared.jsx";
 
-const INCIDENTS = {
-  live: "Live · Today",
-  eaton_2025: "Eaton Fire · 2025",
-  palisades_2025: "Palisades Fire · 2025",
-};
+const INCIDENTS = [
+  ["live", "Live"],
+  ["eaton_2025", "Eaton 2025"],
+  ["palisades_2025", "Palisades 2025"],
+];
 
 const LIVE_LAYERS = [
-  ["redFlags", "Red Flag Warnings (NWS)", "#e0245e"],
-  ["santaAna", "Santa Ana Forecast · 48h", "#d9482b"],
-  ["activeFires", "Active Fires (NIFC)", "#ff3b1f"],
-  ["hotspots", "Satellite Hot Spots (FIRMS)", "#ffb000"],
-  ["powerLines", "Power Lines (OSM)", "#ffd23f"],
-  ["wind", "Wind (animated)", "#9fb7d6"],
+  ["scan", "Sentinel alert areas", "var(--ember)"],
+  ["redFlags", "Red Flag Warnings", "#e0245e"],
+  ["santaAna", "Santa Ana forecast, 48 h", "#d9482b"],
+  ["activeFires", "Active fires (NIFC)", "#ff3b1f"],
+  ["hotspots", "Satellite hot spots", "#ffb000"],
+  ["powerLines", "Power lines", "#ffd23f"],
+  ["wind", "Wind", "#9fb7d6"],
 ];
-
 const INCIDENT_LAYERS = [
-  ["spread", "Fire Spread (Modeled)", "#e5482a"],
-  ["real", "Real Perimeter (CAL FIRE)", "#ffffff"],
-  ["structures", "Structures Reached (DINS)", "#b3261e"],
-  ["detections", "Satellite Detections (FIRMS)", "#ffb000"],
-  ["wind", "Wind (animated)", "#9fb7d6"],
+  ["households", "Sentinel households", "var(--signal)"],
+  ["spread", "Modeled spread", "#e5482a"],
+  ["real", "Final perimeter (CAL FIRE)", "#ffffff"],
+  ["structures", "Structures reached", "#b3261e"],
+  ["detections", "Satellite detections", "#ffb000"],
+  ["wind", "Wind", "#9fb7d6"],
 ];
-
-const LAYER_LABELS = [
-  ["risk", "10-yr Burn Likelihood", "#f08a2c"],
-  ["timesBurned", "Times Burned since 1950", "#e8873a"],
-  ["history", "Fire History 1950–2025", "#f3d38a"],
+const HISTORY_LAYERS = [
+  ["risk", "10-year burn likelihood", "#f08a2c"],
+  ["timesBurned", "Times burned since 1950", "#e8873a"],
+  ["history", "Fire perimeters, 1950–2025", "#f3d38a"],
 ];
 
 const COMPASS = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 const compass = (deg) => COMPASS[Math.round(deg / 22.5) % 16];
-const pct = (v) => `${Math.round(v * 100)}%`;
+const LEVELS = ["none", "watch", "warn", "evacuate"];
+const PT = { timeZone: "America/Los_Angeles" };
 
 async function loadIncident(key) {
   const get = (f) => fetch(`/data/incidents/${key}/${f}`).then((r) => r.json());
@@ -45,19 +49,29 @@ async function loadIncident(key) {
   return { info, series, perimeters, real, structures, detections };
 }
 
+const levelAt = (alerts, hour) => {
+  let lvl = "none";
+  for (const a of alerts) if (a.hour <= hour) lvl = a.level;
+  return lvl;
+};
+
 export default function App() {
-  const [incident, setIncident] = useState("live");
+  const [incident, setIncident] = useState(() => new URLSearchParams(window.location.search).get("fire") || "live");
   const [live, setLive] = useState(null);
   const [data, setData] = useState(null);
   const [hour, setHour] = useState(12);
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
-  const [mapReady, setMapReady] = useState(false);
   const [patterns, setPatterns] = useState(null);
   const [risk, setRisk] = useState(null);
+  const [replay, setReplay] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [focus, setFocus] = useState(null);
+  const [layersOpen, setLayersOpen] = useState(() => window.innerWidth > 900);
   const [layers, setLayers] = useState({
-    spread: true, real: true, structures: true, detections: true, risk: false, timesBurned: false, history: false,
-    wind: true, redFlags: true, santaAna: true, activeFires: true, hotspots: true, powerLines: false,
+    spread: true, real: true, structures: false, detections: true, households: true,
+    risk: false, timesBurned: false, history: false,
+    wind: true, redFlags: true, santaAna: true, activeFires: true, hotspots: true, powerLines: false, scan: true,
   });
   const isLive = incident === "live";
   const [basemap, setBasemap] = useState("standard");
@@ -65,16 +79,23 @@ export default function App() {
   const [camera, setCamera] = useState("3d");
 
   useEffect(() => {
-    fetch("/data/patterns.json").then((r) => r.json()).then(setPatterns);
-    fetch("/data/risk_model_metrics.json").then((r) => r.json()).then(setRisk);
+    document.title = "FireTrace map";
+    const json = (p) => fetch(p).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    json("/data/patterns.json").then(setPatterns);
+    json("/data/risk_model_metrics.json").then(setRisk);
+    json("/data/sentinel/replay.json").then(setReplay);
     Promise.all(["status.json", "weather.json", "red_flags.geojson", "air_quality.json", "incidents.json"]
-      .map((f) => fetch(`/data/live/${f}`).then((r) => (r.ok ? r.json() : null)).catch(() => null)))
+      .map((f) => json(`/data/live/${f}`)))
       .then(([status, weather, redFlags, air, incidents]) => setLive({ status, weather, redFlags, air, incidents }));
   }, []);
 
   useEffect(() => {
     setData(null);
     setPlaying(false);
+    setSelected(null);
+    const url = new URL(window.location.href);
+    if (incident === "live") url.searchParams.delete("fire"); else url.searchParams.set("fire", incident);
+    window.history.replaceState({}, "", url);
     if (incident === "live") return;
     loadIncident(incident).then((d) => { setData(d); setHour(12); });
   }, [incident]);
@@ -86,9 +107,27 @@ export default function App() {
         if (h >= data.info.hours) { setPlaying(false); return h; }
         return h + 1;
       });
-    }, 400 / speed);
+    }, 420 / speed);
     return () => clearInterval(id);
   }, [playing, speed, data]);
+
+  // Space toggles playback, arrows step an hour.
+  useEffect(() => {
+    if (!data) return;
+    const on = (e) => {
+      if (e.target.closest("input, select, textarea, button")) return;
+      if (e.code === "Space") { e.preventDefault(); togglePlay(); }
+      if (e.key === "ArrowRight") { setPlaying(false); setHour((h) => Math.min(data.info.hours, h + 1)); }
+      if (e.key === "ArrowLeft") { setPlaying(false); setHour((h) => Math.max(0, h - 1)); }
+    };
+    window.addEventListener("keydown", on);
+    return () => window.removeEventListener("keydown", on);
+  });
+
+  const togglePlay = () => {
+    if (data && hour >= data.info.hours) setHour(0);
+    setPlaying((p) => !p);
+  };
 
   const now = data?.series[Math.min(hour, data.series.length - 1)];
   const reached = useMemo(() => {
@@ -104,144 +143,306 @@ export default function App() {
     return { n, destroyed };
   }, [data, hour]);
 
-  const clock = now && new Date(now.time).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
-  const m = data?.info.metrics;
-  const fw = patterns?.fire_weather;
+  const homes = useMemo(() => (replay?.households ?? [])
+    .map((h, idx) => ({ ...h, idx }))
+    .filter((h) => h.incident === incident), [replay, incident]);
+
+  const homesGeo = useMemo(() => ({
+    type: "FeatureCollection",
+    features: homes.map((h) => ({
+      type: "Feature", geometry: { type: "Point", coordinates: [h.lon, h.lat] },
+      properties: { idx: h.idx, level: levelAt(h.alerts, hour), destroyed: h.category === "destroyed",
+                    selected: h.idx === selected },
+    })),
+  }), [homes, hour, selected]);
+
+  const clock = now && new Date(now.time).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  const toggle = (k) => setLayers((l) => ({ ...l, [k]: !l[k] }));
+  const selectedHome = selected != null ? replay?.households[selected] : null;
 
   return (
-    <div className="app">
+    <div className={`app ${isLive ? "is-live" : "is-incident"}`}>
       <header className="topbar">
-        <div className="brand"><span className="logo">▲</span> FireTrace</div>
-        <span className="sub">Wildfire Forensic Analysis</span>
-        <span className="divider" />
-        <select value={incident} onChange={(e) => setIncident(e.target.value)}>
-          {Object.entries(INCIDENTS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-        </select>
-        <span className="sub">Los Angeles County, CA</span>
-        <span className="spacer" />
-        {!isLive && clock && <span className="pill">{clock} · T+{hour}h</span>}
-        {isLive && live?.status && <span className="pill live-pill">● Updated {new Date(live.status.updated).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "America/Los_Angeles" })} PT</span>}
+        <a href="/" onClick={navigate} className="topbar-logo" aria-label="FireTrace home"><Logo /></a>
+        <nav className="incident-tabs" aria-label="Choose a view">
+          {INCIDENTS.map(([k, label]) => (
+            <button key={k} className={k === incident ? "on" : ""} aria-pressed={k === incident} onClick={() => setIncident(k)}>
+              {k === "live" && <span className="live-dot" aria-hidden="true" />}{label}
+            </button>
+          ))}
+        </nav>
+        <span className="topbar-spacer" />
+        <span className="topbar-meta">
+          {isLive && live?.status && (
+            <>Feeds updated <b className="num">{new Date(live.status.updated).toLocaleString("en-US", { ...PT, month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} PT</b></>
+          )}
+          {!isLive && data && <>Los Angeles County, replayed with what was known at each hour</>}
+        </span>
       </header>
 
       <main className="body">
         <section className="mapwrap">
-          <MapView incident={incident} data={data} hour={hour} layers={layers}
-                   basemap={basemap} light={light} camera={camera} onReady={() => setMapReady(true)} />
+          <MapView incident={incident} data={data} hour={hour} layers={layers} households={homesGeo}
+                   basemap={basemap} light={light} camera={camera} focus={focus}
+                   onSelectHousehold={setSelected} />
+
+          <div className={`panel layers-panel ${layersOpen ? "open" : ""}`}>
+            <button className="panel-toggle" onClick={() => setLayersOpen((o) => !o)} aria-expanded={layersOpen}>
+              <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 1.5 15 5.2 8 9 1 5.2Z M1.8 8.4 8 11.8l6.2-3.4M1.8 11.4 8 14.8l6.2-3.4" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+              </svg>
+              Layers
+              <svg className="chev" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" strokeWidth="1.4" /></svg>
+            </button>
+            <div className="layers-body">
+              <div className="layers-inner">
+                <LayerGroup title={isLive ? "Now" : "This fire"} items={isLive ? LIVE_LAYERS : INCIDENT_LAYERS} layers={layers} toggle={toggle} />
+                <LayerGroup title="History" items={HISTORY_LAYERS} layers={layers} toggle={toggle} />
+              </div>
+            </div>
+          </div>
+
           <div className="viewbar">
-            <Segmented value={basemap} onChange={setBasemap}
+            <Segmented label="Basemap" value={basemap} onChange={setBasemap}
                        options={Object.entries(BASEMAPS).map(([k, v]) => [k, v.label])} />
             {BASEMAPS[basemap].standard && (
-              <Segmented value={light} onChange={setLight}
+              <Segmented label="Light" value={light} onChange={setLight}
                          options={LIGHTS.map((l) => [l, l[0].toUpperCase() + l.slice(1)])} />
             )}
-            <Segmented value={camera} onChange={setCamera}
+            <Segmented label="Camera" value={camera} onChange={setCamera}
                        options={Object.entries(CAMERAS).map(([k, v]) => [k, v.label])} />
           </div>
-          {!isLive && !data && <div className="loading">Loading incident…</div>}
+
+          {!isLive && !data && <div className="loading"><span className="spinner" />Loading the {INCIDENTS.find(([k]) => k === incident)[1]} replay</div>}
           {isLive && <LiveBanner live={live} />}
-          <div className="legend" style={{ display: isLive ? "none" : undefined }}>
-            <span><i style={{ background: "#e5482a" }} /> Simulated burn area</span>
-            <span><i className="dash" /> Real final perimeter</span>
-            <span><i className="dot" style={{ background: "#b3261e" }} /> Destroyed</span>
-            <span><i className="dot" style={{ background: "#7fbf7a" }} /> No damage</span>
-            <span><i className="dot" style={{ background: "#ffb000" }} /> Satellite detection</span>
-          </div>
+          <Legend live={isLive} />
         </section>
 
         <aside className="side">
-          <div className="card">
-            <h3>Layers</h3>
-            <div className="group">{isLive ? "Live" : "Incident"}</div>
-            {(isLive ? LIVE_LAYERS : INCIDENT_LAYERS).map(([k, label, color]) => (
-              <label key={k} className="layer">
-                <input type="checkbox" checked={layers[k]}
-                       onChange={() => setLayers((l) => ({ ...l, [k]: !l[k] }))} />
-                <i style={{ background: color }} />
-                {label}
-              </label>
-            ))}
-            <div className="group">Regional history</div>
-            {LAYER_LABELS.map(([k, label, color]) => (
-              <label key={k} className="layer">
-                <input type="checkbox" checked={layers[k]}
-                       onChange={() => setLayers((l) => ({ ...l, [k]: !l[k] }))} />
-                <i style={{ background: color }} />
-                {label}
-              </label>
-            ))}
-          </div>
-
-          {isLive && <LiveCard live={live} />}
-
-          {data && (
-            <div className="card">
-              <h3>Incident Overview</h3>
-              <dl>
-                <dt>Incident</dt><dd>{data.info.name}</dd>
-                <dt>Ignition</dt><dd>{new Date(data.info.start).toLocaleString()}</dd>
-                <dt>Simulated area</dt><dd>{Math.round(now.acres).toLocaleString()} ac</dd>
-                <dt>Real final area</dt><dd>{Math.round(data.info.real_acres).toLocaleString()} ac</dd>
-                <dt>Structures reached</dt><dd>{reached.n.toLocaleString()} <span className="muted">({reached.destroyed.toLocaleString()} destroyed)</span></dd>
-                {now.observed_acres != null && <><dt>Satellite-observed</dt><dd>{Math.round(now.observed_acres).toLocaleString()} ac</dd></>}
-                <dt>Shape fit</dt><dd>{pct(m.sorensen)} overlap <span className="muted">({pct(m.out_of_sample_sorensen)} out-of-sample)</span></dd>
-                {m.growth_skill != null && <><dt>Growth match</dt><dd>{pct(m.growth_skill)} vs satellite <span className="muted">({pct(m.out_of_sample_growth_skill)} out-of-sample)</span></dd></>}
-              </dl>
-            </div>
-          )}
-
-          {now && (
-            <div className="card">
-              <h3>Weather & Fire Behavior <span className="muted">at T+{hour}h</span></h3>
-              <div className="wx">
-                <div><b>{now.wind_mph}</b><small>mph wind {compass(now.wind_dir_deg)}</small></div>
-                <div><b>{now.gust_mph}</b><small>mph gusts</small></div>
-                <div><b className={now.rh_pct < 15 ? "hot" : ""}>{now.rh_pct}%</b><small>humidity</small></div>
-                <div><b>{Math.round(now.temp_f)}°F</b><small>temp</small></div>
-                <div><b className={now.fuel_moisture_1h_pct < 5 ? "hot" : ""}>{now.fuel_moisture_1h_pct}%</b><small>1-h fuel moisture</small></div>
-                <div><b>{Math.round(now.growth_acres_per_hr)}</b><small>ac/hr growth</small></div>
-              </div>
-            </div>
-          )}
-
-          {fw && risk && (
-            <div className="card">
-              <h3>Regional Patterns <span className="muted">LA + Ventura, 1950–2025</span></h3>
-              {Object.entries(fw.tiers).map(([name, t]) => (
-                <p key={name} className="stat"><b>{t.lift.toFixed(0)}×</b> {name} days ({t.days_per_year}/yr) drive {pct(t.share_of_large_fire_acres)} of large-fire acres.</p>
-              ))}
-              <p className="stat"><b>{patterns.n_fires_since_1950.toLocaleString()}</b> mapped fires since 1950.</p>
-              <p className="stat"><b>{risk.auc.toFixed(2)}</b> AUC of the burn-likelihood model on 2015–25 fires it never saw.</p>
-            </div>
+          {isLive ? (
+            <LiveSide live={live} onFocus={setFocus} patterns={patterns} risk={risk} />
+          ) : selectedHome ? (
+            <HouseholdCard home={selectedHome} hour={hour} onClose={() => setSelected(null)}
+                           onJump={(h) => { setPlaying(false); setHour(h); }} />
+          ) : (
+            data && now && (
+              <>
+                <ReplayCard homes={homes} hour={hour} />
+                <div className="card">
+                  <div className="card-head"><h3>Fire behavior</h3><span className="num muted">{clock}</span></div>
+                  <div className="metrics">
+                    <Metric v={now.wind_mph} u="mph" l={`Wind from ${compass(now.wind_dir_deg)}`} />
+                    <Metric v={now.gust_mph} u="mph" l="Gusts" hot={now.gust_mph >= 50} />
+                    <Metric v={now.rh_pct} u="%" l="Humidity" hot={now.rh_pct < 15} />
+                    <Metric v={Math.round(now.temp_f)} u="°F" l="Temperature" />
+                    <Metric v={now.fuel_moisture_1h_pct} u="%" l="1-hour fuel moisture" hot={now.fuel_moisture_1h_pct < 5} />
+                    <Metric v={Math.round(now.growth_acres_per_hr).toLocaleString()} u="ac/h" l="Modeled growth" />
+                  </div>
+                </div>
+                <IncidentCard data={data} now={now} reached={reached} />
+              </>
+            )
           )}
         </aside>
       </main>
 
-      <footer className="timeline" style={{ display: isLive ? "none" : undefined }}>
-        <div className="controls">
-          <button onClick={() => { if (data && hour >= data.info.hours) setHour(0); setPlaying((p) => !p); }} disabled={!data}>
-            {playing ? "❚❚" : "▶"}
-          </button>
-          <select value={speed} onChange={(e) => setSpeed(+e.target.value)}>
-            {[1, 2, 4].map((s) => <option key={s} value={s}>{s}×</option>)}
-          </select>
-          <input type="range" min={0} max={data?.info.hours ?? 72} value={hour}
-                 onChange={(e) => { setPlaying(false); setHour(+e.target.value); }} />
-          <span className="pill">T+{hour}h</span>
-        </div>
-        {data && (
-          <div className="charts">
-            <Chart title="Fire Area" unit="acres (model / satellite)" rows={data.series} hour={hour}
-                   series={[{ key: "acres", color: "#e5482a", fill: true, suffix: " /" },
-                            ...(data.series[0].observed_acres != null ? [{ key: "observed_acres", color: "#c98a00" }] : [])]} />
-            <Chart title="Growth Rate" unit="acres/hr" rows={data.series} hour={hour}
-                   series={[{ key: "growth_acres_per_hr", color: "#f08a2c", fill: true }]} />
-            <Chart title="Wind" unit="mph (sustained / gust)" rows={data.series} hour={hour}
-                   series={[{ key: "wind_mph", color: "#3b6ea8", suffix: " /" }, { key: "gust_mph", color: "#8fb3dc" }]} />
-            <Chart title="1-h Fuel Moisture" unit="%" rows={data.series} hour={hour}
-                   series={[{ key: "fuel_moisture_1h_pct", color: "#6b8e3a", fill: true }]} />
+      {!isLive && (
+        <footer className="timeline">
+          <div className="controls">
+            <button className="play" onClick={togglePlay} disabled={!data} aria-label={playing ? "Pause" : "Play"}>
+              {playing
+                ? <svg width="12" height="12" viewBox="0 0 12 12"><rect x="2" y="1.5" width="3" height="9" rx="1" /><rect x="7" y="1.5" width="3" height="9" rx="1" /></svg>
+                : <svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5Z" /></svg>}
+            </button>
+            <div className="speed" role="group" aria-label="Playback speed">
+              {[1, 2, 4].map((s) => (
+                <button key={s} className={s === speed ? "on" : ""} onClick={() => setSpeed(s)}>{s}×</button>
+              ))}
+            </div>
+            <Scrubber hour={hour} max={data?.info.hours ?? 72} start={data?.info.start}
+                      onChange={(h) => { setPlaying(false); setHour(h); }} />
+            <div className="clock">
+              <span className="num">T+{hour}h</span>
+              <small className="num">{clock ?? "–"}</small>
+            </div>
           </div>
-        )}
-      </footer>
+          {data && (
+            <div className="charts">
+              <Chart title="Fire area" unit="acres" rows={data.series} hour={hour}
+                     series={[{ key: "acres", color: "#ff6a2b", fill: true, label: "Model" },
+                              ...(data.series[0].observed_acres != null ? [{ key: "observed_acres", color: "#ffb547", label: "Satellite" }] : [])]} />
+              <Chart title="Growth" unit="ac/h" rows={data.series} hour={hour}
+                     series={[{ key: "growth_acres_per_hr", color: "#f08a2c", fill: true }]} />
+              <Chart title="Wind" unit="mph" rows={data.series} hour={hour}
+                     series={[{ key: "wind_mph", color: "#8fb3dc", fill: true, label: "Sustained" }, { key: "gust_mph", color: "#c7d9ee", label: "Gust" }]} />
+              <Chart title="1-hour fuel moisture" unit="%" rows={data.series} hour={hour}
+                     series={[{ key: "fuel_moisture_1h_pct", color: "#bade61", fill: true }]} />
+            </div>
+          )}
+        </footer>
+      )}
+    </div>
+  );
+}
+
+function LayerGroup({ title, items, layers, toggle }) {
+  return (
+    <div className="layer-group">
+      <div className="group-title">{title}</div>
+      {items.map(([k, label, color]) => (
+        <label key={k} className="layer">
+          <input type="checkbox" checked={!!layers[k]} onChange={() => toggle(k)} />
+          <span className="swatch" style={{ "--c": color }} />
+          <span className="layer-label">{label}</span>
+          <span className="switch" aria-hidden="true" />
+        </label>
+      ))}
+    </div>
+  );
+}
+
+function Scrubber({ hour, max, start, onChange }) {
+  const days = [];
+  if (start) {
+    const t0 = new Date(start);
+    for (let h = 1; h <= max; h++) {
+      const d = new Date(t0.getTime() + h * 3600e3);
+      if (d.getHours() === 0) days.push([h, `${d.toLocaleDateString("en-US", { weekday: "short" })} ${d.getDate()}`]);
+    }
+  }
+  return (
+    <div className="scrubber" style={{ "--p": `${(hour / max) * 100}%` }}>
+      <input type="range" min={0} max={max} value={hour} aria-label="Hours since ignition"
+             onChange={(e) => onChange(+e.target.value)} />
+      <div className="scrub-track" aria-hidden="true"><div className="scrub-fill" /></div>
+      {days.map(([h, label]) => (
+        <span key={h} className="scrub-day" style={{ left: `${(h / max) * 100}%` }}>{label}</span>
+      ))}
+    </div>
+  );
+}
+
+function Metric({ v, u, l, hot }) {
+  return (
+    <div className={`metric ${hot ? "hot" : ""}`}>
+      <b className="num">{v}<small>{u}</small></b>
+      <span>{l}</span>
+    </div>
+  );
+}
+
+function ReplayCard({ homes, hour }) {
+  if (!homes.length) {
+    return (
+      <div className="card">
+        <h3>Sentinel replay</h3>
+        <p className="muted small-p">Run <code>python -m evals.export_web</code> in <code>agent/</code> to load replayed households.</p>
+      </div>
+    );
+  }
+  const counts = Object.fromEntries(LEVELS.map((l) => [l, 0]));
+  let arrived = 0, warned = 0, evac = 0, destroyed = 0;
+  for (const h of homes) {
+    counts[levelAt(h.alerts, hour)]++;
+    if (h.category !== "destroyed" || h.arrival_h == null) continue;
+    destroyed++;
+    if (h.arrival_h <= hour) {
+      arrived++;
+      if (h.first.warn != null && h.first.warn < h.arrival_h) warned++;
+      if (h.first.evacuate != null && h.first.evacuate < h.arrival_h) evac++;
+    }
+  }
+  return (
+    <div className="card replay-card">
+      <div className="card-head"><h3>Sentinel replay</h3><span className="num muted">T+{hour}h</span></div>
+      <p className="small-p muted">{homes.length} households: {destroyed} later destroyed, the rest unharmed or outside the burn. Each sees only what was known at this hour.</p>
+      <div className="levelbar" role="img" aria-label={LEVELS.map((l) => `${counts[l]} ${LEVEL_LABEL[l]}`).join(", ")}>
+        {LEVELS.map((l) => (
+          <span key={l} style={{ flexGrow: counts[l], background: LEVEL_COLOR[l], opacity: l === "none" ? 0.35 : 1 }} />
+        ))}
+      </div>
+      <div className="levelkey">
+        {LEVELS.map((l) => (
+          <span key={l}><i style={{ background: LEVEL_COLOR[l], opacity: l === "none" ? 0.5 : 1 }} />{LEVEL_LABEL[l]}<b className="num">{counts[l]}</b></span>
+        ))}
+      </div>
+      <div className="arrivals">
+        <div><b className="num">{arrived}<small>/{destroyed}</small></b><span>Destroyed homes the fire has reached</span></div>
+        <div><b className="num ok">{arrived ? pct(warned / arrived, 0) : "–"}</b><span>of those were told to get ready first</span></div>
+        <div><b className="num ok">{arrived ? pct(evac / arrived, 0) : "–"}</b><span>were told to leave first</span></div>
+      </div>
+      <p className="hint">Select a household on the map to read its messages.</p>
+    </div>
+  );
+}
+
+function HouseholdCard({ home, hour, onClose, onJump }) {
+  const label = { destroyed: "Destroyed home", undamaged: "Undamaged home", outside: "Outside the burn area" }[home.category];
+  return (
+    <div className="card household-card">
+      <div className="card-head">
+        <button className="back" onClick={onClose}>
+          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M7.5 2.5 4 6l3.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.5" /></svg>
+          All households
+        </button>
+      </div>
+      <h3 className="hh-title">{label}</h3>
+      <p className="small-p muted num">{home.lat.toFixed(4)}, {home.lon.toFixed(4)}</p>
+      <dl className="hh-facts">
+        <div><dt>Fire observed within 750 m</dt><dd className="num">{home.arrival_h != null ? `T+${home.arrival_h.toFixed(1)}h` : "Never"}</dd></div>
+        {home.category === "outside" && <div><dt>Distance to final perimeter</dt><dd className="num">{home.dist_km.toFixed(1)} km</dd></div>}
+        <div><dt>Alerts sent</dt><dd className="num">{home.alerts.length}</dd></div>
+      </dl>
+      <ol className="hh-alerts">
+        {home.alerts.length === 0 && <li className="hh-empty">No alerts. The agent never judged this home at risk.</li>}
+        {home.alerts.map((a, i) => {
+          const past = a.hour <= hour;
+          const lead = home.arrival_h != null ? home.arrival_h - a.hour : null;
+          const arrivesBefore = home.arrival_h != null && a.hour >= home.arrival_h && (i === 0 || home.alerts[i - 1].hour < home.arrival_h);
+          return (
+            <Fragment key={a.hour}>
+            {arrivesBefore && <ArrivalRow h={home.arrival_h} hour={hour} />}
+            <li className={past ? "" : "future"} style={{ "--c": LEVEL_COLOR[a.level] }}>
+              <button className="hh-time num" onClick={() => onJump(a.hour)} title="Jump to this hour">T+{a.hour}h</button>
+              <div>
+                <div className="hh-level">{LEVEL_LABEL[a.level]}
+                  {lead != null && lead > 0 && <span className="num muted"> {lead.toFixed(1)} h before the fire</span>}
+                </div>
+                <p>{a.message}</p>
+              </div>
+            </li>
+            </Fragment>
+          );
+        })}
+        {home.arrival_h != null && home.alerts.every((a) => a.hour < home.arrival_h) && <ArrivalRow h={home.arrival_h} hour={hour} />}
+      </ol>
+    </div>
+  );
+}
+
+function ArrivalRow({ h, hour }) {
+  return (
+    <li className={`hh-arrival ${h <= hour ? "" : "future"}`}>
+      <span className="num">T+{h.toFixed(1)}h</span>
+      <span>Satellites see fire within 750 m</span>
+    </li>
+  );
+}
+
+function IncidentCard({ data, now, reached }) {
+  const m = data.info.metrics;
+  return (
+    <div className="card">
+      <div className="card-head"><h3>Model against reality</h3></div>
+      <dl className="facts">
+        <div><dt>Ignition</dt><dd className="num">{new Date(data.info.start).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}</dd></div>
+        <div><dt>Modeled area now</dt><dd className="num">{Math.round(now.acres).toLocaleString()} ac</dd></div>
+        {now.observed_acres != null && <div><dt>Seen by satellite now</dt><dd className="num">{Math.round(now.observed_acres).toLocaleString()} ac</dd></div>}
+        <div><dt>Real final area</dt><dd className="num">{Math.round(data.info.real_acres).toLocaleString()} ac</dd></div>
+        <div><dt>Structures reached by model</dt><dd className="num">{reached.n.toLocaleString()} <span className="muted">({reached.destroyed.toLocaleString()} destroyed)</span></dd></div>
+        <div><dt>Shape overlap</dt><dd className="num">{pct(m.sorensen, 0)} <span className="muted">({pct(m.out_of_sample_sorensen, 0)} held out)</span></dd></div>
+        {m.growth_skill != null && <div><dt>Growth match</dt><dd className="num">{pct(m.growth_skill, 0)} <span className="muted">({pct(m.out_of_sample_growth_skill, 0)} held out)</span></dd></div>}
+      </dl>
     </div>
   );
 }
@@ -250,64 +451,151 @@ function LiveBanner({ live }) {
   const rf = live?.redFlags?.features?.[0]?.properties;
   if (!rf) return null;
   return (
-    <div className="banner">
-      <b>RED FLAG WARNING</b> until {new Date(rf.ends).toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit", timeZone: "America/Los_Angeles" })} PT · {live.redFlags.features.length} fire-weather zones
+    <div className="banner" role="status">
+      <span className="banner-dot" />
+      <b>Red Flag Warning</b>
+      <span>until {new Date(rf.ends).toLocaleString("en-US", { ...PT, weekday: "short", hour: "numeric", minute: "2-digit" })} PT, {live.redFlags.features.length} fire-weather zones</span>
     </div>
   );
 }
 
-function LiveCard({ live }) {
-  if (!live?.weather) return <div className="card"><h3>Live Conditions</h3><p className="muted">Run <code>python -m wildfire live</code> to load live data.</p></div>;
+function LiveSide({ live, onFocus, patterns, risk }) {
+  const [scan, setScan] = useState(null);
+  useEffect(() => {
+    fetch("/data/sentinel/scan.json").then((r) => (r.ok ? r.json() : null)).then(setScan).catch(() => setScan(null));
+  }, []);
+
+  if (!live?.weather) {
+    return (
+      <div className="card">
+        <h3>Live conditions</h3>
+        <p className="small-p muted">Run <code>python -m wildfire live</code> in <code>modeling/</code> to load live data.</p>
+      </div>
+    );
+  }
   const w = live.weather;
-  const now = w.filter((p) => p.santa_ana_level_now > 0).length;
-  const soon = w.filter((p) => p.santa_ana_level_peak_48h > 0).length;
+  const saNow = w.filter((p) => p.santa_ana_level_now > 0).length;
+  const saSoon = w.filter((p) => p.santa_ana_level_peak_48h > 0).length;
   const extreme = w.filter((p) => p.santa_ana_level_peak_48h > 1).length;
   const driest = Math.min(...w.map((p) => p.min_fuel_moisture_48h_pct));
   const gust = Math.max(...w.map((p) => p.max_gust_48h_mph));
   const aqi = Math.max(0, ...(live.air || []).map((p) => p.us_aqi || 0));
   const big = (live.incidents || []).filter((i) => (i.acres || 0) >= 10).sort((a, b) => b.acres - a.acres);
   const src = live.status?.sources || {};
+
+  // Group the scan by fire: one row per fire, worst level first.
+  const byFire = [];
+  for (const c of scan?.cells ?? []) {
+    let g = byFire.find((x) => x.fire === c.fire);
+    if (!g) byFire.push(g = { fire: c.fire, cells: [], level: c.level, nearest: c.nearest_fire_km });
+    g.cells.push(c);
+    if (c.level === "evacuate") g.level = "evacuate";
+    g.nearest = Math.min(g.nearest, c.nearest_fire_km);
+  }
+
   return (
     <>
       <div className="card">
-        <h3>Live Conditions <span className="muted">next 48h</span></h3>
-        <div className="wx">
-          <div><b className={now ? "hot" : ""}>{now}</b><small>Santa Ana now</small></div>
-          <div><b className={soon ? "hot" : ""}>{soon}<span className="muted">/{w.length}</span></b><small>points ≤48h</small></div>
-          <div><b className={extreme ? "hot" : ""}>{extreme}</b><small>extreme ≤48h</small></div>
-          <div><b className={driest < 5 ? "hot" : ""}>{driest}%</b><small>driest 1-h fuel</small></div>
-          <div><b>{Math.round(gust)}</b><small>mph peak gust</small></div>
-          <div><b>{aqi}</b><small>max US AQI</small></div>
+        <div className="card-head"><h3>Where Sentinel would alert now</h3></div>
+        {scan == null ? (
+          <p className="small-p muted">Run <code>python -m evals.export_web</code> in <code>agent/</code> to scan the live feeds.</p>
+        ) : byFire.length === 0 ? (
+          <p className="small-p muted">No area in LA or Ventura counties is at get-ready or leave-now level.</p>
+        ) : (
+          <>
+            <p className="small-p muted">A 5 km grid scored against every active fire. These areas would get alerts if someone there subscribed.</p>
+            <ul className="scan-list">
+              {byFire.slice(0, 6).map((g) => (
+                <li key={g.fire}>
+                  <button onClick={() => onFocus({ lon: g.cells[0].lon, lat: g.cells[0].lat, t: Date.now() })} style={{ "--c": LEVEL_COLOR[g.level] }}>
+                    <span className="scan-level">{LEVEL_LABEL[g.level]}</span>
+                    <span className="scan-fire">{titleCase(g.fire)}</span>
+                    <span className="num muted">{g.cells.length} area{g.cells.length > 1 ? "s" : ""}, {g.nearest.toFixed(1)} km</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+
+      <div className="card">
+        <div className="card-head"><h3>Fire weather</h3><span className="muted">next 48 h</span></div>
+        <div className="metrics">
+          <Metric v={saNow} u="" l="Points in Santa Ana now" hot={saNow > 0} />
+          <Metric v={saSoon} u={`/${w.length}`} l="Within 48 h" hot={saSoon > 0} />
+          <Metric v={extreme} u="" l="Extreme within 48 h" hot={extreme > 0} />
+          <Metric v={driest} u="%" l="Driest 1-hour fuel" hot={driest < 5} />
+          <Metric v={Math.round(gust)} u="mph" l="Peak gust" hot={gust >= 50} />
+          <Metric v={aqi} u="" l="Highest US AQI" hot={aqi > 100} />
         </div>
       </div>
+
       <div className="card">
-        <h3>Active Fires <span className="muted">≥10 acres</span></h3>
-        {big.length ? big.slice(0, 6).map((i) => (
-          <div key={i.name + i.lat} className="row">
-            <span>{i.name}</span>
-            <span className="muted">{Math.round(i.acres).toLocaleString()} ac{i.contained_pct != null ? ` · ${i.contained_pct}%` : ""}</span>
-          </div>
-        )) : <p className="muted">None reported.</p>}
+        <div className="card-head"><h3>Active fires</h3><span className="muted">10 acres or more</span></div>
+        {big.length ? (
+          <ul className="rows">
+            {big.slice(0, 6).map((i) => (
+              <li key={i.name + i.lat}>
+                <button onClick={() => onFocus({ lon: i.lon, lat: i.lat, t: Date.now() })}>
+                  <span>{titleCase(i.name)}</span>
+                  <span className="num muted">{Math.round(i.acres).toLocaleString()} ac{i.contained_pct != null ? `, ${i.contained_pct}% contained` : ""}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : <p className="small-p muted">None reported.</p>}
       </div>
+
+      {patterns?.fire_weather && risk && (
+        <div className="card">
+          <div className="card-head"><h3>What drives big fires here</h3></div>
+          {Object.entries(patterns.fire_weather.tiers).map(([name, t]) => (
+            <p key={name} className="stat"><b className="num">{t.lift.toFixed(0)}×</b><span>{name} days ({t.days_per_year} a year) drive {pct(t.share_of_large_fire_acres, 0)} of large-fire acres.</span></p>
+          ))}
+          <p className="stat"><b className="num">{risk.auc.toFixed(2)}</b><span>AUC of the burn-likelihood model on 2015–25 fires it never saw.</span></p>
+        </div>
+      )}
+
       <div className="card">
-        <h3>Feeds</h3>
-        {Object.entries(src).map(([k, v]) => (
-          <div key={k} className="row">
-            <span><i className={`status ${v.ok ? "ok" : "bad"}`} />{k.replace("_", " ")}</span>
-            <span className="muted small">{v.ok ? v.summary : v.error.includes("FIRMS_MAP_KEY") ? "needs key" : "error"}</span>
-          </div>
-        ))}
+        <div className="card-head"><h3>Feeds</h3></div>
+        <ul className="feeds">
+          {Object.entries(src).map(([k, v]) => (
+            <li key={k}>
+              <span><i className={`status ${v.ok ? "ok" : "bad"}`} />{k.replace("_", " ")}</span>
+              <span className="muted">{v.ok ? v.summary : v.error?.includes("FIRMS_MAP_KEY") ? "Needs a FIRMS key" : "Unavailable"}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
 }
 
-function Segmented({ value, onChange, options }) {
+function Legend({ live }) {
+  const items = live
+    ? [["area", "var(--ember)", "Sentinel alert area"], ["fill", "#e0245e", "Red Flag zone"], ["dot", "#ff3b1f", "Active fire"], ["dot", "#ffb000", "Hot spot"]]
+    : [["dot", "var(--ember)", "Leave now"], ["dot", "var(--flare)", "Get ready"], ["ring", "#fff", "Later destroyed"], ["fill", "#e5482a", "Modeled spread"], ["dash", "#fff", "Final perimeter"]];
   return (
-    <div className="seg">
-      {options.map(([k, label]) => (
-        <button key={k} className={k === value ? "on" : ""} onClick={() => onChange(k)}>{label}</button>
+    <div className="legend">
+      {items.map(([kind, color, label]) => (
+        <span key={label}><i className={`lg-${kind}`} style={{ "--c": color }} />{label}</span>
       ))}
     </div>
   );
+}
+
+function Segmented({ label, value, onChange, options }) {
+  return (
+    <div className="seg" role="group" aria-label={label}>
+      {options.map(([k, text]) => (
+        <button key={k} className={k === value ? "on" : ""} aria-pressed={k === value} onClick={() => onChange(k)}>{text}</button>
+      ))}
+    </div>
+  );
+}
+
+function titleCase(s) {
+  if (!s) return "Unnamed fire";
+  return s === s.toUpperCase() && !/\d/.test(s) ? s[0] + s.slice(1).toLowerCase() : s;
 }

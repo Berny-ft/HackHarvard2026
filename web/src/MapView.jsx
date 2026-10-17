@@ -35,9 +35,12 @@ export const LAYER_GROUPS = {
   powerLines: ["power-lines"],
   activeFires: ["active-perims", "active-incidents", "active-labels"],
   hotspots: ["hotspots"],
+  households: ["households-halo", "households"],
+  scan: ["scan-cells", "scan-core"],
 };
-const LIVE_KEYS = new Set(["redFlags", "santaAna", "powerLines", "activeFires", "hotspots"]);
-const INCIDENT_KEYS = new Set(["spread", "real", "structures", "detections"]);
+const LIVE_KEYS = new Set(["redFlags", "santaAna", "powerLines", "activeFires", "hotspots", "scan"]);
+const INCIDENT_KEYS = new Set(["spread", "real", "structures", "detections", "households"]);
+const LEVEL_PAINT = ["match", ["get", "level"], "evacuate", "#ff6a2b", "warn", "#ffb547", "watch", "#8fb3dc", "#5d7268"];
 const INCIDENT_SOURCES = ["perims", "real", "structures", "ignition", "detections"];
 
 const SA_COLOR = ["match", ["get", "level"], 2, "#7a0f0f", 1, "#d9482b", "#6b8e3a"];
@@ -63,13 +66,15 @@ function points(rows, props) {
 
 // Everything that doesn't change with the incident: fetched once, re-added per style.
 async function loadStatic() {
-  const [risk, timesBurned, history, redFlags, weather, power, perims, incidents, hot] = await Promise.all([
+  const [risk, timesBurned, history, redFlags, weather, power, perims, incidents, hot, scan] = await Promise.all([
     getJson("burn_probability.json", null), getJson("times_burned.json", null), getJson("fire_history.geojson"),
     getJson("live/red_flags.geojson"), getJson("live/weather.json", []), getJson("live/power_lines.geojson"),
     getJson("live/perimeters.geojson"), getJson("live/incidents.json", []), getJson("live/hotspots.geojson"),
+    getJson("sentinel/scan.json", null),
   ]);
   return {
     risk, timesBurned, history, redFlags, power, perims, hot,
+    scan: points(scan?.cells, (c) => ({ level: c.level, fire: c.fire })),
     windStations: (Array.isArray(weather) ? weather : []).map((r) => ({
       lon: r.lon, lat: r.lat, dir: r.wind_dir_deg, mph: r.wind_mph, gust: r.gust_mph,
     })),
@@ -129,6 +134,16 @@ function install(map, s, isStandard) {
   add({ id: "active-perims", type: "fill", source: "active-perims",
         paint: { "fill-color": "#ff3b1f", "fill-opacity": 0.45, "fill-outline-color": "#ffcf4a" } });
 
+  // Where the sentinel would alert now: 5 km grid cells, drawn as soft discs.
+  map.addSource("scan", { type: "geojson", data: s.scan });
+  add({ id: "scan-cells", type: "circle", source: "scan",
+        paint: { "circle-radius": ["interpolate", ["exponential", 2], ["zoom"], 7, 4, 10, 20, 13, 158],
+                 "circle-color": LEVEL_PAINT, "circle-opacity": 0.16, "circle-blur": 0.35,
+                 "circle-stroke-color": LEVEL_PAINT, "circle-stroke-width": 1, "circle-stroke-opacity": 0.55,
+                 "circle-pitch-alignment": "map" } });
+  add({ id: "scan-core", type: "circle", source: "scan",
+        paint: { "circle-radius": 3, "circle-color": LEVEL_PAINT, "circle-stroke-color": "#0c1714", "circle-stroke-width": 1 } }, "top");
+
   for (const id of INCIDENT_SOURCES) map.addSource(id, { type: "geojson", data: EMPTY });
   add({ id: "perim-fill", type: "fill", source: "perims", paint: { "fill-color": "#e5482a", "fill-opacity": 0.42 } });
   add({ id: "perim-rings", type: "line", source: "perims",
@@ -172,6 +187,19 @@ function install(map, s, isStandard) {
   add({ id: "active-labels", type: "symbol", source: "active-incidents", filter: [">=", ["get", "acres"], 10],
         layout: { "text-field": ["get", "label"], "text-size": 11, "text-offset": [0, 1.2], "text-anchor": "top" },
         paint: LABEL_PAINT }, "top");
+
+  // Replayed households, coloured by the alert level they hold at the current hour.
+  map.addSource("households", { type: "geojson", data: EMPTY });
+  add({ id: "households-halo", type: "circle", source: "households", filter: ["==", ["get", "selected"], true],
+        paint: { "circle-radius": 16, "circle-color": "#bade61", "circle-opacity": 0.18,
+                 "circle-stroke-color": "#bade61", "circle-stroke-width": 1.5 } }, "top");
+  add({ id: "households", type: "circle", source: "households",
+        paint: {
+          "circle-radius": ["interpolate", ["linear"], ["zoom"], 9, 2.6, 12, 4.5, 15, 8],
+          "circle-color": LEVEL_PAINT,
+          "circle-stroke-color": ["case", ["get", "destroyed"], "#ffffff", "#0c1714"],
+          "circle-stroke-width": ["case", ["get", "destroyed"], 1.4, 0.8],
+        } }, "top");
 
   add({ id: "ignition", type: "circle", source: "ignition",
         paint: { "circle-radius": 7, "circle-color": "#ff5a36", "circle-stroke-color": "#fff", "circle-stroke-width": 2 } }, "top");
@@ -245,7 +273,7 @@ function applyWind(wind, s, stat) {
   }
 }
 
-export default function MapView({ incident, data, hour, layers, basemap, light, camera, onReady }) {
+export default function MapView({ incident, data, hour, layers, households, basemap, light, camera, focus, onReady, onSelectHousehold }) {
   const el = useRef(null);
   const canvasRef = useRef(null);
   const windRef = useRef(null);
@@ -254,13 +282,14 @@ export default function MapView({ incident, data, hour, layers, basemap, light, 
   const ready = useRef(false);
   // Latest props, so a style reload can restore everything.
   const state = useRef({});
-  state.current = { incident, data, hour, layers, basemap, light, camera };
+  state.current = { incident, data, hour, layers, households, basemap, light, camera, onSelectHousehold };
 
   const restore = (map) => {
     const s = state.current;
     if (BASEMAPS[s.basemap].standard) map.setConfigProperty("basemap", "lightPreset", s.light);
     install(map, staticRef.current, !!BASEMAPS[s.basemap].standard);
     setIncidentData(map, s.incident, s.data);
+    map.getSource("households").setData(s.incident === "live" ? EMPTY : s.households || EMPTY);
     setTime(map, s.hour);
     setVisibility(map, s.incident, s.layers);
     applyWind(windRef.current, s, staticRef.current);
@@ -279,8 +308,15 @@ export default function MapView({ incident, data, hour, layers, basemap, light, 
     mapRef.current = map;
     windRef.current = new WindAnimator(map, canvasRef.current);
     if (import.meta.env.DEV) Object.assign(window, { __map: map, __wind: windRef.current });
-    map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "top-left");
-    map.addControl(new mapboxgl.ScaleControl({ unit: "imperial" }), "bottom-left");
+    map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "bottom-right");
+    map.addControl(new mapboxgl.ScaleControl({ unit: "imperial" }), "bottom-right");
+    map.on("click", "households", (e) => state.current.onSelectHousehold?.(e.features[0].properties.idx));
+    map.on("click", (e) => {
+      if (!map.getLayer("households")) return;
+      if (!map.queryRenderedFeatures(e.point, { layers: ["households"] }).length) state.current.onSelectHousehold?.(null);
+    });
+    map.on("mouseenter", "households", () => { map.getCanvas().style.cursor = "pointer"; });
+    map.on("mouseleave", "households", () => { map.getCanvas().style.cursor = ""; });
 
     let first = true;
     map.on("style.load", async () => {
@@ -347,6 +383,14 @@ export default function MapView({ incident, data, hour, layers, basemap, light, 
   useEffect(() => {
     if (ready.current) setTime(mapRef.current, hour);
   }, [hour, data]);
+
+  useEffect(() => {
+    if (ready.current) mapRef.current.getSource("households")?.setData(incident === "live" ? EMPTY : households || EMPTY);
+  }, [households, incident]);
+
+  useEffect(() => {
+    if (focus && ready.current) mapRef.current.flyTo({ center: [focus.lon, focus.lat], zoom: 10.6, pitch: 55, duration: 2200, essential: true });
+  }, [focus]);
 
   useEffect(() => {
     if (ready.current) setVisibility(mapRef.current, incident, layers);

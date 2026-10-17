@@ -113,4 +113,5 @@ optimistic. Two fires is a small sample.
 - `sentinel/store.py`: subscribers and alert log (JSON under `state/`)
 - `sentinel/mcp_server.py`: MCP tools and the `household_plan` prompt
 - `evals/`: dataset, metrics, local runner, calibration, Chalk Evaluation suite
+- `evals/export_web.py`: writes `modeling/out/sentinel/` (replay results and the live scan) for the web app
 - `deploy/sandbox.py`: Chalk sandbox deployment
