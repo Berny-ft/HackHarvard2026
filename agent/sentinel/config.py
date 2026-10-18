@@ -59,6 +59,11 @@ CHALK_ROUTER_API_KEY = os.environ.get("CHALK_ROUTER_API_KEY")
 CHALK_ROUTER_ENV_ID = os.environ.get("CHALK_ROUTER_ENV_ID") or os.environ.get("CHALK_ENV_ID")
 MODEL = os.environ.get("SENTINEL_MODEL", "openai/gpt-6.1-sol")
 MAX_TOKENS = int(os.environ.get("SENTINEL_MAX_TOKENS", "500"))
+# The LLM policy may call tools (sentinel/tools.py) for up to this many rounds before it must decide.
+USE_TOOLS = os.environ.get("SENTINEL_TOOLS", "1") == "1"
+MAX_TOOL_ROUNDS = int(os.environ.get("SENTINEL_TOOL_ROUNDS", "3"))
+# Responses API output budget per round; it includes the model's reasoning tokens.
+TOOL_MAX_TOKENS = int(os.environ.get("SENTINEL_TOOL_MAX_TOKENS", "2000"))
 # Re-ask the LLM every N hours while a threat persists, on top of every rule
 # level change. 0 = only on changes (cheapest; the HackHarvard key is ~1M tokens/day).
 LLM_RECHECK_H = float(os.environ.get("SENTINEL_LLM_RECHECK_H", "0"))

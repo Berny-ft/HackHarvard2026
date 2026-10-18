@@ -12,7 +12,7 @@ import argparse
 import os
 import sys
 
-from chalkcompute import Image, RestartPolicy, Sandbox, Secret, Volume
+from chalkcompute import Image, RestartPolicy, Sandbox, Secret, VolumeClient
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AGENT = os.path.dirname(HERE)
@@ -36,7 +36,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=6, help="households per storm/category group")
     a = ap.parse_args()
-    Volume("surgetrace-learn")  # created if missing
+    volumes = VolumeClient.from_env()
+    if not volumes.exists("surgetrace-learn"):
+        volumes.create("surgetrace-learn")
     cmd = (f"python -m evals.surge.learn --limit {a.limit} && "
            "cp /app/modeling/out/surge/lessons.md evals/data/surge_learn.json /out/")
     sb = Sandbox(

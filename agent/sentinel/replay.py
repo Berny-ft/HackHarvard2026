@@ -45,7 +45,7 @@ def replay_subscriber(key, lat, lon, policy=None, hours=None, burn_prob="lookup"
         rule_changed = s["rule_level"] != last_rule
         busy = s["rule_level"] != "none" or current != "none"
         if not isinstance(policy, LLMPolicy) or rule_changed or (LLM_RECHECK_H and busy and h - last_call >= LLM_RECHECK_H):
-            d = policy.decide(s, history)
+            d = policy.decide(s, history, snap=_snap(key, h))
             last_call = h
         else:
             d = None
@@ -63,4 +63,5 @@ def replay_subscriber(key, lat, lon, policy=None, hours=None, burn_prob="lookup"
                     first[lvl] = h
 
     return {"first_hour": first, "alerts": alerts, "policy": policy.name,
-            "llm_calls": getattr(policy, "calls", 0), "llm_tokens": getattr(policy, "tokens", 0)}
+            "llm_calls": getattr(policy, "calls", 0), "llm_tokens": getattr(policy, "tokens", 0),
+            "llm_tool_calls": getattr(policy, "tool_calls", 0)}

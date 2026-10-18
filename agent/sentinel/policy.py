@@ -9,7 +9,9 @@ LLMPolicy   — an LLM (through the Chalk Model Gateway) reads the signals plus
 """
 import json
 
-from .config import CHALK_ROUTER_API_KEY, CHALK_ROUTER_ENV_ID, CHALK_ROUTER_URL, LEVELS, MAX_TOKENS, MODEL
+from . import tools
+from .config import (CHALK_ROUTER_API_KEY, CHALK_ROUTER_ENV_ID, CHALK_ROUTER_URL, LEVELS, MAX_TOKENS,
+                     MAX_TOOL_ROUNDS, MODEL, TOOL_MAX_TOKENS, USE_TOOLS)
 from .signals import level_rank
 
 COMPASS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
@@ -48,7 +50,7 @@ def template_message(level, s):
 class RulePolicy:
     name = "rules"
 
-    def decide(self, s, history):
+    def decide(self, s, history, snap=None):
         level = s["rule_level"]
         return {"level": level, "message": template_message(level, s), "reasons": ["rule thresholds"]}
 
@@ -58,7 +60,7 @@ class RadiusPolicy:
     name = "radius"
     RINGS = (("evacuate", 3.0), ("warn", 8.0), ("watch", 15.0))
 
-    def decide(self, s, history):
+    def decide(self, s, history, snap=None):
         d = s["nearest_fire_km"]
         level = next((lvl for lvl, r in self.RINGS if d is not None and d <= r), "none")
         return {"level": level, "message": template_message(level, s), "reasons": ["distance ring"]}
@@ -81,6 +83,11 @@ is downwind in extreme wind. Upwind or cross-wind locations far from the fire ra
 de-escalate an evacuate unless the fire is clearly moving away. Messages go to people and to their personal agents:
 be specific (distance, direction, timing), calm, under 60 words, and end with the single most important action.
 
+When tools are offered you may call them first to check what the signals leave open: whether a reported fire is
+confirmed by satellite and growing (fire_activity), where the nearest points are relative to the wind
+(nearest_fire_points), or how soon the fire could arrive if the outlook's peak gusts come (eta_at_wind). Call only what
+changes your decision; clear cases need no tools.
+
 Reply with JSON only: {"level": "...", "message": "...", "reasons": ["short", "reasons"]}"""
 
 
@@ -101,26 +108,60 @@ class LLMPolicy:
         self.client = client or (None if self.dry_run else gateway_client())
         self.calls = 0
         self.tokens = 0
+        self.tool_calls = 0
+        self.use_tools = USE_TOOLS
 
-    def decide(self, s, history):
+    def decide(self, s, history, snap=None):
         if s["rule_level"] == "none" and not history:
             return RulePolicy().decide(s, history)
         prompt = json.dumps({"signals": _compact(s), "alerts_already_sent": history[-4:]}, default=str)
         self.calls += 1
         if self.dry_run:
             return RulePolicy().decide(s, history) | {"reasons": ["dry run"]}
-        resp = self.client.chat.completions.create(
-            model=self.model, max_tokens=MAX_TOKENS,   # the gateway route rejects temperature
-            messages=[{"role": "system", "content": SYSTEM}, {"role": "user", "content": prompt}],
-        )
-        self.tokens += resp.usage.total_tokens if resp.usage else 0
-        text = (resp.choices[0].message.content or "").strip()
+        text, used = None, []
+        if self.use_tools and snap is not None:
+            try:
+                text, used = self._with_tools(prompt, snap, s["lat"], s["lon"])
+            except Exception as e:   # answer this one in a single call, as before
+                print(f"tool loop failed, answering without tools: {type(e).__name__}: {str(e)[:200]}")
+                if getattr(e, "status_code", None) == 400:
+                    self.use_tools = False   # the route rejects tools: stop trying
+        if text is None:
+            resp = self.client.chat.completions.create(
+                model=self.model, max_tokens=MAX_TOKENS,   # the gateway route rejects temperature
+                messages=[{"role": "system", "content": SYSTEM}, {"role": "user", "content": prompt}])
+            self.tokens += resp.usage.total_tokens if resp.usage else 0
+            text = resp.choices[0].message.content or ""
+        self.tool_calls += len(used)
+        text = text.strip()
         try:
             out = json.loads(text[text.index("{"):text.rindex("}") + 1])
             assert out["level"] in LEVELS
         except (ValueError, KeyError, AssertionError):
             out = RulePolicy().decide(s, history) | {"reasons": ["llm reply unparseable; rule fallback"]}
-        return out
+        return out | {"tools_used": used}
+
+    def _with_tools(self, prompt, snap, lat, lon):
+        """Let the model call tools for up to MAX_TOOL_ROUNDS rounds, then decide.
+
+        Uses the Responses API: on chat completions this model rejects function
+        tools together with its reasoning setting.
+        """
+        items, used = [{"role": "user", "content": prompt}], []
+        for rnd in range(MAX_TOOL_ROUNDS + 1):
+            offer = rnd < MAX_TOOL_ROUNDS   # never on the last round, so the loop ends in a decision
+            resp = self.client.responses.create(
+                model=self.model, instructions=SYSTEM, input=items, max_output_tokens=TOOL_MAX_TOKENS,
+                **({"tools": [{"type": "function", **t["function"]} for t in tools.SPECS]} if offer else {}))
+            self.tokens += resp.usage.total_tokens if resp.usage else 0
+            calls = [o for o in resp.output if o.type == "function_call"]
+            if not (offer and calls):
+                return resp.output_text, used
+            items += resp.output
+            for c in calls:
+                used.append(c.name)
+                items.append({"type": "function_call_output", "call_id": c.call_id,
+                              "output": tools.run(c.name, c.arguments, snap, lat, lon)})
 
 
 def gateway_client():

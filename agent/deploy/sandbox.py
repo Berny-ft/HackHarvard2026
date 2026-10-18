@@ -9,22 +9,28 @@ keeps subscribers and the alert log on a Chalk Volume (so restarts lose
 nothing), and serves the MCP tools over streamable HTTP on port 8765.
 Secrets come from the Chalk environment: CHALK_ROUTER_API_KEY (LLM policy),
 FIRMS_MAP_KEY (satellite hot spots), SENTINEL_WEBHOOK_SECRET, and optionally
-TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN / TWILIO_FROM for SMS.
+TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN / TWILIO_FROM for SMS,
+SMTP_USER / SMTP_PASSWORD / SENTINEL_ALERT_EMAIL for email, and SENTINEL_MCP_TOKEN, the
+bearer token the MCP endpoint requires.
 """
 import argparse
 import os
 import sys
 
-from chalkcompute import Image, RestartPolicy, Sandbox, SandboxClient, Secret, Volume
+from chalkcompute import Image, RestartPolicy, Sandbox, Secret, VolumeClient
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 AGENT = os.path.dirname(HERE)
 REPO = os.path.dirname(AGENT)
 NAME = "firetrace-sentinel"
+sys.path.insert(0, AGENT)
+import sentinel.config  # noqa: E402,F401  (loads agent/.env: router env id, model, which optional secrets exist)
+
 POLICY = os.environ.get("SENTINEL_POLICY", "llm")
 
 image = (
     Image.debian_slim("3.12")
+    .apt_install(["libexpat1"])   # rasterio's GDAL needs it; the slim image leaves it out
     .pip_install_from_requirements(os.path.join(REPO, "modeling", "requirements.txt"))
     .pip_install_from_requirements(os.path.join(AGENT, "requirements.txt"))
     .add_local_dir(os.path.join(REPO, "modeling", "wildfire"), "/app/modeling/wildfire", exclude=["__pycache__"])
@@ -36,9 +42,12 @@ image = (
     .workdir("/app/agent")
 )
 
-secrets = [Secret.from_chalk_env(k) for k in ("CHALK_ROUTER_API_KEY", "FIRMS_MAP_KEY", "SENTINEL_WEBHOOK_SECRET")]
+secrets = [Secret.from_chalk_env(k) for k in ("CHALK_ROUTER_API_KEY", "FIRMS_MAP_KEY", "SENTINEL_WEBHOOK_SECRET",
+                                              "SENTINEL_MCP_TOKEN")]
 if os.environ.get("TWILIO_ACCOUNT_SID"):
     secrets += [Secret.from_chalk_env(k) for k in ("TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN", "TWILIO_FROM")]
+if os.environ.get("SMTP_USER"):   # email alerts
+    secrets += [Secret.from_chalk_env(k) for k in ("SMTP_USER", "SMTP_PASSWORD", "SENTINEL_ALERT_EMAIL")]
 
 
 def main():
@@ -46,14 +55,16 @@ def main():
     ap.add_argument("--stop", action="store_true")
     a = ap.parse_args()
 
-    for info in SandboxClient().list():
+    for info in Sandbox.list_all():
         if info.name == NAME:
-            Sandbox(sandbox_id=info.id).terminate()
+            Sandbox.from_id(info.id).terminate()
             print(f"terminated {info.id}")
     if a.stop:
         return
 
-    Volume("firetrace-state")  # created if missing
+    volumes = VolumeClient.from_env()
+    if not volumes.exists("firetrace-state"):
+        volumes.create("firetrace-state")
     sb = Sandbox(
         image=image, name=NAME, cpu="1", memory="4Gi", port=8765,
         env={"CHALK_ROUTER_ENV_ID": os.environ.get("CHALK_ROUTER_ENV_ID", ""),

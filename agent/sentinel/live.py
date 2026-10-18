@@ -62,7 +62,7 @@ def evaluate_subscriber(sub, snap, policy, dry_run=False):
     """Assess one subscriber; on a relevant level change, log (and deliver) an alert and return it."""
     s = assess(snap, sub["lat"], sub["lon"])
     history = [{k: a[k] for k in ("as_of", "level", "message")} for a in store.recent_alerts(sub["id"], 4)]
-    d = policy.decide(s, history)
+    d = policy.decide(s, history, snap=snap)
     prev = sub.get("last_level", "none")
     changed = d["level"] != prev
     relevant = max(level_rank(d["level"]), level_rank(prev)) >= level_rank(sub.get("min_level", "watch"))
@@ -105,7 +105,7 @@ def cycle(policy_name="rules", refresh=True, dry_run=False, channel=None, snapsh
         s = assess(snap, sub["lat"], sub["lon"])
         history = [{k: a[k] for k in ("as_of", "level", "message") if k in a}
                    for a in store.recent_alerts(sub["id"], 4)]
-        d = policy.decide(s, history)          # once per subscriber: the LLM policy is billed per call
+        d = policy.decide(s, history, snap=snap)  # once per subscriber: the LLM policy is billed per call
         level = d["level"]
         upd = {"situation": _situation(s, level)}
 

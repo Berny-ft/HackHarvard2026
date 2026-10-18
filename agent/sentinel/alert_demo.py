@@ -124,8 +124,9 @@ class DemoSession:
                 self.reset()
             new = []
             for h in range(self.hour + 1, hour + 1):
-                s = assess(shifted_snapshot(self.incident, h, self.dlat, self.dlon), self.lat, self.lon)
-                d = self.policy.decide(s, self.history)
+                snap = shifted_snapshot(self.incident, h, self.dlat, self.dlon)
+                s = assess(snap, self.lat, self.lon)
+                d = self.policy.decide(s, self.history, snap=snap)
                 self.now = {"hour": h, "level": d["level"], "nearest_fire_km": s["nearest_fire_km"],
                             "eta_h": s["eta_h"], "downwind": s["downwind"]}
                 if d["level"] != self.current and level_rank(d["level"]) >= level_rank("watch"):
