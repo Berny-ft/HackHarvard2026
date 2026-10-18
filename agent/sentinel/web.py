@@ -117,7 +117,7 @@ async def test_config(request: Request):
     try:
         import requests
         r = requests.get(f"https://api.photon.codes/v1/projects/{config.PHOTON_PROJECT_ID}/platforms/voice/profiles",
-                         headers={"Authorization": f"Bearer {config.PHOTON_PROJECT_SECRET}"}, timeout=8)
+                         headers={"Authorization": f"Bearer {config.PHOTON_API_KEY}"}, timeout=8)
         n = len(r.json().get("profiles", []))
         voice = f"Voice status: {n} Photon voice profile(s) configured." + ("" if n else " Real calls are not available yet.")
     except Exception:

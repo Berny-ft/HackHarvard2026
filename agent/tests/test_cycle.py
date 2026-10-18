@@ -251,3 +251,43 @@ class TestWeb(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+@unittest.skipUnless(HAVE_WEB, "starlette/httpx not installed")
+class TestDemoCall(unittest.TestCase):
+    """The map's alert demo phones DEMO_PHONE on evacuate and answers the voice agent from the replay."""
+
+    def setUp(self):
+        from sentinel import alert_demo, demo_server
+        from sentinel.channels import voice
+        self.voice, self.demo_server = voice, demo_server
+        self.orig = voice.place_call, voice.configured, demo_server.SESSION
+        self.placed = []
+        voice.place_call = lambda to, msg, brief=None: (self.placed.append((to, msg, brief))
+                                                         or {"ok": True, "status": "calling", "conversation_id": "c1"})
+        voice.configured = lambda: True
+        lat, lon = alert_demo.anchor("eaton_2025")
+        demo_server.SESSION = alert_demo.DemoSession(lat, lon, "test home", email="", phone="514-664-6295")
+        demo_server.SESSION.email = None
+        self.client = TestClient(demo_server.app)
+
+    def tearDown(self):
+        self.voice.place_call, self.voice.configured, self.demo_server.SESSION = self.orig
+
+    def test_evacuate_calls_once_and_answers(self):
+        for h in range(10):
+            self.client.post("/api/demo/step", json={"hour": h})
+        for a in self.demo_server.SESSION.events:     # the server sends on threads; run them inline here
+            if a.get("call") == "queued":
+                self.demo_server.SESSION.place_call(a)
+        self.assertEqual(len(self.placed), 1)
+        self.assertEqual(self.placed[0][0], "+15146646295")
+        self.assertIn("leave now", self.placed[0][1])
+        r = self.client.post("/photon/voice", json={"from": "+15146646295", "transcript": "why?"}).json()
+        self.assertIn("Alert level: EVACUATE", r["reply"])
+        r = self.client.post("/photon/voice", json={"from": "+19995550000", "transcript": "why?"}).json()
+        self.assertIn("isn't signed up", r["reply"])
+        call = self.client.get("/api/demo/state").json()["call"]
+        self.assertEqual(call["status"], "placed")
+        self.assertEqual(call["phone"], "••• 6295")
+        self.assertEqual(len(call["turns"]), 1)

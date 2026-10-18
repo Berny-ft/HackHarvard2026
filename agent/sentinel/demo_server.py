@@ -7,6 +7,10 @@ GET /api/demo/state to show each alert and whether its email was sent.
 
   python -m sentinel demo-server            # http://127.0.0.1:8787, proxied by `npm run dev`
 
+With DEMO_PHONE and the ElevenLabs keys set, the evacuate alert also phones that
+number; the voice agent's webhook tool posts to /photon/voice here, and each
+question and answer shows up in the map's alert card.
+
 The surge map's demo uses /api/surge/*: POST config with a storm and any
 address the user clicks, then the same step/state/reset cycle.
 """
@@ -35,7 +39,8 @@ async def config(request: Request):
     want = request.query_params.get("incident")
     if want and want != SESSION.incident:
         try:
-            SESSION = DemoSession(SESSION.lat, SESSION.lon, SESSION.label, want, SESSION.policy.name, SESSION.email)
+            SESSION = DemoSession(SESSION.lat, SESSION.lon, SESSION.label, want, SESSION.policy.name, SESSION.email,
+                                  SESSION.phone)
         except (FileNotFoundError, SystemExit) as e:
             return JSONResponse({"error": f"no replay for {want}: {e}"}, status_code=404)
     return JSONResponse(SESSION.config())
@@ -56,6 +61,20 @@ async def reset(request: Request):
     with SESSION._lock:
         SESSION.reset()
     return JSONResponse(SESSION.state())
+
+
+async def photon_voice(request: Request):
+    """The voice agent's webhook tool: {"from", "transcript"} -> {"reply", "briefing"} for the demo phone."""
+    from .store import normalize_phone
+    from .web import UNKNOWN, _read
+
+    data, err = await _read(request)
+    if err:
+        return err
+    if SESSION is None or not SESSION.phone or normalize_phone(data.get("from", "")) != SESSION.phone:
+        return JSONResponse({"reply": UNKNOWN, "briefing": UNKNOWN})
+    reply, brief = SESSION.answer(data.get("transcript", ""))
+    return JSONResponse({"reply": reply, "briefing": brief})
 
 
 # ------------------------------------------------------------- surge demo
@@ -117,6 +136,7 @@ routes = [
     Route("/api/demo/state", state),
     Route("/api/demo/step", step, methods=["POST"]),
     Route("/api/demo/reset", reset, methods=["POST"]),
+    Route("/photon/voice", photon_voice, methods=["POST"]),
     Route("/api/surge/config", surge_config, methods=["POST"]),
     Route("/api/surge/state", surge_state),
     Route("/api/surge/step", surge_step, methods=["POST"]),
@@ -144,6 +164,7 @@ def serve(port=8787, incident="eaton_2025", policy="rules", address=None, lat=No
     import uvicorn
 
     from .alert_demo import geocode
+    from .config import CALL_ON
     if lat is not None and lon is not None:
         label = address or f"{lat:.4f}, {lon:.4f}"
     elif address:
@@ -155,7 +176,8 @@ def serve(port=8787, incident="eaton_2025", policy="rules", address=None, lat=No
     if lat is not None:
         SESSION = DemoSession(lat, lon, label, incident, policy, email)
         c = SESSION.config()
-        print(f"Fire alert demo: {c['fire']} replayed toward {label}; emails to {c['email']}. "
+        calls = f"; calls {c['phone']} on {', '.join(sorted(CALL_ON))}" if c["calls"] else ""
+        print(f"Fire alert demo: {c['fire']} replayed toward {label}; emails to {c['email']}{calls}. "
               f"Open the map, pick {incident.split('_')[0].title()}, press 'Alert demo'.")
     else:
         print("Fire alert demo off (set SENTINEL_DEMO_ADDRESS in agent/.env to enable it).")

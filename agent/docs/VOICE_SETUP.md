@@ -41,3 +41,18 @@ reminders stay texts. The Eaton replay demo turns calls on with `--call`:
 
 The house sits where a destroyed Eaton home stood; as the replayed fire closes in you get the WARNING text, then the
 EVACUATE text and a call. Questions during the call hit the same server, so answers follow the replay as it runs.
+
+## Hosted on Chalk (the map's alert demo)
+
+The `firetrace-web` sandbox (`deploy/web_sandbox.py`) runs the map's alert demo. With the keys below it phones
+`DEMO_PHONE` when the replay reaches EVACUATE, and the alert card on the map shows the call and every question the
+agent brings back.
+
+1. In the Chalk environment, add the secrets `ELEVENLABS_API_KEY`, `ELEVENLABS_AGENT_ID`,
+   `ELEVENLABS_PHONE_NUMBER_ID`, `PHOTON_WEBHOOK_SECRET` and `DEMO_PHONE` (the phone the demo rings).
+2. Put the same names in `agent/.env` (any value works locally; the deploy script only checks that
+   `ELEVENLABS_API_KEY` exists to decide whether to pass them), then `python deploy/web_sandbox.py`.
+3. Point the agent's `fire_status` webhook tool at `https://<firetrace-web public URL>/photon/voice`
+   with the `X-Photon-Secret` header. No tunnel needed.
+4. Open the map, pick Eaton 2025, press Alert demo, play. The phone rings at the EVACUATE alert (once per run;
+   replays within a minute don't ring again).

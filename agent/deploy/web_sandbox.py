@@ -11,6 +11,9 @@ redeploying the site never changes the MCP URL registered in the gateway.
 Secrets: MAPBOX_TOKEN for the maps (edit it in the Chalk UI, then redeploy;
 no rebuild needed), SMTP_USER / SMTP_PASSWORD / SENTINEL_ALERT_EMAIL for the demo emails
 and SENTINEL_DEMO_ADDRESS / _LAT / _LON for the fire demo's address.
+Calls on evacuate: ELEVENLABS_API_KEY / ELEVENLABS_AGENT_ID / ELEVENLABS_PHONE_NUMBER_ID,
+PHOTON_WEBHOOK_SECRET (the agent's webhook tool sends it to /photon/voice) and DEMO_PHONE,
+the number the demo rings (docs/VOICE_SETUP.md).
 """
 import argparse
 import os
@@ -45,6 +48,9 @@ if os.environ.get("SMTP_USER"):   # demo emails
     secrets += [Secret.from_chalk_env(k) for k in ("SMTP_USER", "SMTP_PASSWORD", "SENTINEL_ALERT_EMAIL")]
 if os.environ.get("SENTINEL_DEMO_LAT"):   # the fire demo's address
     secrets += [Secret.from_chalk_env(k) for k in ("SENTINEL_DEMO_ADDRESS", "SENTINEL_DEMO_LAT", "SENTINEL_DEMO_LON")]
+if os.environ.get("ELEVENLABS_API_KEY"):   # phone calls on evacuate
+    secrets += [Secret.from_chalk_env(k) for k in ("ELEVENLABS_API_KEY", "ELEVENLABS_AGENT_ID",
+                                                   "ELEVENLABS_PHONE_NUMBER_ID", "PHOTON_WEBHOOK_SECRET", "DEMO_PHONE")]
 
 
 def main():

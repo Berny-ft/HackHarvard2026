@@ -84,6 +84,7 @@ TWILIO_FROM = os.environ.get("TWILIO_FROM")
 
 # --- texting, routes and departure windows -------------------------------
 PHOTON_PROJECT_ID = os.environ.get("PHOTON_PROJECT_ID")        # set => use the Photon channel via photon-bridge/
+PHOTON_API_KEY = os.environ.get("PHOTON_API_KEY") or os.environ.get("PHOTON_PROJECT_SECRET", "")
 PHOTON_BRIDGE_URL = os.environ.get("PHOTON_BRIDGE_URL", "http://127.0.0.1:3001")
 PHOTON_BRIDGE_SECRET = os.environ.get("PHOTON_BRIDGE_SECRET", "")
 PHOTON_NUMBER = os.environ.get("PHOTON_NUMBER")

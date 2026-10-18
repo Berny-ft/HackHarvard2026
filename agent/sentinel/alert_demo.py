@@ -5,6 +5,8 @@ home the fire actually destroyed stood (same distance and direction from the
 ignition). Weather, spread and satellite detections are the real ones; only the
 map position moves. The sentinel watches your address and emails an alert on
 every level change, then a final notice when the fire was observed at the home.
+With DEMO_PHONE set it also phones that number on evacuate (channels/voice.py), and
+answers the voice agent's questions from the replay hour the map is showing.
 
 Two ways to run it:
   python -m sentinel alert-demo              # in the terminal
@@ -16,15 +18,26 @@ import threading
 import time
 import uuid
 from dataclasses import replace
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 import requests
 
+from . import config, messages
+from .channels import voice
 from .config import ALERT_EMAIL, INCIDENTS
+from .conversation import classify
+from .live import _situation
 from .notify import deliver
 from .policy import get_policy
 from .replay import observed_arrival_h
 from .signals import assess, level_rank
 from .snapshot import Fires, load_incident, replay_snapshot
+from .store import normalize_phone
+from .windows import departure_window
+
+CALL_GAP_S = 60      # scrubbing the timeline back and forth must not ring the phone every time
+MAX_TURNS = 40
 
 # A destroyed home per fire whose household was warned well before the fire came.
 ANCHORS = {"eaton_2025": (34.18, -118.13), "palisades_2025": (34.045, -118.53)}
@@ -97,9 +110,11 @@ def shifted_snapshot(incident, hour, dlat, dlon):
 class DemoSession:
     """The sentinel watching one address through a shifted replay. Thread-safe."""
 
-    def __init__(self, lat, lon, label, incident="eaton_2025", policy_name="rules", email=None):
+    def __init__(self, lat, lon, label, incident="eaton_2025", policy_name="rules", email=None, phone=None):
         self.lat, self.lon, self.label, self.incident = lat, lon, label, incident
         self.email = email or ALERT_EMAIL
+        self.phone = normalize_phone(phone or os.environ.get("DEMO_PHONE")) or None
+        self._last_call = 0.0
         alat, alon = anchor(incident)
         self.dlat, self.dlon = lat - alat, lon - alon
         self.arrival = observed_arrival_h(incident, alat, alon)
@@ -111,11 +126,13 @@ class DemoSession:
 
     def reset(self):
         self.hour, self.current, self.history, self.events, self.now = -1, "none", [], [], None
+        self.sit, self.window, self.call = None, None, None
 
     def config(self):
         return {"label": self.label, "lat": self.lat, "lon": self.lon, "incident": self.incident,
                 "fire": self.info["name"], "start": self.info["start"], "dlat": self.dlat, "dlon": self.dlon,
-                "arrival_h": self.arrival, "email": self.email, "policy": self.policy.name}
+                "arrival_h": self.arrival, "email": self.email, "policy": self.policy.name,
+                "phone": _mask(self.phone), "calls": bool(self.phone) and voice.configured()}
 
     def step_to(self, hour):
         """Advance to `hour` (rewinding resets). Returns the alerts this step produced."""
@@ -129,8 +146,14 @@ class DemoSession:
                 d = self.policy.decide(s, self.history, snap=snap)
                 self.now = {"hour": h, "level": d["level"], "nearest_fire_km": s["nearest_fire_km"],
                             "eta_h": s["eta_h"], "downwind": s["downwind"]}
+                self.sit = _situation(s, d["level"], d.get("reasons", []))
+                at = datetime.fromisoformat(s["as_of"])
+                at = at if at.tzinfo else at.replace(tzinfo=ZoneInfo(config.TZ))
+                self.window = (departure_window(at, s["eta_h"], None, bool(s["nearest_fire_confirmed"]))
+                               if d["level"] in ("warn", "evacuate") else None)
                 if d["level"] != self.current and level_rank(d["level"]) >= level_rank("watch"):
                     a = self._alert(s, d, h)
+                    self._queue_call(a)
                     self.history.append({k: a[k] for k in ("as_of", "level", "message")})
                     self.current = d["level"]
                     new.append(a)
@@ -148,12 +171,70 @@ class DemoSession:
 
     def state(self):
         with self._lock:
-            return {"hour": self.hour, "now": self.now, "current": self.current,
-                    "alerts": [{k: a[k] for k in ("id", "hour", "level", "kind", "message", "email")}
+            call = self.call and {**self.call, "turns": list(self.call["turns"])}
+            return {"hour": self.hour, "now": self.now, "current": self.current, "call": call,
+                    "alerts": [{k: a.get(k) for k in ("id", "hour", "level", "kind", "message", "email", "call")}
                                for a in self.events]}
 
+    def caller_view(self):
+        """The watched address as a subscriber, for the call's opening line and briefing."""
+        sit = self.sit or {"level": "none"}
+        return {"sim": f"{self.info['name']} replay", "address": self.label, "token": "demo",
+                "situation": {**sit, "level": self.current if self.current != "none" else sit["level"]},
+                "window": self.window, "route": None}
+
+    def _queue_call(self, alert):
+        """Mark the first alert at a calling level (SENTINEL_CALL_ON) for a phone call."""
+        if not self.phone or self.call or alert["level"] not in config.CALL_ON:
+            return
+        if time.monotonic() - self._last_call < CALL_GAP_S:
+            alert["call"] = "skipped: called less than a minute ago"
+            return
+        self._last_call = time.monotonic()
+        alert["call"] = "queued"
+        self.call = {"status": "queued", "phone": _mask(self.phone), "hour": alert["hour"], "opening": None,
+                     "conversation_id": None, "turns": []}
+
+    def place_call(self, alert):
+        sub = {**self.caller_view(), "situation": {**self.sit, "level": alert["level"]}}
+        opening = messages.call_opening(sub)
+        with self._lock:
+            alert["call"] = "calling"
+            if self.call:
+                self.call.update(status="calling", opening=opening)
+        try:
+            res = voice.place_call(self.phone, opening, messages.briefing(sub))
+        except Exception as e:     # never let a failed call take the demo down
+            res = {"ok": False, "status": repr(e)}
+        status = "placed" if res.get("ok") else f"failed: {res.get('status')}"
+        with self._lock:
+            alert["call"] = status
+            if self.call:
+                self.call.update(status=status, conversation_id=res.get("conversation_id"))
+        return status
+
+    def answer(self, text):
+        """Reply to something said on the call, from the hour the map is on. -> (reply, briefing)."""
+        with self._lock:
+            sub = self.caller_view()
+        brief = messages.briefing(sub)
+        intent = classify(text)
+        reply = {"NOW": messages.route_reply, "WINDOW": messages.window_reply,
+                 "STATUS": messages.status_reply}.get(intent, lambda _: brief)(sub)
+        if intent == "LEFT":
+            reply = messages.left_reply()
+        with self._lock:
+            if self.call is None:
+                self.call = {"status": "in call", "phone": _mask(self.phone), "hour": self.hour, "opening": None,
+                             "conversation_id": None, "turns": []}
+            self.call["turns"].append({"hour": self.hour, "said": text, "reply": reply})
+            del self.call["turns"][:-MAX_TURNS]
+        return reply, brief
+
     def send(self, alert):
-        """Deliver one alert by email and record the outcome on it."""
+        """Phone (if this alert calls), then deliver it by email; record each outcome on it."""
+        if alert.get("call") == "queued":
+            self.place_call(alert)
         alert["email"] = "sending"
         res = deliver(self.sub, alert) if self.email else []
         ok = any(r.get("ok") for r in res)
@@ -168,6 +249,10 @@ class DemoSession:
                 "email": "queued",
                 "signals": {k: s[k] for k in ("lat", "lon", "nearest_fire_km", "nearest_fire_name", "fire_bearing_deg",
                                               "downwind", "eta_h", "red_flag", "weather_now")}}
+
+
+def _mask(phone):
+    return f"••• {phone[-4:]}" if phone else None
 
 
 def run(lat, lon, label, incident="eaton_2025", seconds_per_hour=3.0, policy_name="rules", email=None):

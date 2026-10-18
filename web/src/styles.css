@@ -374,5 +374,15 @@ code { font-family: var(--mono); font-size: 0.92em; color: var(--sage); backgrou
 .email-chip.ok { border-color: var(--signal-dim); color: var(--signal); }
 .email-chip.ok::before { content: "✓ "; }
 .email-chip.bad { border-color: var(--flare); color: var(--flare); }
+.email-chip + .email-chip { margin-left: 6px; }
 .demo-sum { margin-top: 14px; }
+.call-log { margin-top: 14px; padding: 10px 12px; border: 1px solid var(--ridge-2); border-radius: 10px; }
+.call-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 12.5px; }
+.call-head b { color: #f2f6f3; font-weight: 500; }
+.call-log ol { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; max-height: 260px; overflow-y: auto; }
+.call-log li { display: grid; grid-template-columns: 58px 1fr; gap: 8px; font-size: 12.5px; }
+.call-log li span { color: var(--sage-2); font-size: 11px; padding-top: 1px; }
+.call-log li p { margin: 0; color: var(--sage); line-height: 1.5; overflow-wrap: anywhere; }
+.call-log li.caller p { color: #f2f6f3; }
+.call-log li.hh-empty { display: block; color: var(--sage-2); }
 

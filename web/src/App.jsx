@@ -371,6 +371,29 @@ export default function App() {
   );
 }
 
+// The phone call the evacuate alert placed: the agent's opening line, then each question it brought to the sentinel.
+function CallLog({ call }) {
+  return (
+    <div className="call-log">
+      <div className="call-head">
+        <b>Phone call</b>
+        <span className="num muted">{call.phone} · {call.status === "placed" ? "connected" : call.status}</span>
+      </div>
+      <ol>
+        {call.opening && !/^(failed|skipped)/.test(call.status) && <li className="agent"><span>Agent</span><p>{call.opening}</p></li>}
+        {call.turns.map((t, i) => (
+          <Fragment key={i}>
+            <li className="caller"><span>Caller</span><p>{t.said}</p></li>
+            <li className="agent"><span>Sentinel</span><p>{t.reply}</p></li>
+          </Fragment>
+        ))}
+        {call.status === "placed" && call.turns.length === 0 &&
+          <li className="hh-empty">Pick up and ask why, when to leave, or which way to go.</li>}
+      </ol>
+    </div>
+  );
+}
+
 function DemoCard({ demo, state, hour }) {
   const now = state?.now;
   const alerts = state?.alerts ?? [];
@@ -379,6 +402,9 @@ function DemoCard({ demo, state, hour }) {
   const first = (lvl) => alerts.find((a) => a.kind !== "fire-arrived" && LEVELS.indexOf(a.level) >= LEVELS.indexOf(lvl));
   const lead = (a) => (a ? demo.arrival_h - a.hour : null);
   const emailText = (e) => (e === "sent" ? "Email sent" : e === "sending" || e === "queued" ? "Sending email…" : `Email ${e}`);
+  const callText = (c) => (c === "placed" ? `Called ${demo.phone}` : c === "calling" || c === "queued" ? `Calling ${demo.phone}…` : `Call ${c}`);
+  const chip = (s, ok) => (s === ok ? "ok" : /^(not|failed)/.test(s) ? "bad" : "");
+  const call = state?.call;
   return (
     <div className="card demo-card">
       <div className="card-head"><h3>Alert demo</h3><span className="num muted">T+{hour}h</span></div>
@@ -389,6 +415,7 @@ function DemoCard({ demo, state, hour }) {
       <div className="demo-address">
         <span className="muted">Watching</span><b>{demo.label}</b>
         <span className="muted">Emails to</span><b>{demo.email || "nobody (set SENTINEL_ALERT_EMAIL)"}</b>
+        {demo.phone && <><span className="muted">Calls</span><b>{demo.calls ? `${demo.phone} at Evacuate` : `${demo.phone} (voice keys not set)`}</b></>}
       </div>
       <div className="demo-level" style={{ "--c": LEVEL_COLOR[level] }}>
         <b>{LEVEL_LABEL[level]}</b>
@@ -403,11 +430,13 @@ function DemoCard({ demo, state, hour }) {
             <div>
               <div className="hh-level">{a.kind === "fire-arrived" ? "Fire at your address" : LEVEL_LABEL[a.level]}</div>
               <p>{a.message}</p>
-              <span className={`email-chip ${a.email === "sent" ? "ok" : a.email.startsWith("not") ? "bad" : ""}`}>{emailText(a.email)}</span>
+              <span className={`email-chip ${chip(a.email, "sent")}`}>{emailText(a.email)}</span>
+              {a.call && <span className={`email-chip ${chip(a.call, "placed")}`}>{callText(a.call)}</span>}
             </div>
           </li>
         ))}
       </ol>
+      {call && <CallLog call={call} />}
       <div className="arrivals demo-sum">
         <div><b className="num">{arrived ? "Arrived" : `T+${demo.arrival_h.toFixed(1)}h`}</b><span>Fire reaches the address</span></div>
         <div><b className="num ok">{first("warn") ? `${lead(first("warn")).toFixed(1)} h` : "–"}</b><span>warning before the fire</span></div>
