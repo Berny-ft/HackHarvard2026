@@ -5,8 +5,9 @@ home the fire actually destroyed stood (same distance and direction from the
 ignition). Weather, spread and satellite detections are the real ones; only the
 map position moves. The sentinel watches your address and emails an alert on
 every level change, then a final notice when the fire was observed at the home.
-With DEMO_PHONE set it also phones that number on evacuate (channels/voice.py), and
-answers the voice agent's questions from the replay hour the map is showing.
+With DEMO_PHONE set it texts that number on the first warn-or-worse alert (Photon), phones
+it on evacuate (channels/voice.py), and answers the voice agent's questions from the replay
+hour the map is showing.
 
 Two ways to run it:
   python -m sentinel alert-demo              # in the terminal
@@ -25,6 +26,7 @@ import requests
 
 from . import config, messages
 from .channels import voice
+from .channels.photon import PhotonRestChannel
 from .config import ALERT_EMAIL, INCIDENTS
 from .conversation import classify
 from .live import _situation
@@ -115,6 +117,8 @@ class DemoSession:
         self.email = email or ALERT_EMAIL
         self.phone = normalize_phone(phone or os.environ.get("DEMO_PHONE")) or None
         self._last_call = 0.0
+        self.texter = (PhotonRestChannel(config.PHOTON_PROJECT_ID, config.PHOTON_API_KEY)
+                       if self.phone and config.PHOTON_PROJECT_ID and config.PHOTON_API_KEY else None)
         alat, alon = anchor(incident)
         self.dlat, self.dlon = lat - alat, lon - alon
         self.arrival = observed_arrival_h(incident, alat, alon)
@@ -126,13 +130,14 @@ class DemoSession:
 
     def reset(self):
         self.hour, self.current, self.history, self.events, self.now = -1, "none", [], [], None
-        self.sit, self.window, self.call = None, None, None
+        self.sit, self.window, self.call, self.texted = None, None, None, False
 
     def config(self):
         return {"label": self.label, "lat": self.lat, "lon": self.lon, "incident": self.incident,
                 "fire": self.info["name"], "start": self.info["start"], "dlat": self.dlat, "dlon": self.dlon,
                 "arrival_h": self.arrival, "email": self.email, "policy": self.policy.name,
-                "phone": _mask(self.phone), "calls": bool(self.phone) and voice.configured()}
+                "phone": _mask(self.phone), "calls": bool(self.phone) and voice.configured(),
+                "texts": self.texter is not None}
 
     def step_to(self, hour):
         """Advance to `hour` (rewinding resets). Returns the alerts this step produced."""
@@ -153,6 +158,7 @@ class DemoSession:
                                if d["level"] in ("warn", "evacuate") else None)
                 if d["level"] != self.current and level_rank(d["level"]) >= level_rank("watch"):
                     a = self._alert(s, d, h)
+                    self._queue_text(a)
                     self._queue_call(a)
                     self.history.append({k: a[k] for k in ("as_of", "level", "message")})
                     self.current = d["level"]
@@ -173,7 +179,7 @@ class DemoSession:
         with self._lock:
             call = self.call and {**self.call, "turns": list(self.call["turns"])}
             return {"hour": self.hour, "now": self.now, "current": self.current, "call": call,
-                    "alerts": [{k: a.get(k) for k in ("id", "hour", "level", "kind", "message", "email", "call")}
+                    "alerts": [{k: a.get(k) for k in ("id", "hour", "level", "kind", "message", "email", "call", "text")}
                                for a in self.events]}
 
     def caller_view(self):
@@ -182,6 +188,26 @@ class DemoSession:
         return {"sim": f"{self.info['name']} replay", "address": self.label, "token": "demo",
                 "situation": {**sit, "level": self.current if self.current != "none" else sit["level"]},
                 "window": self.window, "route": None}
+
+    def _queue_text(self, alert):
+        """Text the first warn-or-worse alert of the run: the person hears from us as soon as there is danger."""
+        if self.texter and not self.texted and level_rank(alert["level"]) >= level_rank("warn"):
+            self.texted = True
+            alert["text"] = "queued"
+
+    def send_text(self, alert):
+        sub = self.caller_view()
+        body = messages.demo_alert_text(sub, alert, calling=alert.get("call") == "queued")
+        with self._lock:
+            alert["text"] = "sending"
+        try:
+            res = self.texter.send_text(self.phone, body)
+        except Exception as e:     # never let a failed text take the demo down
+            res = {"ok": False, "status": repr(e)}
+        with self._lock:
+            alert["text"] = "sent" if res.get("ok") else f"failed: {res.get('status')}"
+            alert["text_body"] = body
+        return alert["text"]
 
     def _queue_call(self, alert):
         """Mark the first alert at a calling level (SENTINEL_CALL_ON) for a phone call."""
@@ -232,7 +258,9 @@ class DemoSession:
         return reply, brief
 
     def send(self, alert):
-        """Phone (if this alert calls), then deliver it by email; record each outcome on it."""
+        """Text and phone (if this alert does), then deliver it by email; record each outcome on it."""
+        if alert.get("text") == "queued":
+            self.send_text(alert)
         if alert.get("call") == "queued":
             self.place_call(alert)
         alert["email"] = "sending"

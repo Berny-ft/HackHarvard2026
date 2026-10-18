@@ -399,6 +399,7 @@ function DemoCard({ demo, state, hour }) {
   const lead = (a) => (a ? demo.arrival_h - a.hour : null);
   const emailText = (e) => (e === "sent" ? "Email sent" : e === "sending" || e === "queued" ? "Sending email…" : `Email ${e}`);
   const callText = (c) => (c === "placed" ? `Called ${demo.phone}` : c === "calling" || c === "queued" ? `Calling ${demo.phone}…` : `Call ${c}`);
+  const textText = (t) => (t === "sent" ? `Texted ${demo.phone}` : t === "sending" || t === "queued" ? `Texting ${demo.phone}…` : `Text ${t}`);
   const chip = (s, ok) => (s === ok ? "ok" : /^(not|failed)/.test(s) ? "bad" : "");
   const call = state?.call;
   return (
@@ -411,6 +412,7 @@ function DemoCard({ demo, state, hour }) {
       <div className="demo-address">
         <span className="muted">Watching</span><b>{demo.label}</b>
         <span className="muted">Emails to</span><b>{demo.email || "nobody (set SENTINEL_ALERT_EMAIL)"}</b>
+        {demo.phone && demo.texts && <><span className="muted">Texts</span><b>{demo.phone} at the first warning</b></>}
         {demo.phone && <><span className="muted">Calls</span><b>{demo.calls ? `${demo.phone} at Evacuate` : `${demo.phone} (voice keys not set)`}</b></>}
       </div>
       <div className="demo-level" style={{ "--c": LEVEL_COLOR[level] }}>
@@ -427,6 +429,7 @@ function DemoCard({ demo, state, hour }) {
               <div className="hh-level">{a.kind === "fire-arrived" ? "Fire at your address" : LEVEL_LABEL[a.level]}</div>
               <p>{a.message}</p>
               <span className={`email-chip ${chip(a.email, "sent")}`}>{emailText(a.email)}</span>
+              {a.text && <span className={`email-chip ${chip(a.text, "sent")}`}>{textText(a.text)}</span>}
               {a.call && <span className={`email-chip ${chip(a.call, "placed")}`}>{callText(a.call)}</span>}
             </div>
           </li>

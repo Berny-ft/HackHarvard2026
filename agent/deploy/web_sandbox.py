@@ -13,7 +13,8 @@ no rebuild needed), SMTP_USER / SMTP_PASSWORD / SENTINEL_ALERT_EMAIL for the dem
 and SENTINEL_DEMO_ADDRESS / _LAT / _LON for the fire demo's address.
 Calls on evacuate: ELEVENLABS_API_KEY / ELEVENLABS_AGENT_ID / ELEVENLABS_PHONE_NUMBER_ID,
 PHOTON_WEBHOOK_SECRET (the agent's webhook tool sends it to /photon/voice) and DEMO_PHONE,
-the number the demo rings (docs/VOICE_SETUP.md).
+the number the demo rings (docs/VOICE_SETUP.md). Text on the first warning:
+PHOTON_PROJECT_ID / PHOTON_PROJECT_SECRET (DEMO_PHONE must have texted the Photon line once).
 """
 import argparse
 import os
@@ -51,6 +52,8 @@ if os.environ.get("SENTINEL_DEMO_LAT"):   # the fire demo's address
 if os.environ.get("ELEVENLABS_API_KEY"):   # phone calls on evacuate
     secrets += [Secret.from_chalk_env(k) for k in ("ELEVENLABS_API_KEY", "ELEVENLABS_AGENT_ID",
                                                    "ELEVENLABS_PHONE_NUMBER_ID", "PHOTON_WEBHOOK_SECRET", "DEMO_PHONE")]
+if os.environ.get("PHOTON_PROJECT_ID"):   # the demo's first-warning text (Photon REST, no bridge)
+    secrets += [Secret.from_chalk_env(k) for k in ("PHOTON_PROJECT_ID", "PHOTON_PROJECT_SECRET")]
 
 
 def main():

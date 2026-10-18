@@ -137,6 +137,17 @@ def call_opening(sub):
             "Ask me why, when to leave, or which way to go.")
 
 
+DEMO_LEVEL = {"watch": "WATCH", "warn": "WARNING", "evacuate": "EVACUATE"}
+
+
+def demo_alert_text(sub, alert, calling=False):
+    """The alert demo's text: the alert as the sentinel worded it, and what comes next."""
+    nxt = ("We're calling you now." if calling else
+           "Leave now." if alert["level"] == "evacuate" else "We'll call you if the fire gets closer.")
+    return (f"{sim_prefix(sub)}FireTrace {DEMO_LEVEL.get(alert['level'], alert['level'].upper())}{_at(sub)}: "
+            f"{alert['message']} {nxt} Official orders take precedence; call 911 in an emergency.")
+
+
 def briefing(sub):
     """Everything the voice agent may tell the caller, in plain sentences, so it never has to guess."""
     sit = sub.get("situation") or {}

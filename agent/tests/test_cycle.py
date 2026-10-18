@@ -269,6 +269,14 @@ class TestDemoCall(unittest.TestCase):
         lat, lon = alert_demo.anchor("eaton_2025")
         demo_server.SESSION = alert_demo.DemoSession(lat, lon, "test home", email="", phone="514-664-6295")
         demo_server.SESSION.email = None
+        self.texts = []
+        texts = self.texts
+
+        class FakeTexter:
+            def send_text(self, to, body):
+                texts.append((to, body))
+                return {"ok": True, "status": "sent"}
+        demo_server.SESSION.texter = FakeTexter()
         self.client = TestClient(demo_server.app)
 
     def tearDown(self):
@@ -277,15 +285,23 @@ class TestDemoCall(unittest.TestCase):
     def test_evacuate_calls_once_and_answers(self):
         for h in range(10):
             self.client.post("/api/demo/step", json={"hour": h})
-        for a in self.demo_server.SESSION.events:     # the server sends on threads; run them inline here
+        session = self.demo_server.SESSION
+        for a in session.events:     # the server sends on threads; run them inline here
+            if a.get("text") == "queued":
+                session.send_text(a)
             if a.get("call") == "queued":
-                self.demo_server.SESSION.place_call(a)
+                session.place_call(a)
+        self.assertEqual(len(self.texts), 1)                 # the first warning, not again at evacuate
+        self.assertEqual(self.texts[0][0], "+15146646295")
+        self.assertIn("WARNING", self.texts[0][1])
+        self.assertEqual([a.get("text") for a in session.events][0], "sent")
         self.assertEqual(len(self.placed), 1)
         self.assertEqual(self.placed[0][0], "+15146646295")
         self.assertIn("leave now", self.placed[0][1])
-        r = self.client.post("/photon/voice", json={"from": "+15146646295", "transcript": "why?"}).json()
+        auth = {"X-Photon-Secret": config.PHOTON_WEBHOOK_SECRET or ""}
+        r = self.client.post("/photon/voice", headers=auth, json={"from": "+15146646295", "transcript": "why?"}).json()
         self.assertIn("Alert level: EVACUATE", r["reply"])
-        r = self.client.post("/photon/voice", json={"from": "+19995550000", "transcript": "why?"}).json()
+        r = self.client.post("/photon/voice", headers=auth, json={"from": "+19995550000", "transcript": "why?"}).json()
         self.assertIn("isn't signed up", r["reply"])
         call = self.client.get("/api/demo/state").json()["call"]
         self.assertEqual(call["status"], "placed")
