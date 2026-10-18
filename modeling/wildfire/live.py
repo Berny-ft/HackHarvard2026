@@ -10,11 +10,14 @@ import csv
 import io
 import json
 import os
+import socket
 from datetime import datetime, timezone
 
 import numpy as np
 import pandas as pd
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.connection import HTTPConnection
 
 from .config import BBOX_LONLAT, DATA, OUT, ROOT
 from .fireweather import TIER_NAMES, dead_fuel_moisture_1h_pct, santa_ana_level
@@ -40,8 +43,29 @@ load_env()
 HEADERS = {"User-Agent": f"hackharvard-firetrace ({os.environ.get('NWS_CONTACT', 'hackathon project')})"}
 
 
+class _SmallPackets(HTTPAdapter):
+    """Ask servers for TCP segments of at most FEED_MAX_SEG bytes.
+
+    The Chalk sandbox network drops full-size packets from some hosts
+    (Open-Meteo, ArcGIS): connections open, then replies never arrive.
+    Capping the segment size gets them through. Off unless FEED_MAX_SEG is set
+    (the sandbox sets it; Linux only, macOS rejects TCP_MAXSEG).
+    """
+
+    def init_poolmanager(self, *args, **kwargs):
+        kwargs["socket_options"] = HTTPConnection.default_socket_options + [
+            (socket.IPPROTO_TCP, socket.TCP_MAXSEG, int(os.environ["FEED_MAX_SEG"]))]
+        super().init_poolmanager(*args, **kwargs)
+
+
+SESSION = requests.Session()
+if os.environ.get("FEED_MAX_SEG"):
+    SESSION.mount("https://", _SmallPackets())
+    SESSION.mount("http://", _SmallPackets())
+
+
 def _get(url, **kw):
-    r = requests.get(url, timeout=kw.pop("timeout", TIMEOUT), **kw)
+    r = SESSION.get(url, timeout=kw.pop("timeout", TIMEOUT), **kw)
     r.raise_for_status()
     return r
 
@@ -228,8 +252,8 @@ def fetch_osm_infrastructure(force=False):
     (way["power"="line"]({SOUTH},{WEST},{NORTH},{EAST});
      way["highway"~"^(motorway|trunk|primary|secondary)$"]({SOUTH},{WEST},{NORTH},{EAST}););
     out geom;"""
-    els = requests.post("https://overpass-api.de/api/interpreter", data={"data": q},
-                        headers=HEADERS, timeout=240).json()["elements"]
+    els = SESSION.post("https://overpass-api.de/api/interpreter", data={"data": q},
+                       headers=HEADERS, timeout=240).json()["elements"]
     feats = [{"type": "Feature",
               "geometry": {"type": "LineString", "coordinates": [[g["lon"], g["lat"]] for g in e["geometry"]]},
               "properties": {"kind": "power_line" if "power" in e["tags"] else "road",

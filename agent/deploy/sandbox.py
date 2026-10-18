@@ -38,7 +38,8 @@ image = (
                    exclude=["incidents/*/*.tif", "*.png"])
     .add_local_dir(os.path.join(AGENT, "sentinel"), "/app/agent/sentinel", exclude=["__pycache__"])
     .env({"PYTHONPATH": "/app/agent", "SENTINEL_STATE": "/state", "SENTINEL_MCP_HOST": "0.0.0.0",
-          "FIRETRACE_OUT": "/app/modeling/out"})
+          "FIRETRACE_OUT": "/app/modeling/out",
+          "FEED_MAX_SEG": "536"})   # the sandbox network drops full-size packets from some feeds; see wildfire/live.py
     .workdir("/app/agent")
 )
 
@@ -56,7 +57,7 @@ def main():
     a = ap.parse_args()
 
     for info in Sandbox.list_all():
-        if info.name == NAME:
+        if info.name == NAME and info.status not in ("terminated", "failed"):   # the list keeps old ones
             Sandbox.from_id(info.id).terminate()
             print(f"terminated {info.id}")
     if a.stop:
