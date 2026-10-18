@@ -52,7 +52,8 @@ agent brings back.
    `ELEVENLABS_PHONE_NUMBER_ID`, `PHOTON_WEBHOOK_SECRET` and `DEMO_PHONE` (the phone the demo rings).
 2. Put the same names in `agent/.env` (any value works locally; the deploy script only checks that
    `ELEVENLABS_API_KEY` exists to decide whether to pass them), then `python deploy/web_sandbox.py`.
-3. Point the agent's `fire_status` webhook tool at `https://<firetrace-web public URL>/photon/voice`
-   with the `X-Photon-Secret` header. No tunnel needed.
+3. The public URL contains the sandbox id, so it changes on every deploy. The deploy script prints it and
+   repoints the agent's `fire_status` webhook tool at `<url>/photon/voice` (the tool must exist; header
+   `X-Photon-Secret`). No tunnel needed.
 4. Open the map, pick Eaton 2025, press Alert demo, play. The phone rings at the EVACUATE alert (once per run;
    replays within a minute don't ring again).

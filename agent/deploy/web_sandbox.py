@@ -67,12 +67,42 @@ def main():
     if not os.path.isfile(os.path.join(DIST, "index.html")):
         sys.exit("web/dist is missing: run `npm run build` in web/ first")
 
-    Sandbox(
+    sb = Sandbox(
         image=image, name=NAME, cpu="1", memory="2Gi", port=PORT, secrets=secrets,
         restart_policy=RestartPolicy.ALWAYS,
         entrypoint=["python", "-m", "sentinel", "demo-server", "--port", str(PORT)],
-    ).run()
-    print(f"sandbox {NAME} running; site on port {PORT}")
+    )
+    sb.run()
+    url = web_url(sb.id)
+    print(f"sandbox {NAME} running: {url}/map" if url else f"sandbox {NAME} running; site on port {PORT}")
+    if url and os.environ.get("ELEVENLABS_API_KEY"):
+        print(point_voice_tool(f"{url}/photon/voice"))
+
+
+def web_url(sandbox_id):
+    """The sandbox's public URL. It contains the sandbox id, so it changes on every deploy."""
+    from chalkcompute._sandbox import SandboxClient, pb
+    c = SandboxClient.from_env()
+    try:
+        for s in c._stub.list_sandboxes(pb.ListSandboxesRequest(), headers=c._headers).sandboxes:
+            if s.id == sandbox_id:
+                return s.web_url or None
+    finally:
+        c.close()
+
+
+def point_voice_tool(url, name="fire_status"):
+    """Repoint the ElevenLabs agent's webhook tool at this deploy's /photon/voice."""
+    import requests
+    api, h = "https://api.elevenlabs.io/v1/convai/tools", {"xi-api-key": os.environ["ELEVENLABS_API_KEY"]}
+    tools = requests.get(api, headers=h, timeout=20).json().get("tools", [])
+    tool = next((t for t in tools if t["tool_config"].get("name") == name), None)
+    if tool is None:
+        return f"no ElevenLabs tool named {name}; see docs/VOICE_SETUP.md"
+    cfg = tool["tool_config"]
+    cfg["api_schema"]["url"] = url
+    r = requests.patch(f"{api}/{tool['id']}", headers=h, json={"tool_config": cfg}, timeout=20)
+    return f"ElevenLabs {name} -> {url}" if r.ok else f"could not update {name}: {r.status_code} {r.text[:200]}"
 
 
 if __name__ == "__main__":
