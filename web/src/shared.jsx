@@ -56,25 +56,20 @@ export const LEVEL_COLOR = {
 };
 export const LEVEL_LABEL = { none: "No alert", watch: "Watch", warn: "Get ready", evacuate: "Leave now" };
 
-// Playback speed, 0.1× to 4×, on a log scale so the slow end gets as much travel as the fast end.
-// 1× is the replay's normal pace (one modeled hour every ~0.4 s); the maps animate smoothly between hours.
-const SPEED_MIN = 0.1, SPEED_MAX = 4, SPEED_STEPS = 60;
-const SPEED_PRESETS = [0.1, 0.25, 0.5, 1, 2, 4];
-const toStep = (v) => Math.round((Math.log(v / SPEED_MIN) / Math.log(SPEED_MAX / SPEED_MIN)) * SPEED_STEPS);
-const fromStep = (i) => {
-  const v = SPEED_MIN * (SPEED_MAX / SPEED_MIN) ** (i / SPEED_STEPS);
-  return SPEED_PRESETS.find((p) => Math.abs(v / p - 1) < 0.05) ?? +v.toPrecision(2);   // land exactly on 0.5×, 1×…
-};
-const speedLabel = (v) => `${v < 1 ? +v.toFixed(2) : +v.toFixed(1)}×`;
+// Playback speed as a 1-10 setting: 1 is hyper slow (about 21 s per replay hour, so the alert demo's text
+// and call land a minute apart), 8 is the normal pace, 10 the fastest. `speed` stays a multiplier of normal.
+export const SPEEDS = [0.02, 0.04, 0.07, 0.12, 0.2, 0.35, 0.6, 1, 2, 4];
+const level = (speed) => SPEEDS.reduce((best, v, i) => (Math.abs(Math.log(v / speed)) < Math.abs(Math.log(SPEEDS[best] / speed)) ? i : best), 0) + 1;
 
 export function SpeedControl({ speed, onChange }) {
+  const n = level(speed);
   return (
-    <div className="speed" role="group" aria-label="Playback speed">
-      <input type="range" min={0} max={SPEED_STEPS} step={1} value={toStep(speed)}
-             onChange={(e) => onChange(fromStep(+e.target.value))}
-             aria-label="Playback speed" aria-valuetext={speedLabel(speed)} list="speed-presets" />
-      <datalist id="speed-presets">{SPEED_PRESETS.map((v) => <option key={v} value={toStep(v)} />)}</datalist>
-      <button className="on num" onClick={() => onChange(1)} title="Reset to 1×">{speedLabel(speed)}</button>
+    <div className="speed" role="group" aria-label="Playback speed" title={`${speed}× normal pace`}>
+      <span className="muted">Speed</span>
+      <input type="range" min={1} max={SPEEDS.length} step={1} value={n}
+             onChange={(e) => onChange(SPEEDS[+e.target.value - 1])}
+             aria-label="Playback speed, 1 slowest to 10 fastest" aria-valuetext={`${n} of 10`} />
+      <button className="on num" onClick={() => onChange(1)} title="Back to normal pace (8)">{n}</button>
     </div>
   );
 }

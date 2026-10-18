@@ -29,6 +29,7 @@ from .channels import voice
 from .channels.photon import PhotonRestChannel
 from .config import ALERT_EMAIL, INCIDENTS
 from .conversation import classify
+from .escape import safest_heading
 from .live import _situation
 from .notify import deliver
 from .policy import get_policy
@@ -152,6 +153,8 @@ class DemoSession:
                 self.now = {"hour": h, "level": d["level"], "nearest_fire_km": s["nearest_fire_km"],
                             "eta_h": s["eta_h"], "downwind": s["downwind"]}
                 self.sit = _situation(s, d["level"], d.get("reasons", []))
+                if level_rank(d["level"]) >= level_rank("warn"):
+                    self.sit["escape"] = safest_heading(snap, self.lat, self.lon)
                 at = datetime.fromisoformat(s["as_of"])
                 at = at if at.tzinfo else at.replace(tzinfo=ZoneInfo(config.TZ))
                 self.window = (departure_window(at, s["eta_h"], None, bool(s["nearest_fire_confirmed"]))
@@ -249,6 +252,8 @@ class DemoSession:
                  "STATUS": messages.status_reply}.get(intent, lambda _: brief)(sub)
         if intent == "LEFT":
             reply = messages.left_reply()
+        elif intent == "NOW" and messages.escape_line(sub["situation"]):     # no road route in the demo
+            reply = messages.escape_line(sub["situation"])
         with self._lock:
             if self.call is None:
                 self.call = {"status": "in call", "phone": _mask(self.phone), "hour": self.hour, "opening": None,

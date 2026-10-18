@@ -133,6 +133,8 @@ def call_opening(sub):
     sit = sub.get("situation") or {}
     demo = f"This is a demo call: {sub['sim']}. " if sub.get("sim") else ""
     act = "You should leave now." if sit.get("level") == "evacuate" else "Get ready to leave."
+    if sit.get("escape"):
+        act += f" Head {sit['escape']['direction']}, away from the fire."
     return (f"{demo}This is FireTrace calling about a wildfire near your home. {where(sit)}. {act} "
             "Ask me why, when to leave, or which way to go.")
 
@@ -140,12 +142,22 @@ def call_opening(sub):
 DEMO_LEVEL = {"watch": "WATCH", "warn": "WARNING", "evacuate": "EVACUATE"}
 
 
+def escape_line(sit):
+    e = (sit or {}).get("escape")
+    if not e:
+        return None
+    return (f"Safest way out: head {e['direction']}, away from the fire and the wind pushing it. "
+            "Use main roads and follow officers.")
+
+
 def demo_alert_text(sub, alert, calling=False):
-    """The alert demo's text: the alert as the sentinel worded it, and what comes next."""
+    """The alert demo's text: the alert as the sentinel worded it, the safest direction, and what comes next."""
+    out = escape_line(sub.get("situation"))
+    out = f" {out}" if out else ""
     nxt = ("We're calling you now." if calling else
            "Leave now." if alert["level"] == "evacuate" else "We'll call you if the fire gets closer.")
     return (f"{sim_prefix(sub)}FireTrace {DEMO_LEVEL.get(alert['level'], alert['level'].upper())}{_at(sub)}: "
-            f"{alert['message']} {nxt} Official orders take precedence; call 911 in an emergency.")
+            f"{alert['message']}{out} {nxt} Official orders take precedence; call 911 in an emergency.")
 
 
 def briefing(sub):
@@ -162,6 +174,9 @@ def briefing(sub):
     if wx.get("wind_mph") is not None:
         lines.append(f"Weather: wind {wx['wind_mph']:.0f} mph gusting {wx.get('gust_mph') or 0:.0f} mph "
                      f"from the {compass(wx.get('wind_dir_deg'))}, humidity {wx.get('rh_pct', 0):.0f}%.")
+    if sit.get("escape"):
+        lines.append(f"Safest direction to leave: head {sit['escape']['direction']} (away from the fire and the "
+                     "wind pushing it; a heading, not a road route).")
     if sit.get("reasons"):
         lines.append("Why this level: " + "; ".join(sit["reasons"]) + ".")
     line = _window_line(sub.get("window"))

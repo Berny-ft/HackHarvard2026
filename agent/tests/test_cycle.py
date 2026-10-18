@@ -307,3 +307,17 @@ class TestDemoCall(unittest.TestCase):
         self.assertEqual(call["status"], "placed")
         self.assertEqual(call["phone"], "••• 6295")
         self.assertEqual(len(call["turns"]), 1)
+
+
+@unittest.skipUnless(HAVE, "numpy not installed")
+class TestEscape(unittest.TestCase):
+    def test_heads_away_from_fire_and_wind(self):
+        from sentinel.escape import safest_heading
+        # Fire 1.5 km north, a strong north wind driving it south: driving south stays in its path, so the
+        # safest way is out sideways, never toward the fire.
+        e = safest_heading(snapshot(1.5), LAT, LON)
+        self.assertIn(e["direction"], ("east", "west"))
+
+    def test_no_fire_no_direction(self):
+        from sentinel.escape import safest_heading
+        self.assertIsNone(safest_heading(snapshot(None), LAT, LON))

@@ -278,7 +278,8 @@ code { font-family: var(--mono); font-size: 0.92em; color: var(--sage); backgrou
 .speed button.on { background: var(--canopy-2); color: #f2f6f3; box-shadow: 0 0 0 1px var(--ridge-2) inset; }
 .speed { align-items: center; gap: 4px; }
 .speed input[type="range"] { width: 92px; margin: 0 4px; accent-color: var(--ember); cursor: pointer; }
-.speed button.num { min-width: 46px; text-align: center; }
+.speed button.num { min-width: 28px; text-align: center; }
+.speed > span { font-size: 11px; margin-left: 6px; }
 
 .scrubber { position: relative; flex: 1; height: 36px; display: flex; align-items: center; }
 .scrub-track { position: absolute; left: 0; right: 0; top: 13px; height: 4px; border-radius: 2px; background: var(--ridge); pointer-events: none; }
