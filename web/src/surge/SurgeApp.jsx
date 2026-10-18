@@ -6,7 +6,7 @@ import SurgeMapView, { CAMERAS, CAT_HEX, stormState } from "./SurgeMapView.jsx";
 import { BASEMAPS, LIGHTS } from "../MapView.jsx";
 import { loadTerrain } from "../water.js";
 import { Chart } from "../Charts.jsx";
-import { navigate, pct } from "../shared.jsx";
+import { SpeedControl, navigate, pct } from "../shared.jsx";
 import { SURGE_LEVEL_COLOR as LEVEL_COLOR, SURGE_LEVEL_LABEL as LEVEL_LABEL, SurgeLogo, catLabel } from "./common.jsx";
 
 const STORMS = [
@@ -288,9 +288,7 @@ export default function SurgeApp() {
                 ? <svg width="12" height="12" viewBox="0 0 12 12"><rect x="2" y="1.5" width="3" height="9" rx="1" /><rect x="7" y="1.5" width="3" height="9" rx="1" /></svg>
                 : <svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L3.9 1.1a.6.6 0 0 0-.9.5Z" /></svg>}
             </button>
-            <div className="speed" role="group" aria-label="Playback speed">
-              {[1, 2, 4].map((s) => <button key={s} className={s === speed ? "on" : ""} onClick={() => setSpeed(s)}>{s}×</button>)}
-            </div>
+            <SpeedControl speed={speed} onChange={setSpeed} />
             <Scrubber hour={hour} max={storm?.info.hours ?? 96} start={storm?.info.start} peak={storm?.info.peak.hour}
                       onChange={(h) => { setPlaying(false); setHour(h); }} />
             <div className="clock">
