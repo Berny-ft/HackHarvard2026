@@ -88,7 +88,10 @@ PHOTON_BRIDGE_URL = os.environ.get("PHOTON_BRIDGE_URL", "http://127.0.0.1:3001")
 PHOTON_BRIDGE_SECRET = os.environ.get("PHOTON_BRIDGE_SECRET", "")
 PHOTON_NUMBER = os.environ.get("PHOTON_NUMBER")
 PHOTON_WEBHOOK_SECRET = os.environ.get("PHOTON_WEBHOOK_SECRET")
-REMINDER_EVERY_MIN = float(os.environ.get("SENTINEL_REMINDER_MIN", "10"))
+# Phone calls (channels/voice.py: ElevenLabs agent over the Photon number) for these text kinds.
+CALLS = os.environ.get("SENTINEL_CALLS") == "1"
+CALL_ON = {k.strip() for k in os.environ.get("SENTINEL_CALL_ON", "evacuate").split(",") if k.strip()}
+REMINDER_EVERY_MIN =float(os.environ.get("SENTINEL_REMINDER_MIN", "10"))
 MAX_REMINDERS = int(os.environ.get("SENTINEL_MAX_REMINDERS", "6"))
 ROUTE_MAX_AGE_MIN = float(os.environ.get("SENTINEL_ROUTE_MAX_AGE_MIN", "5"))
 PUBLIC_URL = os.environ.get("SENTINEL_PUBLIC_URL", "http://localhost:8080")

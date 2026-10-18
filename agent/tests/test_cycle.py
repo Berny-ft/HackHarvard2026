@@ -43,6 +43,7 @@ class TestCycle(unittest.TestCase):
     def setUp(self):
         for s in store.subscribers():
             store.unsubscribe(s["id"])
+        store._alerts_path().unlink(missing_ok=True)
         self.ch = ConsoleChannel()
         set_channel(self.ch)
         self.fire_km = 1.5
@@ -113,6 +114,32 @@ class TestCycle(unittest.TestCase):
         self.assertEqual(store.get(s["id"])["stage"], "none")
         self.assertEqual(self.ch.sent, [])
 
+    def test_call_on_evacuate_once(self):
+        from sentinel.channels import voice
+        placed = []
+        orig = voice.place_call, voice.configured, config.CALLS
+        voice.place_call = lambda to, msg, brief=None: placed.append((to, msg, brief)) or {"ok": True, "status": "calling"}
+        voice.configured = lambda: True
+        config.CALLS = True
+        try:
+            store.subscribe(LAT, LON, phone="818-555-0100", consent=True)
+            r = self.run_cycle()
+            self.assertEqual(len(r["calls"]), 1)
+            to, msg, brief = placed[0]
+            self.assertEqual(to, "+18185550100")
+            self.assertIn("leave now", msg)
+            self.assertIn("Why this level", brief)
+            self.assertIn("wind 30 mph", brief)
+            r = self.run_cycle()                 # reminder text, no second call
+            self.assertEqual(r["calls"], [])
+            self.assertEqual(len(placed), 1)
+        finally:
+            voice.place_call, voice.configured, config.CALLS = orig
+
+    def test_no_call_when_off(self):
+        store.subscribe(LAT, LON, phone="818-555-0100", consent=True)
+        self.assertEqual(self.run_cycle()["calls"], [])
+
     def test_dry_run_writes_nothing(self):
         s = store.subscribe(LAT, LON, phone="818-555-0100", consent=True)
         before = json.dumps(store.get(s["id"]), sort_keys=True)
@@ -156,6 +183,12 @@ class TestWeb(unittest.TestCase):
     def test_voice(self):
         r = self.client.post("/photon/voice", json={"from": "+18185550199", "transcript": "status"})
         self.assertIn("EVACUATE", r.json()["reply"])
+
+    def test_voice_why_gets_briefing(self):
+        r = self.client.post("/photon/voice", json={"from": "+18185550199", "transcript": "why do I have to leave?"})
+        reply = r.json()["reply"]
+        self.assertIn("Alert level: EVACUATE", reply)
+        self.assertIn("Route", reply)
 
     def test_route_page(self):
         self.assertEqual(self.client.get("/route/nope").status_code, 404)

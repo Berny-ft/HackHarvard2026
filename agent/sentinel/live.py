@@ -10,12 +10,12 @@ from datetime import datetime, timezone
 
 import numpy as np
 
-from . import store
-from .channels import get_channel
+from . import config, store
+from .channels import get_channel, voice
 from .closures import active_closures, block_points
 from .config import ACTIVE_WINDOW_H, REPO, ROUTE_MAX_AGE_MIN
 from .escalation import minutes_since, next_action
-from .messages import TEXTS
+from .messages import TEXTS, briefing, call_opening
 from .notify import deliver
 from .policy import get_policy
 from .signals import assess, level_rank
@@ -80,10 +80,25 @@ def evaluate_subscriber(sub, snap, policy, dry_run=False):
     return alert
 
 
-def _situation(s, level):
+def _situation(s, level, reasons=()):
+    wx = s.get("weather_now") or {}
     return {"level": level, "as_of": s["as_of"], "nearest_fire_km": s["nearest_fire_km"],
             "nearest_fire_name": s["nearest_fire_name"], "nearest_fire_confirmed": s["nearest_fire_confirmed"],
-            "fire_bearing_deg": s["fire_bearing_deg"], "eta_h": s["eta_h"], "downwind": s["downwind"]}
+            "fire_bearing_deg": s["fire_bearing_deg"], "eta_h": s["eta_h"], "downwind": s["downwind"],
+            "reasons": list(reasons),
+            "weather": {k: wx.get(k) for k in ("wind_mph", "gust_mph", "wind_dir_deg", "rh_pct", "temp_f")}}
+
+
+def _call(sub, as_of, level):
+    """Phone the subscriber; the voice agent opens with the alert and answers from the briefing."""
+    try:
+        result = voice.place_call(sub["phone"], call_opening(sub), briefing(sub))
+    except Exception as e:     # a failed call must not stop the cycle
+        result = {"ok": False, "status": repr(e)}
+    entry = {"id": uuid.uuid4().hex[:12], "subscriber_id": sub["id"], "as_of": as_of, "level": level,
+             "channel": "call", "kind": "call", "message": call_opening(sub), "delivery": [result]}
+    store.log_alert(entry)
+    return entry
 
 
 def _stale(iso, now, max_min):
@@ -100,14 +115,14 @@ def cycle(policy_name="rules", refresh=True, dry_run=False, channel=None, snapsh
     channel = channel or get_channel()
     # Caltrans full closures; [] if the feed is down, and for replays (today's closures are not history).
     blocks = [] if snapshot else block_points(active_closures())
-    alerts, texts = [], []
+    alerts, texts, calls = [], [], []
     for sub in store.subscribers():
         s = assess(snap, sub["lat"], sub["lon"])
         history = [{k: a[k] for k in ("as_of", "level", "message") if k in a}
                    for a in store.recent_alerts(sub["id"], 4)]
         d = policy.decide(s, history, snap=snap)  # once per subscriber: the LLM policy is billed per call
         level = d["level"]
-        upd = {"situation": _situation(s, level)}
+        upd = {"situation": _situation(s, level, d.get("reasons", []))}
 
         if level in ("warn", "evacuate"):
             if _stale(sub.get("route_at"), started, ROUTE_MAX_AGE_MIN):
@@ -165,13 +180,15 @@ def cycle(policy_name="rules", refresh=True, dry_run=False, channel=None, snapsh
             if not dry_run:
                 store.log_alert(entry)
             texts.append(entry)
+            if kind in config.CALL_ON and config.CALLS and not dry_run and voice.configured():
+                calls.append(_call(merged, s["as_of"], level))
             upd.update(stage=next_stage, stage_at=now_iso)
             if kind == "reminder":
                 upd["reminders"] = merged.get("reminders", 0) + 1
         if not dry_run:
             store.update(sub["id"], **upd)
     return {"started": now_iso, "feeds_ok": feeds[0], "fire_points": len(snap.fires),
-            "subscribers": len(store.subscribers()), "road_blocks": len(blocks), "alerts": alerts, "texts": texts}
+            "subscribers": len(store.subscribers()), "road_blocks": len(blocks), "alerts": alerts, "texts": texts, "calls": calls}
 
 
 def run_forever(every_min=15, **kw):

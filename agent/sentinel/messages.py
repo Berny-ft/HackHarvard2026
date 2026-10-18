@@ -128,5 +128,38 @@ def help_reply():
             "STOP: unsubscribe. Emergency: call 911.")
 
 
+def call_opening(sub):
+    """First thing the voice agent says when the person picks up."""
+    sit = sub.get("situation") or {}
+    demo = f"This is a demo call: {sub['sim']}. " if sub.get("sim") else ""
+    act = "You should leave now." if sit.get("level") == "evacuate" else "Get ready to leave."
+    return (f"{demo}This is FireTrace calling about a wildfire near your home. {where(sit)}. {act} "
+            "Ask me why, when to leave, or which way to go.")
+
+
+def briefing(sub):
+    """Everything the voice agent may tell the caller, in plain sentences, so it never has to guess."""
+    sit = sub.get("situation") or {}
+    if sit.get("level", "none") == "none":
+        return status_reply(sub)
+    lines = [f"{sim_prefix(sub)}Alert level: {sit['level'].upper()}{_at(sub)}.", f"{where(sit)}."]
+    if sit.get("eta_h") is not None:
+        lines.append(f"Model estimate of fire arrival at the home: about {sit['eta_h']:.1f} hours.")
+    if sit.get("downwind"):
+        lines.append("The wind is blowing from the fire toward the home.")
+    wx = sit.get("weather") or {}
+    if wx.get("wind_mph") is not None:
+        lines.append(f"Weather: wind {wx['wind_mph']:.0f} mph gusting {wx.get('gust_mph') or 0:.0f} mph "
+                     f"from the {compass(wx.get('wind_dir_deg'))}, humidity {wx.get('rh_pct', 0):.0f}%.")
+    if sit.get("reasons"):
+        lines.append("Why this level: " + "; ".join(sit["reasons"]) + ".")
+    line = _window_line(sub.get("window"))
+    if line:
+        lines.append(line)
+    lines.append(route_reply(sub))
+    lines.append("Official orders from the county take precedence. Emergency: call 911.")
+    return " ".join(lines)
+
+
 def freeform_reply(sub):
     return f"{status_reply(sub)} For anything else, call 911 in an emergency."

@@ -152,9 +152,10 @@ async def test_call(request: Request):
     from .channels import voice as vc
     phone = store.normalize_phone(_test_phone())
     sub = store.find_by_phone(phone)
-    msg = (conversation.respond(sub, "status", _now()) if sub else
-           "This is a FireTrace Sentinel test call.")
-    res = vc.place_call(phone, msg)
+    sit = (sub or {}).get("situation") or {}
+    msg = (messages.call_opening(sub) if sit.get("level", "none") != "none" else
+           conversation.respond(sub, "status", _now()) if sub else "This is a FireTrace Sentinel test call.")
+    res = vc.place_call(phone, msg, messages.briefing(sub) if sub else None)
     _log("voice", "out" if res.get("ok") else "error", phone,
          f"CALL {res.get('status')}: {msg}" if res.get("ok") else str(res.get("status")))
     return JSONResponse(res)
@@ -193,8 +194,15 @@ async def voice(request: Request):
     if err:
         return err
     sub = store.find_by_phone(data.get("from", ""))
-    reply = conversation.respond(sub, data.get("transcript", ""), _now()) if sub else UNKNOWN
-    return JSONResponse({"reply": reply})
+    text = data.get("transcript", "")
+    if not sub:
+        reply = UNKNOWN
+    elif conversation.classify(text) == "FREEFORM":     # "why?", "how bad is it?": the agent answers from the facts
+        reply = messages.briefing(sub)
+    else:
+        reply = conversation.respond(sub, text, _now())
+    _log("voice", "in", data.get("from", ""), text)
+    return JSONResponse({"reply": reply, "briefing": messages.briefing(sub) if sub else UNKNOWN})
 
 
 async def route_page(request: Request):

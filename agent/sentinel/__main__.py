@@ -52,6 +52,7 @@ def main():
     p.add_argument("--lat", type=float); p.add_argument("--lon", type=float)
     p.add_argument("--send", action="store_true", help="text the phone through Photon (default: print only)")
     p.add_argument("--serve", type=int, metavar="PORT"); p.add_argument("--delay", type=float, default=8.0)
+    p.add_argument("--call", action="store_true", help="also phone on evacuate (ElevenLabs agent over the Photon number)")
     p = sub.add_parser("web"); p.add_argument("--port", type=int, default=8080)
     p = sub.add_parser("call", help="phone the number now (Photon voice)"); p.add_argument("--phone")
     p.add_argument("--message", default="This is a FireTrace Sentinel test call. A wildfire watch is in effect near your home.")
@@ -105,7 +106,7 @@ def main():
         demo_serve(a.port, a.incident, a.policy, a.address, a.lat, a.lon, a.email)
     elif a.cmd == "demo":
         from .demo import main as demo
-        demo(a.address, a.incident, a.phone, a.send, a.serve, a.delay, a.lat, a.lon)
+        demo(a.address, a.incident, a.phone, a.send, a.serve, a.delay, a.lat, a.lon, a.call)
     elif a.cmd == "call":
         from .channels.voice import place_call
         from .store import normalize_phone

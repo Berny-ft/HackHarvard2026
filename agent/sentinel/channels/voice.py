@@ -1,6 +1,7 @@
 """Outbound phone calls over Photon Voice. Photon supplies the phone number and SIP trunk; ElevenLabs runs the
-voice agent and places the call (POST /v1/convai/sip-trunk/outbound-call). The agent answers questions by calling
-this app's POST /photon/voice. Setup steps: docs/VOICE_SETUP.md.
+voice agent and places the call (POST /v1/convai/sip-trunk/outbound-call). Each call carries the fire briefing as
+the {{fire_briefing}} dynamic variable, and the agent asks this app's POST /photon/voice for anything newer.
+Setup steps: docs/VOICE_SETUP.md.
 
 Needs in agent/.env: ELEVENLABS_API_KEY, ELEVENLABS_AGENT_ID, ELEVENLABS_PHONE_NUMBER_ID."""
 import os
@@ -19,14 +20,17 @@ def configured():
     return all(_cfg())
 
 
-def place_call(to, message):
+def place_call(to, message, briefing=None):
     key, agent, number = _cfg()
     if not (key and agent and number):
         return {"ok": False, "status": "Set ELEVENLABS_API_KEY, ELEVENLABS_AGENT_ID and ELEVENLABS_PHONE_NUMBER_ID "
                                        "in agent/.env (see docs/VOICE_SETUP.md; needs a dedicated Photon number)"}
     r = requests.post(f"{API}/v1/convai/sip-trunk/outbound-call", headers={"xi-api-key": key}, timeout=30, json={
         "agent_id": agent, "agent_phone_number_id": number, "to_number": to,
-        "conversation_initiation_client_data": {"conversation_config_override": {"agent": {"first_message": message}}},
+        "conversation_initiation_client_data": {
+            "conversation_config_override": {"agent": {"first_message": message}},
+            "dynamic_variables": {"fire_briefing": briefing or message, "caller_phone": to},
+        },
     })
     try:
         body = r.json()

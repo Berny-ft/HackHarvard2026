@@ -2,11 +2,13 @@
 
   python -m sentinel demo --address "123 Main St, Altadena, CA" --incident eaton_2025
   python -m sentinel demo --address "..." --phone +15146646295 --send --serve 8080
+  python -m sentinel demo --phone +15146646295 --send --call --serve 8080    # also phones you at EVACUATE
 
 The sentinel sees only what was known at each hour of the real fire (satellite detections so far, the weather at
 that hour). Texts carry a "[DEMO: ...]" tag so nobody mistakes them for a live emergency. Without --send, texts
 print to the console. With --send they go out through Photon (needs photon-bridge running and PHOTON_PROJECT_ID
 set), and the person's replies (NOW, WINDOW, LEFT, ...) are answered by the web server started with --serve.
+With --call the person is also phoned (docs/VOICE_SETUP.md); the voice agent's questions reach the same server.
 """
 import os
 import shutil
@@ -56,11 +58,16 @@ def _replay_loop(incident, step, delay, ch, sub_id, tz):
             ok = t["delivery"][0]
             print(f"    -> {t['text_kind'].upper()} text {'sent' if ok.get('ok') else 'FAILED: ' + str(ok.get('status'))}"
                   f"\n       {t['message']}", flush=True)
-        time.sleep(delay if r["texts"] else 0.05)
+        for c in r["calls"]:
+            ok = c["delivery"][0]
+            print(f"    -> CALL {'placed, pick up' if ok.get('ok') else 'FAILED: ' + str(ok.get('status'))}"
+                  f"\n       {c['message']}", flush=True)
+        time.sleep(delay * (3 if r["calls"] else 1) if r["texts"] else 0.05)
     print("\nReplay finished.", flush=True)
 
 
-def main(address=None, incident="eaton_2025", phone=None, send=False, serve_port=None, delay=8.0, lat=None, lon=None):
+def main(address=None, incident="eaton_2025", phone=None, send=False, serve_port=None, delay=8.0, lat=None, lon=None,
+         call=False):
     from . import config, live, store
     from .channels import ConsoleChannel, get_channel, set_channel
     from .replay import observed_arrival_h
@@ -83,6 +90,15 @@ def main(address=None, incident="eaton_2025", phone=None, send=False, serve_port
     config.STATE = state
     config.MAX_REMINDERS = 2                    # keep a real phone from being flooded during the replay
 
+    if call:
+        from .channels import voice
+        if not voice.configured():
+            raise SystemExit("--call needs ELEVENLABS_API_KEY, ELEVENLABS_AGENT_ID and ELEVENLABS_PHONE_NUMBER_ID in "
+                             "agent/.env (docs/VOICE_SETUP.md).")
+        config.CALLS = True
+        print(f"Calling {phone} through the Photon number on: {', '.join(sorted(config.CALL_ON))}.")
+    else:
+        config.CALLS = False
     if send:
         if not config.PHOTON_PROJECT_ID:
             raise SystemExit("--send needs PHOTON_PROJECT_ID / PHOTON_PROJECT_SECRET in agent/.env "
