@@ -4,7 +4,8 @@ import { WindAnimator } from "../wind.js";
 import { SurgeRenderer } from "../water.js";
 import { BASEMAPS } from "../MapView.jsx";
 
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
+// Hosted, the server sets window.MAPBOX_TOKEN from a Chalk secret (/config.js); locally .env.local.
+mapboxgl.accessToken = window.MAPBOX_TOKEN || import.meta.env.VITE_MAPBOX_TOKEN;
 
 const DATA = "/data/surge";
 const EMPTY = { type: "FeatureCollection", features: [] };

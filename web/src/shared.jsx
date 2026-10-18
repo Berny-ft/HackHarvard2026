@@ -1,4 +1,5 @@
 // Small pieces shared by the landing page and the map app.
+import { SurgeLogo } from "./surge/common.jsx";
 
 export const pct = (v, digits = 1) => (v == null ? "–" : `${+(v * 100).toFixed(digits)}%`);
 export const hrs = (v) => (v == null ? "–" : `${v.toFixed(1)} h`);
@@ -27,7 +28,22 @@ export function Logo({ compact = false }) {
           );
         }))}
       </svg>
-      {!compact && <span className="logo-word">FireTrace</span>}
+      {!compact && <span className="logo-word">Trace</span>}
+    </span>
+  );
+}
+
+// Nav brand for the landing pages: the fire and water marks switch between the two modes.
+export function Brand({ mode }) {
+  return (
+    <span className="brand">
+      <span className="mode-switch" role="group" aria-label="Hazard">
+        <a href="/" onClick={navigate} className={mode === "fire" ? "on" : ""} aria-label="Wildfire"
+           aria-current={mode === "fire" ? "page" : undefined}><Logo compact /></a>
+        <a href="/surge" onClick={navigate} className={mode === "water" ? "on" : ""} aria-label="Storm surge"
+           aria-current={mode === "water" ? "page" : undefined}><SurgeLogo compact /></a>
+      </span>
+      <span className="logo-word">Trace</span>
     </span>
   );
 }

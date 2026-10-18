@@ -10,12 +10,15 @@ GET /api/demo/state to show each alert and whether its email was sent.
 The surge map's demo uses /api/surge/*: POST config with a storm and any
 address the user clicks, then the same step/state/reset cycle.
 """
+import os
 import threading
 
 from starlette.applications import Starlette
+from starlette.exceptions import HTTPException
 from starlette.requests import Request
-from starlette.responses import JSONResponse
-from starlette.routing import Route
+from starlette.responses import JSONResponse, Response
+from starlette.routing import Mount, Route
+from starlette.staticfiles import StaticFiles
 
 from .alert_demo import DemoSession, default_location
 
@@ -97,7 +100,19 @@ async def surge_reset(request: Request):
     return JSONResponse(SURGE.state())
 
 
-app = Starlette(routes=[
+class _SinglePageApp(StaticFiles):
+    """Built web app; paths that are not files (/map, /surge/map) get index.html."""
+
+    async def get_response(self, path, scope):
+        try:
+            return await super().get_response(path, scope)
+        except HTTPException as e:
+            if e.status_code != 404:
+                raise
+            return await super().get_response("index.html", scope)
+
+
+routes = [
     Route("/api/demo/config", config),
     Route("/api/demo/state", state),
     Route("/api/demo/step", step, methods=["POST"]),
@@ -106,7 +121,21 @@ app = Starlette(routes=[
     Route("/api/surge/state", surge_state),
     Route("/api/surge/step", surge_step, methods=["POST"]),
     Route("/api/surge/reset", surge_reset, methods=["POST"]),
-])
+]
+async def site_config(request: Request):
+    """The Mapbox token for the maps, from the MAPBOX_TOKEN secret, so it can change without a rebuild."""
+    import json
+    return Response(f"window.MAPBOX_TOKEN = {json.dumps(os.environ.get('MAPBOX_TOKEN', ''))};\n",
+                    media_type="application/javascript", headers={"Cache-Control": "no-store"})
+
+
+# Hosted (deploy/web_sandbox.py): also serve the built site and the model outputs it reads.
+if os.environ.get("WEB_DIST"):
+    from .config import MODEL_OUT
+    routes += [Route("/config.js", site_config),
+               Mount("/data", StaticFiles(directory=MODEL_OUT)),
+               Mount("/", _SinglePageApp(directory=os.environ["WEB_DIST"], html=True))]
+app = Starlette(routes=routes)
 
 
 def serve(port=8787, incident="eaton_2025", policy="rules", address=None, lat=None, lon=None, email=None):
@@ -131,4 +160,4 @@ def serve(port=8787, incident="eaton_2025", policy="rules", address=None, lat=No
     else:
         print("Fire alert demo off (set SENTINEL_DEMO_ADDRESS in agent/.env to enable it).")
     print("Surge alert demo: open /surge/map, press 'Alert demo' and click any address.")
-    uvicorn.run(app, host="127.0.0.1", port=port, log_level="warning")
+    uvicorn.run(app, host=os.environ.get("SENTINEL_DEMO_HOST", "127.0.0.1"), port=port, log_level="warning")

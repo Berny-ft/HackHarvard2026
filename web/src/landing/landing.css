@@ -10,6 +10,19 @@
 .logo { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
 .logo-word { font-weight: 600; font-size: 17px; letter-spacing: -0.015em; color: #f2f6f3; }
 
+/* Fire | water switch: the two marks before the wordmark, the current mode lit. */
+.brand { display: inline-flex; align-items: center; gap: 10px; }
+.mode-switch { display: inline-flex; gap: 2px; padding: 3px; border-radius: 9px; border: 1px solid var(--ridge); background: rgba(0, 0, 0, 0.2); }
+.mode-switch a {
+  display: grid; place-items: center; width: 28px; height: 26px; border-radius: 6px;
+  opacity: 0.55;
+  transition: opacity 200ms var(--ease-out), background-color 200ms var(--ease-out);
+}
+.mode-switch a:hover { opacity: 0.85; }
+.mode-switch a.on { opacity: 1; background: var(--canopy-2); box-shadow: 0 0 0 1px var(--ridge-2) inset; }
+.landing { animation: mode-in 320ms var(--ease-out) both; }
+@keyframes mode-in { from { opacity: 0; } to { opacity: 1; } }
+
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   height: 44px; padding: 0 20px; border-radius: 999px;

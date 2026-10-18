@@ -118,7 +118,7 @@ export default function App() {
   demoRef.current = demo;
 
   useEffect(() => {
-    document.title = "FireTrace map";
+    document.title = "Trace wildfire map";
     const json = (p) => fetch(p).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     json("/data/patterns.json").then(setPatterns);
     json("/data/risk_model_metrics.json").then(setRisk);
@@ -234,7 +234,7 @@ export default function App() {
   return (
     <div className={`app ${isLive ? "is-live" : "is-incident"}`}>
       <header className="topbar">
-        <a href="/" onClick={navigate} className="topbar-logo" aria-label="FireTrace home"><Logo /></a>
+        <a href="/" onClick={navigate} className="topbar-logo" aria-label="Trace home"><Logo /></a>
         <nav className="hazard-switch" aria-label="Hazard">
           <a href="/map" className="on" aria-current="page">Fire</a>
           <a href="/surge/map" onClick={navigate}>Surge</a>

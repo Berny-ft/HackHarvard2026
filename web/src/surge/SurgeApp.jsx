@@ -82,7 +82,7 @@ export default function SurgeApp() {
   const isLive = key === "live";
 
   useEffect(() => {
-    document.title = "SurgeTrace map";
+    document.title = "Trace storm surge map";
     const json = (p) => fetch(p).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     json("/data/surge/sentinel/replay.json").then(setReplay);
     Promise.all(["status.json", "gauges.json", "storms.json", "alerts.geojson"].map((f) => json(`/data/surge/live/${f}`)))
@@ -191,7 +191,7 @@ export default function SurgeApp() {
   return (
     <div className={`app surge ${isLive ? "is-live" : "is-incident"}`}>
       <header className="topbar">
-        <a href="/surge" onClick={navigate} className="topbar-logo" aria-label="SurgeTrace home"><SurgeLogo /></a>
+        <a href="/surge" onClick={navigate} className="topbar-logo" aria-label="Trace storm surge home"><SurgeLogo /></a>
         <nav className="hazard-switch" aria-label="Hazard">
           <a href="/map" onClick={navigate}>Fire</a>
           <a href="/surge/map" className="on" aria-current="page">Surge</a>

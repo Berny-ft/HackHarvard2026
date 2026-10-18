@@ -10,11 +10,11 @@ export function SurgeLogo({ compact = false }) {
           const crest = r === 1 && c === 1;
           return (
             <rect key={`${r}${c}`} x={c * 6} y={r * 6} width="5" height="5" rx="1"
-                  fill={crest ? "var(--foam)" : wet ? "var(--tide)" : "var(--ridge-2)"} />
+                  fill={crest ? "var(--foam, #e9f7ff)" : wet ? "var(--tide, #1aa6c4)" : "var(--ridge-2)"} />
           );
         }))}
       </svg>
-      {!compact && <span className="logo-word">SurgeTrace</span>}
+      {!compact && <span className="logo-word">Trace</span>}
     </span>
   );
 }

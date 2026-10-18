@@ -4,7 +4,8 @@ import { WindAnimator } from "./wind.js";
 import { FireRenderer } from "./fire.js";
 import { DEM_SOURCE, EXAGGERATION } from "./terrain.js";
 
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
+// Hosted, the server sets window.MAPBOX_TOKEN from a Chalk secret (/config.js); locally .env.local.
+mapboxgl.accessToken = window.MAPBOX_TOKEN || import.meta.env.VITE_MAPBOX_TOKEN;
 
 const DATA = "/data";
 const EMPTY = { type: "FeatureCollection", features: [] };

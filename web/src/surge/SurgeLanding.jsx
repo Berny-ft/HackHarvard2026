@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import SurgeField from "./SurgeField.jsx";
 import { ChalkStack, EvalConsole, Findings, Household, Pipeline } from "./sections.jsx";
 import { SurgeLogo } from "./common.jsx";
-import { hrs, navigate, pct } from "../shared.jsx";
+import { Brand, hrs, navigate, pct } from "../shared.jsx";
 import "../landing/landing.css";
 import "./surge.css";
 
@@ -11,7 +11,7 @@ export default function SurgeLanding() {
   const readout = useRef(null);
 
   useEffect(() => {
-    document.title = "SurgeTrace — storm surge warnings, tested on four hurricanes";
+    document.title = "Trace — storm surge warnings, tested on four hurricanes";
     fetch("/data/surge/sentinel/replay.json").then((r) => (r.ok ? r.json() : null)).then(setReplay).catch(() => setReplay(null));
   }, []);
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function SurgeLanding() {
           <div className="hero-copy">
             <h1>Leave before the sea reaches your street.</h1>
             <p className="lede">
-              SurgeTrace Sentinel reads every NHC hurricane forecast, the tide gauges from Miami to Maine and the
+              Trace Sentinel reads every NHC hurricane forecast, the tide gauges from Miami to Maine and the
               height of the ground under each home, and tells each household when to get ready and when to go.
               We replayed Sandy, Matthew, Irma and Isabel hour by hour to see if it would have worked.
             </p>
@@ -88,7 +88,7 @@ export default function SurgeLanding() {
           <SurgeLogo />
           <p>
             Data: NHC best tracks and official forecasts (ATCF), NOAA CO-OPS tide gauges, USGS 3DEP elevation, NWS alerts,
-            Open-Meteo. Built at HackHarvard 2026, alongside <a href="/" onClick={navigate}>FireTrace</a>. Not an official
+            Open-Meteo. Built at HackHarvard 2026, alongside <a href="/" onClick={navigate}>wildfire warnings</a>. Not an official
             warning service: always follow orders from local authorities.
           </p>
         </div>
@@ -108,12 +108,11 @@ function Nav() {
   return (
     <nav className={`nav ${scrolled ? "is-scrolled" : ""}`}>
       <div className="wrap nav-inner">
-        <a href="/surge" className="nav-logo" aria-label="SurgeTrace home"><SurgeLogo /></a>
+        <Brand mode="water" />
         <div className="nav-links">
           <a href="#evaluation">Evaluation</a>
           <a href="#how">How it works</a>
           <a href="#chalk">Chalk</a>
-          <a href="/" onClick={navigate}>Wildfire</a>
         </div>
         <a className="btn btn-small" href="/surge/map" onClick={navigate}>Open map</a>
       </div>

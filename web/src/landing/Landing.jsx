@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import HeroField from "./HeroField.jsx";
 import { ChalkStack, EvalConsole, Findings, Household, Pipeline } from "./sections.jsx";
-import { Logo, hrs, navigate, pct } from "../shared.jsx";
+import { Brand, Logo, hrs, navigate, pct } from "../shared.jsx";
 import "./landing.css";
 
 
@@ -10,7 +10,7 @@ export default function Landing() {
   const readout = useRef(null);
 
   useEffect(() => {
-    document.title = "FireTrace — wildfire warnings, tested on Eaton and Palisades";
+    document.title = "Trace — wildfire warnings, tested on Eaton and Palisades";
     fetch("/data/sentinel/replay.json").then((r) => (r.ok ? r.json() : null)).then(setReplay).catch(() => setReplay(null));
   }, []);
 
@@ -32,7 +32,7 @@ export default function Landing() {
           <div className="hero-copy">
             <h1>Leave before the fire reaches your street.</h1>
             <p className="lede">
-              FireTrace Sentinel watches satellites, wind and fuel across Los Angeles and Ventura
+              Trace Sentinel watches satellites, wind and fuel across Los Angeles and Ventura
               counties, and tells each household when to get ready and when to go. We replayed the
               Eaton and Palisades fires hour by hour to see if it would have worked.
             </p>
@@ -112,7 +112,7 @@ function Nav() {
   return (
     <nav className={`nav ${scrolled ? "is-scrolled" : ""}`}>
       <div className="wrap nav-inner">
-        <a href="/" className="nav-logo" aria-label="FireTrace home"><Logo /></a>
+        <Brand mode="fire" />
         <div className="nav-links">
           <a href="#evaluation">Evaluation</a>
           <a href="#how">How it works</a>
