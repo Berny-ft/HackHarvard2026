@@ -35,7 +35,7 @@ image = (
     .apt_install(["libexpat1"])   # rasterio's GDAL needs it; the slim image leaves it out
     .pip_install_from_requirements(os.path.join(AGENT, "requirements.txt"))
     .add_local_dir(DIST, "/app/web", exclude=["data", "data/*"])   # /data is served from modeling/out
-    .add_local_dir(os.path.join(REPO, "modeling", "out"), "/app/modeling/out", exclude=["*.tif", "**/*.tif"])
+    .add_local_dir(os.path.join(REPO, "modeling", "out"), "/app/modeling/out", exclude=["incidents/*/*.tif"])   # alerts need burn_probability.tif
     .add_local_dir(os.path.join(AGENT, "sentinel"), "/app/agent/sentinel", exclude=["__pycache__"])
     .add_local_dir(os.path.join(AGENT, "surge_sentinel"), "/app/agent/surge_sentinel", exclude=["__pycache__"])
     .env({"PYTHONPATH": "/app/agent", "FIRETRACE_OUT": "/app/modeling/out", "SENTINEL_STATE": "/tmp/state",
