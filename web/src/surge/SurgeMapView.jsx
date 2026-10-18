@@ -3,6 +3,7 @@ import mapboxgl from "mapbox-gl";
 import { WindAnimator } from "../wind.js";
 import { SurgeRenderer } from "../water.js";
 import { BASEMAPS } from "../MapView.jsx";
+import { frameRoute, installRouteLayers, setRoute } from "../routeLayers.js";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -243,6 +244,8 @@ function install(map, s, isStandard, water) {
   add({ id: "demo-home-label", type: "symbol", source: "demo-home",
         layout: { "text-field": ["get", "label"], "text-size": 13, "text-offset": [0, 1.6], "text-anchor": "top", "text-allow-overlap": true },
         paint: LABEL_PAINT }, "top");
+
+  installRouteLayers(map, add, "#7fe0c4");      // safe route; teal reads against the flood blues
 }
 
 function setStormData(map, storm) {
@@ -316,7 +319,7 @@ function homeGeo(home) {
 }
 
 export default function SurgeMapView({ live, storm, hour, playRate = 0, layers, households, home, basemap, light, camera, focus,
-                                       onSelectHousehold, onPick, picking }) {
+                                       onSelectHousehold, onPick, picking, route, onMapPick }) {
   const el = useRef(null);
   const canvasRef = useRef(null);
   const windRef = useRef(null);
@@ -325,7 +328,7 @@ export default function SurgeMapView({ live, storm, hour, playRate = 0, layers, 
   const staticRef = useRef(null);
   const ready = useRef(false);
   const state = useRef({});
-  state.current = { ...state.current, live, storm, hour, layers, households, home, basemap, light, camera, onSelectHousehold, onPick, picking };
+  state.current = { ...state.current, live, storm, hour, layers, households, home, basemap, light, camera, onSelectHousehold, onPick, picking, route, onMapPick };
 
   const restore = (map) => {
     const s = state.current;
@@ -339,6 +342,7 @@ export default function SurgeMapView({ live, storm, hour, playRate = 0, layers, 
     map.getSource("demo-home").setData(homeGeo(s.home));
     setVisibility(map, s.live, s.layers, waterRef.current);
     applyWind(windRef.current, s, staticRef.current, waterRef.current);
+    setRoute(map, s.route);
   };
 
   useEffect(() => {
@@ -357,6 +361,7 @@ export default function SurgeMapView({ live, storm, hour, playRate = 0, layers, 
     map.addControl(new mapboxgl.ScaleControl({ unit: "imperial" }), "bottom-right");
     map.on("click", (e) => {
       const s = state.current;
+      if (s.route?.picking) { s.onMapPick?.(e.lngLat); return; }
       if (s.picking) { s.onPick?.({ lon: e.lngLat.lng, lat: e.lngLat.lat }); return; }
       if (!map.getLayer("households")) return;
       const hit = map.queryRenderedFeatures(e.point, { layers: ["households"] });
@@ -367,7 +372,9 @@ export default function SurgeMapView({ live, storm, hour, playRate = 0, layers, 
       applyWind(windRef.current, state.current, staticRef.current, waterRef.current);
     });
     map.on("mouseenter", "households", () => { map.getCanvas().style.cursor = "pointer"; });
-    map.on("mouseleave", "households", () => { map.getCanvas().style.cursor = state.current.picking ? "crosshair" : ""; });
+    map.on("mouseleave", "households", () => {
+      map.getCanvas().style.cursor = state.current.picking || state.current.route?.picking ? "crosshair" : "";
+    });
 
     let first = true;
     map.on("style.load", async () => {
@@ -443,6 +450,14 @@ export default function SurgeMapView({ live, storm, hour, playRate = 0, layers, 
   useEffect(() => {
     if (ready.current) setVisibility(mapRef.current, live, layers, waterRef.current);
   }, [layers, live]);
+
+  // Safe route: draw it, and frame it once per new start/destination.
+  const framed = useRef(null);
+  useEffect(() => {
+    if (!ready.current) return;
+    setRoute(mapRef.current, route);
+    frameRoute(mapRef.current, route, framed);
+  }, [route?.result, route?.from, route?.to, route?.picking, route?.kind]);
 
   if (!mapboxgl.accessToken) {
     return (

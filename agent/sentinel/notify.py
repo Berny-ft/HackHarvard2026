@@ -43,6 +43,7 @@ def send_sms(phone, text):
 
 
 def render_email(alert):
+    from .messages import way_out_lines
     """Subject + plain-text body. The subject alone should tell an agent what to do."""
     sig = alert.get("signals", {})
     where = alert.get("label") or f"{sig.get('lat', '')}, {sig.get('lon', '')}"
@@ -54,6 +55,7 @@ def render_email(alert):
     wx = sig.get("weather_now") or {}
     lines = [
         alert["message"], "",
+        *way_out_lines(alert.get("way_out")),
         f"Level: {alert['level']} (was {alert.get('previous', 'none')})",
         f"Location: {where}",
         f"Nearest fire: {sig.get('nearest_fire_name') or 'unnamed'}, {sig.get('nearest_fire_km')} km, "

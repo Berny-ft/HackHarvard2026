@@ -9,6 +9,8 @@ GET /api/demo/state to show each alert and whether its email was sent.
 
 The surge map's demo uses /api/surge/*: POST config with a storm and any
 address the user clicks, then the same step/state/reset cycle.
+
+POST /api/route is the map's Safe route card (A -> B or Escape); see routing_http.
 """
 import threading
 
@@ -38,11 +40,23 @@ async def config(request: Request):
     return JSONResponse(SESSION.config())
 
 
+NO_ADDRESS = {"error": "no demo address; set SENTINEL_DEMO_ADDRESS (or SENTINEL_DEMO_LAT/LON) in agent/.env "
+                        "and restart the demo server"}
+
+
+def _ready():
+    return SESSION is not None or JSONResponse(NO_ADDRESS, status_code=503)
+
+
 async def state(request: Request):
+    if (r := _ready()) is not True:
+        return r
     return JSONResponse(SESSION.state())
 
 
 async def step(request: Request):
+    if (r := _ready()) is not True:
+        return r
     hour = int((await request.json())["hour"])
     for alert in SESSION.step_to(hour):
         threading.Thread(target=SESSION.send, args=(alert,), daemon=True).start()
@@ -50,6 +64,8 @@ async def step(request: Request):
 
 
 async def reset(request: Request):
+    if (r := _ready()) is not True:
+        return r
     with SESSION._lock:
         SESSION.reset()
     return JSONResponse(SESSION.state())
@@ -97,7 +113,30 @@ async def surge_reset(request: Request):
     return JSONResponse(SURGE.state())
 
 
+# ------------------------------------------------------------- safe routing
+
+async def routing_http(request: Request):
+    """The maps' Safe route card: {"from": [lat, lon], "to": [lat, lon] (omit for escape), "hazard"
+    ("fire" | "surge"), "mode", "depart_hour", "margin_hours", "risk"}. CPU-bound, so it runs off the event loop."""
+    import anyio
+
+    from routing import escape_route, safe_route
+    try:
+        b = await request.json()
+        kw = {"hazard": b.get("hazard", "fire"), "mode": b.get("mode", "live"),
+              "depart_hour": float(b.get("depart_hour", 0)), "risk": b.get("risk", "balanced"),
+              "margin_hours": None if b.get("margin_hours") is None else float(b["margin_hours"])}
+        if b.get("to"):
+            return JSONResponse(await anyio.to_thread.run_sync(lambda: safe_route(*b["from"], *b["to"], **kw)))
+        return JSONResponse(await anyio.to_thread.run_sync(lambda: escape_route(*b["from"], **kw)))
+    except KeyError as e:
+        return JSONResponse({"status": "error", "message": f"missing field {e}"}, status_code=400)
+    except (TypeError, ValueError, FileNotFoundError) as e:
+        return JSONResponse({"status": "error", "message": str(e)}, status_code=400)
+
+
 app = Starlette(routes=[
+    Route("/api/route", routing_http, methods=["POST"]),
     Route("/api/demo/config", config),
     Route("/api/demo/state", state),
     Route("/api/demo/step", step, methods=["POST"]),

@@ -111,8 +111,11 @@ optimistic. Two fires is a small sample.
 - `sentinel/live.py`: the sentinel loop and region scan
 - `sentinel/notify.py`, `sentinel/sink.py`: signed webhooks, SMS, test receiver
 - `sentinel/store.py`: subscribers and alert log (JSON under `state/`)
-- `sentinel/mcp_server.py`: MCP tools and the `household_plan` prompt
+- `sentinel/mcp_server.py`: MCP tools (incl. `safe_route`, `escape_route`) and the `household_plan` prompt
+- `routing/`: the hazard-safe router shared by FireTrace and SurgeTrace (see below)
+- `sentinel/route_hazard.py`, `surge_sentinel/route_hazard.py`: fire and storm surge as routing hazards
 - `evals/`: dataset, metrics, local runner, calibration, Chalk Evaluation suite
+- `evals/route_eval.py`, `evals/chalk_route_eval.py`: escape routes checked against what really happened
 - `evals/export_web.py`: writes `modeling/out/sentinel/` (replay results and the live scan) for the web app
 - `deploy/sandbox.py`: Chalk sandbox deployment
 
@@ -126,6 +129,48 @@ python -m sentinel run --every 5             # live loop (texts go to the consol
 python -m unittest discover -s tests         # from agent/
 ```
 
-Texts: WARN once (with an estimated planning window), EVACUATE once, then reminders until the person texts LEFT.
-NOW returns the live route and never marks the person as left. Web signup is double opt-in (reply YES).
+Texts: WARN once (with an estimated planning window), EVACUATE once (with the first steps of the way out), then
+reminders until the person texts LEFT; a "your way out has changed" text when the main roads change (at most 3).
+NOW returns the live route and the first steps, and never marks the person as left. NEXT / REPEAT walk the
+directions one step at a time, STEPS lists them all, MAP sends the route page (a map of the route, the steps,
+and a Google Maps link that follows it). Calls get the same conversation in spoken form, one step per turn.
+`python -m sentinel demo --storm sandy_2012` (or `irma_2017`, `matthew_2016`, `isabel_2003`) is the SurgeTrace
+version. Live phone calls need a public tunnel to port 8080: see `docs/VOICE_SETUP.md`. Web signup is double opt-in (reply YES).
 Set `SENTINEL_DASH_TOKEN` to protect the dashboard. Design and open items: `docs/IMPLEMENTATION_PLAN.md`.
+
+## Safe routes and escape routes (`routing/`)
+
+One router for both hazards. A -> B finds one path that passes every road before the hazard; Escape takes one
+point and finds the fastest way to safe ground, whether you get out in time, and the latest departure that
+still works. No path means "no safe path" / "no escape", never a least-bad route.
+
+```
+# road graphs (prebuilt; cached tiles, re-runs resume)
+cd ../modeling && python -m wildfire roads           # LA + Ventura major roads -> data/roads_graph.json
+cd ../modeling && python -m surge roads              # the four storm areas, with streets -> data/surge_roads/
+
+python -m sentinel route 34.145 -118.15 34.14 -118.035 --mode replay:eaton_2025 --depart 6
+python -m sentinel escape 34.045 -118.53 --mode replay:palisades_2025 --depart 4
+python -m sentinel escape 40.576 -73.84 --hazard surge --mode replay:sandy_2012 --depart 36
+python -m evals.route_eval --n 20                    # routes vs what really happened
+```
+
+The web maps call `POST /api/route` on the demo server (`python -m sentinel demo-server`, proxied by
+`npm run dev`); MCP clients use `safe_route` / `escape_route` with a `hazard` parameter; texts and calls get
+the escape route through the alert loop. `check_alerts` and warn/evacuate emails include the way out.
+
+| | Fire | Storm surge |
+|---|---|---|
+| Hazard clock | replay: spread simulation; live: elliptical spread from active fire points | replay: NHC advisory + gauges known at that hour; live: NWS warnings and onsets |
+| Closes a road | fire arrives < margin after you pass (2 h A -> B, 30 min Escape), 0.5 mi of a perimeter, 2 mi of a 24 h hot spot (both only penalties in Escape), Caltrans full closure (live) | water arrives < margin (2 h / 1 h), already 0.5 ft deep, bridge in 39 mph winds (NHC 34-kt radii), flooded tunnel |
+| Soft penalties | thin margin, downwind of fire, Red Flag | thin margin, flooded only in the high scenario |
+| Safe ground (Escape) | fire not projected for 12 h, 5 mi from any fire | 2 ft above the worst case, outside ordered zones, 3 mi from flooding; leave-by capped by storm winds |
+| Roads | LA + Ventura major roads, streets near the start fetched in the background | each storm area with streets; a live storm's warned area fetched on first use |
+
+Shared: modelled evacuation traffic near the hazard (no live speed feed), turn-by-turn directions with route
+numbers, explanations of avoided roads. Thresholds are design defaults, not fitted values: check them against
+official guidance before relying on them.
+
+Code: `routing/engine.py` (search, directions, leave-by), `routing/graph.py` (road graphs), `routing/api.py`
+(entry points; hazards are plug-ins loaded by name), `routing/closures.py` (Caltrans), `routing/staticmap.py`
+(the route picture for texts).

@@ -7,6 +7,7 @@ import { BASEMAPS, LIGHTS } from "../MapView.jsx";
 import { loadTerrain } from "../water.js";
 import { Chart } from "../Charts.jsx";
 import { navigate, pct } from "../shared.jsx";
+import { RouteCard, useSafeRoute } from "../RoutePanel.jsx";
 import { SURGE_LEVEL_COLOR as LEVEL_COLOR, SURGE_LEVEL_LABEL as LEVEL_LABEL, SurgeLogo, catLabel } from "./common.jsx";
 
 const STORMS = [
@@ -80,6 +81,7 @@ export default function SurgeApp() {
   const [demoState, setDemoState] = useState(null);
   const [demoError, setDemoError] = useState(null);
   const isLive = key === "live";
+  const route = useSafeRoute({ mode: isLive ? "live" : `replay:${key}`, departHour: hour, hazard: "surge" });
 
   useEffect(() => {
     document.title = "SurgeTrace map";
@@ -221,7 +223,7 @@ export default function SurgeApp() {
           <SurgeMapView live={isLive} storm={storm} hour={hour} playRate={playing ? speed / 0.38 : 0} layers={layers}
                         households={demo ? EMPTY_FC : homesGeo} home={demoHome} basemap={basemap} light={light} camera={camera}
                         focus={focus} onSelectHousehold={setSelected} picking={picking}
-                        onPick={(pt) => watch(pt)} />
+                        onPick={(pt) => watch(pt)} route={demo ? null : route} onMapPick={route.onMapPick} />
 
           <div className={`panel layers-panel ${layersOpen ? "open" : ""}`}>
             <button className="panel-toggle" onClick={() => setLayersOpen((o) => !o)} aria-expanded={layersOpen}>
@@ -262,6 +264,9 @@ export default function SurgeApp() {
         </section>
 
         <aside className="side">
+          {/* Flood-safe routing: storm replays, and live only while an Atlantic storm is active (its warned region). */}
+          {!demo && ((!isLive && storm) || (isLive && live?.storms?.some((s) => s.id.startsWith("al")))) &&
+            <RouteCard route={route} hourLabel={`leave at T+${hour}h`} />}
           {isLive ? (
             <LiveSide live={live} onFocus={setFocus} />
           ) : demo ? (

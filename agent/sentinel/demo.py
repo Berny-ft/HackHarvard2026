@@ -98,11 +98,16 @@ def main(address=None, incident="eaton_2025", phone=None, send=False, serve_port
     when = datetime.fromisoformat(inc["start"]).strftime("%b %Y")
     store.update(sub["id"], address=address, sim=f"{inc['name']} replay, {when}")
 
-    from . import routing
-    print("Loading the road network around the house (OpenStreetMap; first run can take a minute or two)...", flush=True)
+    from routing import graph as road_graph
+    print("Loading the road network (prebuilt major roads + OpenStreetMap streets near the house)...", flush=True)
     t0 = time.time()
-    g = routing.load_graph(lat, lon)
-    print(f"  {'road network ready (%d road nodes, %.0fs)' % (len(g.lat), time.time() - t0) if g else 'road data unavailable: routes will fall back to plain advice'}")
+    try:
+        base = road_graph.region("socal")
+        g = road_graph.with_local_streets(base, lat, lon, wait=True)
+        extra = "with nearby streets" if g is not base else "major roads only; nearby streets unavailable"
+        print(f"  road network ready ({len(g.nodes)} road nodes, {extra}, {time.time() - t0:.0f}s)")
+    except FileNotFoundError as e:
+        print(f"  road data unavailable ({e}): routes will fall back to plain advice")
 
     arrival = observed_arrival_h(incident, lat, lon)
     print(f"\n{inc['name']} replay. Fire detected at this house at hour "

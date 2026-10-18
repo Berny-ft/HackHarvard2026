@@ -39,3 +39,13 @@ export const LEVEL_COLOR = {
   evacuate: "var(--ember)",
 };
 export const LEVEL_LABEL = { none: "No alert", watch: "Watch", warn: "Get ready", evacuate: "Leave now" };
+
+export function Segmented({ label, value, onChange, options }) {
+  return (
+    <div className="seg" role="group" aria-label={label}>
+      {options.map(([k, text]) => (
+        <button key={k} className={k === value ? "on" : ""} aria-pressed={k === value} onClick={() => onChange(k)}>{text}</button>
+      ))}
+    </div>
+  );
+}

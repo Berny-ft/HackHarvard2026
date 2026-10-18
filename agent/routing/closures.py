@@ -48,7 +48,7 @@ def parse(data, now_epoch):
 
 def block_points(closures):
     """Points every ~100 m along each closed stretch, for the route clearance check."""
-    from .routing import km_between
+    from .geo import km_between
     pts = []
     for c in closures:
         length = km_between(c["lat"], c["lon"], c["end_lat"], c["end_lon"])
@@ -68,7 +68,7 @@ def active_closures(fetch=None, now_epoch=None):
     if fetch is None and time.monotonic() - _cache["t"] < CACHE_S:
         return _cache["rows"]
     try:
-        data = fetch() if fetch else requests.get(URL, timeout=15).json()["data"]
+        data = fetch() if fetch else requests.get(URL, timeout=6).json()["data"]
         rows = parse(data, now_epoch)
     except Exception:
         return _cache["rows"]

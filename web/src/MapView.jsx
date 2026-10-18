@@ -3,6 +3,7 @@ import mapboxgl from "mapbox-gl";
 import { WindAnimator } from "./wind.js";
 import { FireRenderer } from "./fire.js";
 import { DEM_SOURCE, EXAGGERATION } from "./terrain.js";
+import { frameRoute, installRouteLayers, setRoute } from "./routeLayers.js";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -258,7 +259,10 @@ function install(map, s, isStandard, fire) {
   add({ id: "ignition-label", type: "symbol", source: "ignition",
         layout: { "text-field": ["get", "label"], "text-size": 12, "text-offset": [0, 1.4], "text-anchor": "top" },
         paint: LABEL_PAINT }, "top");
+
+  installRouteLayers(map, add);
 }
+
 
 function setIncidentData(map, incident, data) {
   if (incident === "live" || !data) {
@@ -337,7 +341,8 @@ function homeGeo(home) {
     properties: { level: home.level, label: home.label } }] };
 }
 
-export default function MapView({ incident, data, hour, playRate = 0, layers, households, home, basemap, light, camera, focus, onReady, onSelectHousehold }) {
+export default function MapView({ incident, data, hour, playRate = 0, layers, households, home, basemap, light, camera, focus, onReady,
+                                  onSelectHousehold, route, onMapPick }) {
   const el = useRef(null);
   const canvasRef = useRef(null);
   const windRef = useRef(null);
@@ -347,7 +352,7 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
   const ready = useRef(false);
   // Latest props, so a style reload can restore everything.
   const state = useRef({});
-  state.current = { incident, data, hour, layers, households, home, basemap, light, camera, onSelectHousehold };
+  state.current = { incident, data, hour, layers, households, home, basemap, light, camera, onSelectHousehold, route, onMapPick };
 
   const restore = (map) => {
     const s = state.current;
@@ -361,6 +366,7 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
     setTime(map, s.hour);
     setVisibility(map, s.incident, s.layers, fireRef.current, !!BASEMAPS[s.basemap].standard);
     applyWind(windRef.current, s, staticRef.current, fireRef.current);
+    setRoute(map, s.route);
   };
 
   useEffect(() => {
@@ -379,13 +385,16 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
     if (import.meta.env.DEV) Object.assign(window, { __map: map, __wind: windRef.current, __fire: fireRef.current });
     map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "bottom-right");
     map.addControl(new mapboxgl.ScaleControl({ unit: "imperial" }), "bottom-right");
-    map.on("click", "households", (e) => state.current.onSelectHousehold?.(e.features[0].properties.idx));
+    map.on("click", "households", (e) => {
+      if (!state.current.route?.picking) state.current.onSelectHousehold?.(e.features[0].properties.idx);
+    });
     map.on("click", (e) => {
+      if (state.current.route?.picking) { state.current.onMapPick?.(e.lngLat); return; }
       if (!map.getLayer("households")) return;
       if (!map.queryRenderedFeatures(e.point, { layers: ["households"] }).length) state.current.onSelectHousehold?.(null);
     });
     map.on("mouseenter", "households", () => { map.getCanvas().style.cursor = "pointer"; });
-    map.on("mouseleave", "households", () => { map.getCanvas().style.cursor = ""; });
+    map.on("mouseleave", "households", () => { map.getCanvas().style.cursor = state.current.route?.picking ? "crosshair" : ""; });
 
     let first = true;
     map.on("style.load", async () => {
@@ -471,6 +480,14 @@ export default function MapView({ incident, data, hour, playRate = 0, layers, ho
   useEffect(() => {
     if (ready.current) setVisibility(mapRef.current, incident, layers, fireRef.current, !!BASEMAPS[basemap].standard);
   }, [layers, incident]);
+
+  // Draw the route; frame it once per new A/B pair (not on every replay hour).
+  const framed = useRef(null);
+  useEffect(() => {
+    if (!ready.current) return;
+    setRoute(mapRef.current, route);
+    frameRoute(mapRef.current, route, framed);
+  }, [route?.result, route?.from, route?.to, route?.picking, route?.kind]);
 
   if (!mapboxgl.accessToken) {
     return (

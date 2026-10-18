@@ -3,6 +3,8 @@
   python -m sentinel threat 34.18 -118.13           # live threat at a point
   python -m sentinel replay eaton_2025 34.18 -118.13 [--policy llm]
   python -m sentinel scan                           # most threatened areas now
+  python -m sentinel route 34.20 -118.13 34.05 -118.25 [--mode replay:eaton_2025 --depart 6] [--hazard surge]
+  python -m sentinel escape 34.19 -118.13 [--mode replay:eaton_2025 --depart 6] [--hazard surge]
   python -m sentinel subscribe 34.18 -118.13 --webhook http://localhost:9000/hook
   python -m sentinel subscribe 34.18 -118.13 --phone 818-555-0100 --consent
   python -m sentinel run [--once] [--every 15] [--policy llm] [--no-refresh] [--dry-run]
@@ -27,6 +29,13 @@ def main():
     p = sub.add_parser("replay"); p.add_argument("incident"); p.add_argument("lat", type=float)
     p.add_argument("lon", type=float); p.add_argument("--policy", default="rules")
     sub.add_parser("scan")
+    for name, pts in (("route", ("from_lat", "from_lon", "to_lat", "to_lon")), ("escape", ("lat", "lon"))):
+        p = sub.add_parser(name)
+        for k in pts:
+            p.add_argument(k, type=float)
+        p.add_argument("--hazard", default="fire", choices=["fire", "surge"])
+        p.add_argument("--mode", default="live"); p.add_argument("--depart", type=float, default=0.0)
+        p.add_argument("--margin", type=float); p.add_argument("--risk", default="balanced")
     p = sub.add_parser("subscribe"); p.add_argument("lat", type=float); p.add_argument("lon", type=float)
     p.add_argument("--webhook"); p.add_argument("--phone"); p.add_argument("--email"); p.add_argument("--label")
     p.add_argument("--min-level", default="watch"); p.add_argument("--consent", action="store_true")
@@ -49,6 +58,7 @@ def main():
     p = sub.add_parser("webhook-sink"); p.add_argument("--port", type=int, default=9000)
     p = sub.add_parser("demo"); p.add_argument("--address")
     p.add_argument("--incident", default="eaton_2025"); p.add_argument("--phone")
+    p.add_argument("--storm", help="replay a storm instead (SurgeTrace): sandy_2012, matthew_2016, irma_2017, isabel_2003")
     p.add_argument("--lat", type=float); p.add_argument("--lon", type=float)
     p.add_argument("--send", action="store_true", help="text the phone through Photon (default: print only)")
     p.add_argument("--serve", type=int, metavar="PORT"); p.add_argument("--delay", type=float, default=8.0)
@@ -75,6 +85,16 @@ def main():
     elif a.cmd == "scan":
         from .live import scan_region
         print(json.dumps(scan_region(), indent=1))
+    elif a.cmd in ("route", "escape"):
+        from routing import escape_route, safe_route
+        kw = {"hazard": a.hazard, "mode": a.mode, "depart_hour": a.depart, "margin_hours": a.margin, "risk": a.risk}
+        r = (safe_route(a.from_lat, a.from_lon, a.to_lat, a.to_lon, **kw)
+             if a.cmd == "route" else escape_route(a.lat, a.lon, **kw))
+        r.pop("closed_at_departure", None)
+        r.pop("blocking", None)
+        if r.get("path"):
+            r["path"] = f"<LineString, {len(r['path']['geometry']['coordinates'])} points>"
+        print(json.dumps(r, indent=1))
     elif a.cmd == "subscribe":
         from . import store
         print(json.dumps(store.subscribe(a.lat, a.lon, a.label, a.webhook, a.phone, a.min_level, a.consent, a.email),
@@ -103,6 +123,9 @@ def main():
     elif a.cmd == "demo-server":
         from .demo_server import serve as demo_serve
         demo_serve(a.port, a.incident, a.policy, a.address, a.lat, a.lon, a.email)
+    elif a.cmd == "demo" and a.storm:
+        from surge_sentinel.texting import main as surge_demo
+        surge_demo(a.storm, a.address, a.phone, a.send, a.serve, a.delay, a.lat, a.lon)
     elif a.cmd == "demo":
         from .demo import main as demo
         demo(a.address, a.incident, a.phone, a.send, a.serve, a.delay, a.lat, a.lon)

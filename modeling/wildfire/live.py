@@ -10,6 +10,7 @@ import csv
 import io
 import json
 import os
+import time
 from datetime import datetime, timezone
 
 import numpy as np
@@ -239,6 +240,103 @@ def fetch_osm_infrastructure(force=False):
     fc = {"type": "FeatureCollection", "features": feats}
     path.write_text(json.dumps(fc))
     return fc
+
+
+# Drivable classes for fire-safe routing; ramps keep freeway interchanges connected.
+# The graph is read by agent/routing (graph.py), which mirrors these speeds for
+# streets it adds near a start point.
+ROUTE_CLASSES = "motorway|trunk|primary|secondary|tertiary"
+ALL_CLASSES = ROUTE_CLASSES + "|unclassified|residential"      # small areas (storm boxes) can afford streets
+DEFAULT_MPH = {"motorway": 65, "trunk": 55, "primary": 40, "secondary": 35, "tertiary": 30,
+               "unclassified": 25, "residential": 20}
+ROADS_GRAPH = DATA / "roads_graph.json"
+
+
+def _speed_mph(tags, cls):
+    m = tags.get("maxspeed", "").split()
+    if m and m[0].isdigit():
+        return int(m[0]) if "km/h" not in tags["maxspeed"] else round(int(m[0]) * 0.621)
+    return DEFAULT_MPH.get(cls.removesuffix("_link"), 30) * (0.6 if cls.endswith("_link") else 1)
+
+
+def fetch_road_graph(force=False, bbox=BBOX_LONLAT, path=ROADS_GRAPH, classes=ROUTE_CLASSES, grid=(4, 5),
+                     tiles_dir=None):
+    """Road network from OpenStreetMap as a routing graph (slow, cached).
+
+    Nodes are OSM junctions and way ends (with their OSM ids, so the router can
+    join extra streets to them); each edge keeps its polyline, name and route
+    number so the router can test it against hazard rasters, draw the chosen
+    path and say "Merge onto I-210".
+    """
+    if path.exists() and not force:
+        return json.loads(path.read_text())
+    west, south, east, north = bbox
+    # Overpass drops whole-box responses for big areas, so fetch in tiles (cached,
+    # so a rerun resumes after the public server's frequent 502/504s) and merge ways by id.
+    tiles = tiles_dir or DATA / "road_tiles"
+    tiles.mkdir(parents=True, exist_ok=True)
+    by_id = {}
+    lats, lons = np.linspace(south, north, grid[0]), np.linspace(west, east, grid[1])
+    for s, n in zip(lats[:-1], lats[1:]):
+        for w_, e in zip(lons[:-1], lons[1:]):
+            tile = tiles / f"{s:.3f}_{w_:.3f}.json"
+            if not tile.exists():
+                q = f"""[out:json][timeout:180];
+                way["highway"~"^({classes})(_link)?$"]({s},{w_},{n},{e});
+                out body geom qt;"""
+                for attempt in range(5):
+                    r = requests.post("https://overpass-api.de/api/interpreter", data={"data": q},
+                                      headers=HEADERS, timeout=300)
+                    if r.ok and r.content:
+                        break
+                    print(f"  [roads] tile {s:.2f},{w_:.2f}: HTTP {r.status_code}, retrying")
+                    time.sleep(15 * (attempt + 1))
+                r.raise_for_status()
+                tile.write_bytes(r.content)
+            for el in json.loads(tile.read_bytes())["elements"]:
+                if el.get("geometry"):
+                    by_id[el["id"]] = el
+            print(f"  [roads] tile {s:.2f},{w_:.2f}: {len(by_id)} ways so far")
+    ways = list(by_id.values())
+    uses = {}
+    for w in ways:
+        for i, n in enumerate(w["nodes"]):
+            uses[n] = uses.get(n, 0) + (2 if i in (0, len(w["nodes"]) - 1) else 1)
+    index, nodes, ids, edges = {}, [], [], []
+
+    def node(nid, g):
+        if nid not in index:
+            index[nid] = len(nodes)
+            nodes.append([round(g["lon"], 6), round(g["lat"], 6)])
+            ids.append(nid)
+        return index[nid]
+
+    for w in ways:
+        t = w["tags"]
+        cls = t["highway"]
+        ow = t.get("oneway", "yes" if cls in ("motorway", "motorway_link") or t.get("junction") == "roundabout"
+                   else "no")
+        mph = _speed_mph(t, cls)
+        start = 0
+        for i in range(1, len(w["nodes"])):
+            if uses[w["nodes"][i]] < 2 and i < len(w["nodes"]) - 1:
+                continue
+            seg = w["geometry"][start:i + 1]
+            if ow == "-1":
+                seg = seg[::-1]
+            a, b = (start, i) if ow != "-1" else (i, start)
+            edges.append({"u": node(w["nodes"][a], w["geometry"][a]), "v": node(w["nodes"][b], w["geometry"][b]),
+                          "oneway": ow in ("yes", "true", "1", "-1"), "class": cls, "mph": mph,
+                          "name": t.get("name"), "ref": (t.get("ref") or "").split(";")[0].strip() or None,
+                          "bridge": t.get("bridge", "no") not in ("no", "") or None,
+                          "tunnel": t.get("tunnel", "no") in ("yes", "building_passage") or None,
+                          "coords": [[round(g["lon"], 6), round(g["lat"], 6)] for g in seg]})
+            start = i
+    graph = {"source": "OpenStreetMap via Overpass", "fetched": datetime.now(timezone.utc).isoformat(),
+             "bbox": list(bbox), "nodes": nodes, "ids": ids, "edges": edges}
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(graph))
+    return graph
 
 
 # ---------------------------------------------------------------- main

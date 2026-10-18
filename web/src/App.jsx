@@ -5,7 +5,8 @@ import MapView, { BASEMAPS, CAMERAS, LIGHTS } from "./MapView.jsx";
 import { loadArrival } from "./fire.js";
 import { loadBuildings } from "./buildings.js";
 import { Chart } from "./Charts.jsx";
-import { LEVEL_COLOR, LEVEL_LABEL, Logo, navigate, pct } from "./shared.jsx";
+import { RouteCard, useSafeRoute } from "./RoutePanel.jsx";
+import { LEVEL_COLOR, LEVEL_LABEL, Logo, navigate, pct, Segmented } from "./shared.jsx";
 
 const INCIDENTS = [
   ["live", "Live"],
@@ -111,6 +112,7 @@ export default function App() {
   const [basemap, setBasemap] = useState("standard");
   const [light, setLight] = useState("dusk");
   const [camera, setCamera] = useState("3d");
+  const route = useSafeRoute({ mode: isLive ? "live" : `replay:${incident}`, departHour: hour });
   const [demo, setDemo] = useState(null);          // demo-server config while the alert demo runs
   const [demoState, setDemoState] = useState(null);
   const [demoError, setDemoError] = useState(null);
@@ -265,7 +267,7 @@ export default function App() {
           <MapView incident={incident} data={viewData} hour={hour} playRate={playing ? speed / 0.42 : 0} layers={layers}
                    households={demo ? EMPTY_FC : homesGeo} home={demoHome}
                    basemap={basemap} light={light} camera={camera} focus={focus}
-                   onSelectHousehold={setSelected} />
+                   onSelectHousehold={setSelected} route={demo ? null : route} onMapPick={route.onMapPick} />
 
           <div className={`panel layers-panel ${layersOpen ? "open" : ""}`}>
             <button className="panel-toggle" onClick={() => setLayersOpen((o) => !o)} aria-expanded={layersOpen}>
@@ -303,6 +305,8 @@ export default function App() {
         </section>
 
         <aside className="side">
+          {/* The alert demo moves the fire on screen; routes use its real position, so the card sits out the demo. */}
+          {!demo && (isLive || data) && <RouteCard route={route} hourLabel={`leave at T+${hour}h`} />}
           {isLive ? (
             <LiveSide live={live} onFocus={setFocus} patterns={patterns} risk={risk} />
           ) : demo ? (
@@ -714,16 +718,6 @@ function Legend({ live }) {
     <div className="legend">
       {items.map(([kind, color, label]) => (
         <span key={label}><i className={`lg-${kind}`} style={{ "--c": color }} />{label}</span>
-      ))}
-    </div>
-  );
-}
-
-function Segmented({ label, value, onChange, options }) {
-  return (
-    <div className="seg" role="group" aria-label={label}>
-      {options.map(([k, text]) => (
-        <button key={k} className={k === value ? "on" : ""} aria-pressed={k === value} onClick={() => onChange(k)}>{text}</button>
       ))}
     </div>
   );

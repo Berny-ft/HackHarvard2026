@@ -102,14 +102,22 @@ def subscribe(lat: float, lon: float, webhook_url: str | None = None, phone: str
 def check_alerts(subscription_id: str) -> dict:
     """New alerts for a subscription since the last check (empty list = nothing changed), plus the current
     level. Call this on a schedule, e.g. every 15 minutes. Each alert has the level, a plain-language message,
-    the reasons, and the signals (distance, direction, downwind, hours to arrival, wind, Red Flag)."""
+    the reasons, and the signals (distance, direction, downwind, hours to arrival, wind, Red Flag).
+    At warn or evacuate it also returns way_out: the fastest route to safe ground (turn-by-turn directions,
+    minutes, latest safe departure, a map page and a Google Maps link that follows the route). Read the first
+    steps to your user and send them the map; tell them to follow officers' directions over any route."""
     sub = store.get(subscription_id)
     if sub is None:
         return {"error": "unknown subscription_id; call subscribe first"}
     new = store.unread_alerts(subscription_id)
-    return {"checked_at": datetime.now(timezone.utc).isoformat(), "label": sub.get("label"),
-            "current_level": store.get(subscription_id)["last_level"], "new_alerts": new,
-            "act_now": any(a["level"] in ("warn", "evacuate") for a in new)}
+    sub = store.get(subscription_id)
+    out = {"checked_at": datetime.now(timezone.utc).isoformat(), "label": sub.get("label"),
+           "current_level": sub["last_level"], "new_alerts": new,
+           "act_now": any(a["level"] in ("warn", "evacuate") for a in new)}
+    if sub["last_level"] in ("warn", "evacuate") and sub.get("route"):
+        from .messages import way_out
+        out["way_out"] = way_out(sub)
+    return out
 
 
 @mcp.tool()
@@ -136,6 +144,41 @@ def replay_threat(incident: str, hour: int, lat: float, lon: float) -> dict:
 @lru_cache(maxsize=64)
 def _replay(incident, hour):
     return replay_snapshot(incident, hour)
+
+
+def _for_agent(r):
+    for k in ("closed_at_departure", "blocking", "path"):   # map geometry; too bulky for an agent's context
+        r.pop(k, None)
+    return r
+
+
+@mcp.tool()
+def safe_route(from_lat: float, from_lon: float, to_lat: float, to_lon: float, hazard: str = "fire",
+               mode: str = "live", depart_hour: float = 0.0, margin_hours: float | None = None,
+               risk: str = "balanced") -> dict:
+    """One hazard-safe driving route from A to B, or status "no_safe_path" when none exists, with turn-by-turn
+    directions, the roads avoided and why, and the smallest lead over the hazard along the way.
+    hazard "fire": a road closes if the fire is projected to reach it less than margin_hours (default 2) after
+    you'd pass, within 0.5 mi of a perimeter, within 2 mi of a satellite hot spot from the last 24 h, or under a
+    Caltrans full closure. mode "live" (depart_hour = hours from now) or "replay:<fire>" (hours after ignition):
+    eaton_2025, palisades_2025, woolsey_2018, mountain_2024, franklin_2024.
+    hazard "surge": flooded roads, bridges in tropical-storm winds and flooded tunnels close; mode
+    "replay:<storm>" (sandy_2012, matthew_2016, irma_2017, isabel_2003) or "live".
+    risk ("cautious" | "balanced" | "fastest") weights the soft penalties."""
+    from routing import safe_route as route
+    return _for_agent(route(from_lat, from_lon, to_lat, to_lon, hazard, mode, depart_hour, margin_hours, risk))
+
+
+@mcp.tool()
+def escape_route(lat: float, lon: float, hazard: str = "fire", mode: str = "live", depart_hour: float = 0.0,
+                 margin_hours: float | None = None, risk: str = "balanced") -> dict:
+    """Can someone at this location get out in time? The fastest route to safe ground, how long it takes,
+    turn-by-turn directions, the smallest lead over the hazard, and leave_by_time: the latest departure that
+    still gets out. status: "ok" (tight=true if the lead is under 1 h) | "no_escape" | "already_safe".
+    Only the hazard's arrival (and hard closures like Caltrans or flooded roads) close roads here; passing near
+    a fire perimeter or hot spot is penalised, not forbidden. hazard/mode/depart_hour as in safe_route."""
+    from routing import escape_route as escape
+    return _for_agent(escape(lat, lon, hazard, mode, depart_hour, margin_hours, risk))
 
 
 @mcp.prompt()

@@ -166,7 +166,7 @@ async def test_voice(request: Request):
     sub = store.find_by_phone(phone)
     said = data.get("transcript", "")
     _log("voice", "in", phone, said)
-    reply = conversation.respond(sub, said, _now()) if sub else UNKNOWN
+    reply = _voice_reply(sub, phone, said)
     _log("voice", "out", phone, reply)
     return JSONResponse({"ok": True, "reply": reply})
 
@@ -188,49 +188,96 @@ async def inbound(request: Request):
     return JSONResponse({"ok": True} if res.get("ok") else {"ok": False}, status_code=200 if res.get("ok") else 502)
 
 
+def _voice_reply(sub, phone, said):
+    """Spoken reply; asking for the map on a call also texts it (a call can't show one)."""
+    if not sub:
+        return UNKNOWN
+    reply = conversation.respond(sub, said, _now(), channel="voice")
+    if conversation.classify(said) == "MAP" and sub.get("route"):
+        try:
+            get_channel().send_text(store.normalize_phone(phone), messages.map_reply(sub))
+            _log("text", "out", phone, messages.map_reply(sub))
+        except Exception as e:
+            _log("text", "error", phone, str(e))
+            reply = "I couldn't text the map just now. Text MAP to this number and I'll send it."
+    return reply
+
+
 async def voice(request: Request):
     data, err = await _read(request)
     if err:
         return err
-    sub = store.find_by_phone(data.get("from", ""))
-    reply = conversation.respond(sub, data.get("transcript", ""), _now()) if sub else UNKNOWN
-    return JSONResponse({"reply": reply})
+    phone = data.get("from", "")
+    return JSONResponse({"reply": _voice_reply(store.find_by_phone(phone), phone, data.get("transcript", ""))})
+
+
+ROUTE_CSS = """
+:root{--bg:#0c1714;--card:#12221d;--rule:#22392f;--ink:#dbe5df;--muted:#7a9187;--go:#bade61;--hot:#ff6a2b;--warn:#ffb547}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:34rem;margin:0 auto;padding:1rem max(16px,env(safe-area-inset-left)) 2.5rem;display:grid;gap:1rem}
+h1{margin:.25rem 0 0;font-size:1.5rem;line-height:1.2}.lvl{color:var(--hot)}.lvl.warn{color:var(--warn)}
+.muted{color:var(--muted);font-size:.9rem}p{margin:0}
+.map{width:100%;border-radius:12px;border:1px solid var(--rule);display:block}
+.facts{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem;font-variant-numeric:tabular-nums}.facts b{font-size:1.4rem;color:var(--go)}
+.btn{display:block;text-align:center;padding:.8rem;border-radius:10px;background:var(--go);color:#0c1714;font-weight:700;text-decoration:none}
+ol{margin:0;padding:0;list-style:none;display:grid;gap:.15rem}li{display:grid;grid-template-columns:1.8rem 1fr;gap:.5rem;padding:.5rem 0;border-bottom:1px solid var(--rule)}
+li:last-child{border:0}.n{color:var(--go);font-weight:700;font-variant-numeric:tabular-nums}.d{color:var(--muted);font-size:.85rem}
+.note{border-left:3px solid var(--warn);padding:.5rem .75rem;background:#1b2a1f;border-radius:0 8px 8px 0;font-size:.9rem}
+"""
 
 
 async def route_page(request: Request):
+    from routing.staticmap import route_image_url
+
     sub = store.find_by_token(request.path_params["token"])
     if not sub:
         return HTMLResponse("Not found", status_code=404)
     e = html.escape
     sit = sub.get("situation") or {}
     level = sit.get("level", "none")
-    rows = [f"<h1>FireTrace: {e(level.upper())}</h1>"]
+    r = sub.get("route")
+    product = "SurgeTrace" if (r or {}).get("hazard") == "surge" else "FireTrace"
+    noun = "water" if product == "SurgeTrace" else "fire"
+    img = route_image_url(r["path"]["geometry"]["coordinates"], r["origin"], r["dest"], r.get("hazard", "fire")) \
+        if r and r.get("path") else None
+    rows = [f'<p class="muted">{e(product)} · route as of {e(messages.clock(r["computed_at"]))}</p>' if r else "",
+            f'<h1><span class="lvl {e(level)}">{e(level.upper())}</span></h1>']
     if level != "none":
         rows.append(f"<p>{e(messages.where(sit))}.</p>")
-    r = sub.get("route")
     if r:
-        o, d = r["origin"], r["dest"]
-        wp = "|".join(f"{a:.5f},{b:.5f}" for a, b in r.get("waypoints", []))
-        gm = (f"https://www.google.com/maps/dir/?api=1&origin={o[0]},{o[1]}&destination={d[0]},{d[1]}"
-              f"&travelmode=driving" + (f"&waypoints={wp}" if wp else ""))
-        rows.append(f"<p>{e(r['summary'])}, about {round(r['duration_min'])} min "
-                    f"({r['distance_km']:.0f} km) to a {e(r['dest_label'])}, planned to stay ahead of the fire, "
-                    f"as of {e(messages.clock(r['computed_at']))}.</p>"
-                    + ("<p><b>Fire may reach parts of this route. It is the least-bad option; follow officers.</b></p>"
-                       if r.get("fire_risk") else "")
-                    + f'<p><a href="{e(gm, quote=True)}">Open in Google Maps</a></p>')
+        if img:
+            rows.append(f'<img class="map" src="{e(img, quote=True)}" alt="Map of your route out, from your '
+                        f'location to safe ground">')
+        rows.append(f'<div class="facts"><span><b>{round(r["duration_min"])}</b> min</span>'
+                    f'<span><b>{r["distance_km"] * 0.621371:.1f}</b> mi</span>'
+                    f'<span>{e(r["summary"])} to a {e(r["dest_label"])}</span></div>')
+        w = sub.get("window")
+        if w and w["status"] == "window":
+            rows.append(f"<p>Leave by <b>{e(messages.clock(w['latest']))}</b> at the latest "
+                        f"({e(w['confidence'])} confidence estimate, not an order).</p>")
+        elif w:
+            rows.append("<p><b>Leave now.</b> There is no safe later window.</p>")
+        if r.get("google_maps_url"):
+            rows.append(f'<a class="btn" href="{e(r["google_maps_url"], quote=True)}">Open in Google Maps</a>')
+        steps = r.get("directions") or []
+        if steps:
+            rows.append("<ol>" + "".join(
+                f'<li><span class="n">{i + 1}</span><span>{e(s["instruction"])}'
+                + (f'<br><span class="d">{s["mi"]:.1f} mi'
+                   + (f' · {noun} expected here in {s["lead_h"]:g} h' if s.get("lead_h") is not None
+                      and s["lead_h"] < 6 else "") + "</span>" if s["maneuver"] != "arrive" else "")
+                + "</span></li>" for i, s in enumerate(steps)) + "</ol>")
+        if r.get("warnings"):
+            rows.append('<div class="note">' + "<br>".join(e(x) for x in r["warnings"][:3]) + "</div>")
     else:
-        rows.append("<p>No live route right now. Head away from the fire and follow officers.</p>")
-    w = sub.get("window")
-    if w and w["status"] == "window":
-        rows.append(f"<p>Planning window: {e(messages.clock(w['earliest']))} to {e(messages.clock(w['latest']))} "
-                    f"({e(w['confidence'])} confidence). Estimate, not an order.</p>")
-    elif w:
-        rows.append("<p>There is no safe later window. Leave now.</p>")
-    rows.append(f"<p>{e(messages.contact_line())} Official county orders take precedence.</p>")
+        rows.append(f"<p>No live route right now. Head away from the {noun} and follow officers.</p>")
+    rows.append(f'<p class="muted">{e(messages.contact_line())} Official county orders take precedence.</p>')
+    og = (f'<meta property="og:title" content="{e(product)}: your way out">'
+          f'<meta property="og:description" content="{e(r["summary"]) if r else "Route"}, '
+          f'{round(r["duration_min"]) if r else ""} min">' + (f'<meta property="og:image" content="{e(img, quote=True)}">'
+                                                              if img else "")) if r else ""
     page = ('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            '<title>FireTrace route</title><body style="font:16px system-ui;max-width:32rem;margin:1rem auto;'
-            f'padding:0 1rem">{"".join(rows)}</body>')
+            f'<title>{e(product)} route</title>{og}<style>{ROUTE_CSS}</style><main>{"".join(rows)}</main>')
     return HTMLResponse(page)
 
 

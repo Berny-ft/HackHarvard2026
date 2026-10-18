@@ -50,6 +50,18 @@ THRESHOLDS = {
     "watch": (24.0, 15.0),
 }
 
+# Fire as a routing hazard (route_hazard.py; the router itself is agent/routing).
+# Hard restrictions remove a road; soft ones make it count as slower. Design
+# defaults, not fitted values. Margins are MARGIN_ROUTE_H / MARGIN_ESCAPE_H there.
+ROUTE_PERIMETER_KM = 0.80     # H2: stay 0.5 mi outside current fire perimeters
+ROUTE_HOTSPOT_KM = 3.22       # H3: stay 2 mi from satellite hot spots...
+ROUTE_HOTSPOT_AGE_H = 24.0    #     ...seen in the last 24 h
+ROUTE_DOWNWIND_KM = 15.0      # S2: downwind penalty fades to zero at this distance from a fire
+# Escape's safe ground: fire not projected there for 12 h after you arrive, and
+# 5 mi from any perimeter, hot spot or reported fire.
+ESCAPE_SAFE_LEAD_H = 12.0
+ESCAPE_SAFE_KM = 8.05
+
 # LLM via the Chalk Model Gateway (OpenAI-compatible). Without a key, the
 # agent falls back to the rule policy and templated messages.
 CHALK_ROUTER_URL = os.environ.get("CHALK_ROUTER_URL", "https://api.chalk.ai/v1/router")
@@ -86,6 +98,9 @@ PHOTON_WEBHOOK_SECRET = os.environ.get("PHOTON_WEBHOOK_SECRET")
 REMINDER_EVERY_MIN = float(os.environ.get("SENTINEL_REMINDER_MIN", "10"))
 MAX_REMINDERS = int(os.environ.get("SENTINEL_MAX_REMINDERS", "6"))
 ROUTE_MAX_AGE_MIN = float(os.environ.get("SENTINEL_ROUTE_MAX_AGE_MIN", "5"))
+# While someone is warned or told to evacuate and hasn't left, text them when their way out changes
+# (new main roads). Capped so a jittery projection can't flood them.
+MAX_ROUTE_CHANGE_TEXTS = int(os.environ.get("SENTINEL_MAX_ROUTE_CHANGE_TEXTS", "3"))
 PUBLIC_URL = os.environ.get("SENTINEL_PUBLIC_URL", "http://localhost:8080")
 TZ = os.environ.get("SENTINEL_TZ", "America/Los_Angeles")
 DASH_TOKEN = os.environ.get("SENTINEL_DASH_TOKEN")

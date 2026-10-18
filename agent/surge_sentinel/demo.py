@@ -53,6 +53,8 @@ class SurgeDemoSession:
                             "forecast_peak_depth_ft": s["forecast_peak_depth_ft"], "high_peak_depth_ft": s["high_peak_depth_ft"]}
                 if d["level"] != self.current and (level_rank(d["level"]) >= level_rank("watch") or self.current != "none"):
                     a = self._alert(s, d, h)
+                    if d["level"] in ("warn", "evacuate"):
+                        a["way_out"] = self._way_out(h)
                     self.history.append({k: a[k] for k in ("as_of", "level", "message")})
                     self.current = d["level"]
                     new.append(a)
@@ -78,6 +80,17 @@ class SurgeDemoSession:
         ok = any(r.get("ok") for r in res)
         alert["email"] = "sent" if ok else ("not sent: " + (res[0]["status"] if res else "no recipient"))
         return alert["email"]
+
+    def _way_out(self, hour):
+        """Escape route at this replay hour for the email (nothing is moved in the surge demo, so it's real)."""
+        from routing import escape_route
+        from routing.engine import summary_for_texts
+        from sentinel.messages import way_out
+        try:
+            r = escape_route(self.lat, self.lon, hazard="surge", mode=f"replay:{self.storm}", depart_hour=hour)
+        except FileNotFoundError:            # no road graph built for this storm
+            return None
+        return way_out({"route": summary_for_texts(r)}, tz=self.info.get("tz")) if r.get("status") == "ok" else None
 
     def _alert(self, s, d, hour, kind=None):
         return {"id": uuid.uuid4().hex[:12], "subscriber_id": "surge-demo", "label": f"[DEMO] {self.label}",

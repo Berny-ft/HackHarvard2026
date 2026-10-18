@@ -10,16 +10,17 @@ from datetime import datetime, timezone
 
 import numpy as np
 
+from routing import subscriber_route as best_route  # escape route for texts; tests swap this out
+from routing.closures import active_closures, block_points
+
 from . import store
 from .channels import get_channel
-from .closures import active_closures, block_points
-from .config import ACTIVE_WINDOW_H, REPO, ROUTE_MAX_AGE_MIN
+from .config import ACTIVE_WINDOW_H, MAX_ROUTE_CHANGE_TEXTS, REPO, ROUTE_MAX_AGE_MIN, TZ
 from .escalation import minutes_since, next_action
-from .messages import TEXTS
+from .messages import TEXTS, way_out
 from .notify import deliver
 from .policy import get_policy
 from .signals import assess, level_rank
-from .routing import best_route
 from .snapshot import live_snapshot
 from .windows import departure_window
 
@@ -116,9 +117,10 @@ def cycle(policy_name="rules", refresh=True, dry_run=False, channel=None, snapsh
             else:
                 upd["route"] = sub.get("route")
             travel = (upd["route"] or {}).get("duration_min")
-            upd["window"] = departure_window(started, s["eta_h"], travel, bool(s["nearest_fire_confirmed"]))
+            upd["window"] = departure_window(started, s["eta_h"], travel, bool(s["nearest_fire_confirmed"]),
+                                             leave_by=(upd["route"] or {}).get("leave_by"), tz=TZ)
         else:
-            upd.update(route=None, route_at=None, window=None)
+            upd.update(route=None, route_at=None, window=None, route_changes=0, dir_step=0)
 
         prev = sub.get("last_level", "none")
         min_rank = level_rank(sub.get("min_level", "watch"))
@@ -130,6 +132,8 @@ def cycle(policy_name="rules", refresh=True, dry_run=False, channel=None, snapsh
                      "channel": "webhook",
                      "signals": {k: s[k] for k in ("lat", "lon", "nearest_fire_km", "nearest_fire_name", "fire_bearing_deg",
                                                    "downwind", "eta_h", "red_flag", "weather_now")}}
+            if level in ("warn", "evacuate"):
+                alert["way_out"] = way_out({**sub, **upd})       # webhooks, emails and agents get the route too
             alert["delivery"] = [] if dry_run else deliver(sub, alert)
             if not dry_run:
                 store.log_alert(alert)
@@ -150,8 +154,8 @@ def cycle(policy_name="rules", refresh=True, dry_run=False, channel=None, snapsh
             upd.update(stage="none", stage_at=None, reminders=0, left_at=None)
         elif kind is None and next_stage != merged.get("stage", "none"):
             upd["stage"] = next_stage
-        if kind:
-            body = TEXTS[kind](merged)
+        def send(text_kind):
+            body = TEXTS[text_kind](merged)
             if dry_run:
                 result = {"ok": True, "status": "dry-run"}
             else:
@@ -160,18 +164,41 @@ def cycle(policy_name="rules", refresh=True, dry_run=False, channel=None, snapsh
                 except Exception as e:     # a failed send must not stop the cycle
                     result = {"ok": False, "status": repr(e)}
             entry = {"id": uuid.uuid4().hex[:12], "subscriber_id": sub["id"], "as_of": s["as_of"],
-                     "level": level, "channel": "text", "text_kind": kind, "kind": kind, "message": body,
+                     "level": level, "channel": "text", "text_kind": text_kind, "kind": text_kind, "message": body,
                      "delivery": [result]}
             if not dry_run:
                 store.log_alert(entry)
             texts.append(entry)
+
+        if kind:
+            send(kind)
             upd.update(stage=next_stage, stage_at=now_iso)
             if kind == "reminder":
                 upd["reminders"] = merged.get("reminders", 0) + 1
+        elif _route_changed(sub.get("route"), upd.get("route")) and merged.get("stage") in ("warned", "evacuated") \
+                and merged.get("consent") and sub.get("phone") and not merged.get("left_at") \
+                and sub.get("route_changes", 0) < MAX_ROUTE_CHANGE_TEXTS:
+            send("route_change")
+            upd["route_changes"] = sub.get("route_changes", 0) + 1
         if not dry_run:
             store.update(sub["id"], **upd)
     return {"started": now_iso, "feeds_ok": feeds[0], "fire_points": len(snap.fires),
             "subscribers": len(store.subscribers()), "road_blocks": len(blocks), "alerts": alerts, "texts": texts}
+
+
+def _route_changed(old, new):
+    """A new way out worth texting about: different main roads (in any order), or safety in a clearly
+    different direction (more than 67.5 degrees). Small shifts of the safe point are not news."""
+    if not old or not new:
+        return False
+
+    def roads(r):
+        return set(r.get("summary", "").removeprefix("via ").split(", "))
+
+    if roads(old) != roads(new):
+        return True
+    a, b = old.get("dest_bearing"), new.get("dest_bearing")
+    return a is not None and b is not None and abs((a - b + 180) % 360 - 180) > 67.5
 
 
 def run_forever(every_min=15, **kw):

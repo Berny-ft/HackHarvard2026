@@ -16,18 +16,19 @@ from .config import (ACTIVE_WINDOW_H, LEVELS, MAX_LENGTH_TO_BREADTH, ROS_KMH_PER
 from .geo import angle_diff, bearing_deg, burn_probability, offsets_km
 
 
+# These three accept scalars or numpy arrays (the router evaluates many road points at once).
 def effective_wind_mph(wx):
-    return wx["wind_mph"] + 0.5 * max(0.0, wx["gust_mph"] - wx["wind_mph"])
+    return wx["wind_mph"] + 0.5 * np.maximum(0.0, wx["gust_mph"] - wx["wind_mph"])
 
 
 def head_ros_kmh(wx, k=ROS_KMH_PER_MPH):
-    damp = float(np.clip(1.0 - (wx["fuel_moisture_1h_pct"] - 4.0) / 16.0, 0.15, 1.0))
-    return max(0.05, k * effective_wind_mph(wx) * damp)
+    damp = np.clip(1.0 - (wx["fuel_moisture_1h_pct"] - 4.0) / 16.0, 0.15, 1.0)
+    return np.maximum(0.05, k * effective_wind_mph(wx) * damp)
 
 
 def directional_ros(head, wind_mph, theta_deg, max_lb=MAX_LENGTH_TO_BREADTH):
     """Ellipse ROS at angle theta from the head direction."""
-    lb = min(max_lb, 1.0 + 0.1 * wind_mph)
+    lb = np.minimum(max_lb, 1.0 + 0.1 * wind_mph)
     e = np.sqrt(1.0 - 1.0 / lb ** 2)
     return head * (1.0 - e) / (1.0 - e * np.cos(np.radians(theta_deg)))
 

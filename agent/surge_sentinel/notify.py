@@ -11,6 +11,7 @@ from sentinel.notify import send_sms, send_webhook
 
 
 def render_email(alert):
+    from sentinel.messages import way_out_lines
     """Subject + plain-text body. The subject alone should tell an agent what to do."""
     sig = alert.get("signals", {})
     where = alert.get("label") or f"{sig.get('lat', '')}, {sig.get('lon', '')}"
@@ -22,6 +23,7 @@ def render_email(alert):
     st = sig.get("storm") or {}
     lines = [
         alert["message"], "",
+        *way_out_lines(alert.get("way_out")),
         f"Level: {alert['level']} (was {alert.get('previous', 'none')})",
         f"Location: {where}",
         f"Ground: {sig.get('ground_ft')} ft NAVD88; seawater reaches it at {sig.get('spill_ft')} ft",
